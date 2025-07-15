@@ -1,0 +1,145 @@
+<svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="paperGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f8fafc;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="stampGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#dc2626;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#991b1b;stop-opacity:0.8" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="400" fill="#f1f5f9"/>
+  
+  <!-- Main document -->
+  <g transform="translate(100,40)">
+    <!-- Document background -->
+    <rect x="0" y="0" width="300" height="320" fill="url(#paperGradient)" stroke="#e2e8f0" stroke-width="2" rx="8"/>
+    
+    <!-- Header -->
+    <rect x="20" y="20" width="260" height="40" fill="#dc2626" rx="4"/>
+    <text x="150" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+      ТАМОЖЕННАЯ ДЕКЛАРАЦИЯ
+    </text>
+    
+    <!-- Form fields -->
+    <text x="30" y="85" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#374151">
+      Отправитель:
+    </text>
+    <rect x="30" y="90" width="240" height="20" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="35" y="105" font-family="Arial, sans-serif" font-size="10" fill="#6b7280">
+      Guangzhou Trading Co., Ltd
+    </text>
+    
+    <text x="30" y="130" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#374151">
+      Получатель:
+    </text>
+    <rect x="30" y="135" width="240" height="20" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="35" y="150" font-family="Arial, sans-serif" font-size="10" fill="#6b7280">
+      FARADO GLOBAL
+    </text>
+    
+    <text x="30" y="175" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#374151">
+      Код ТН ВЭД:
+    </text>
+    <rect x="30" y="180" width="120" height="20" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="35" y="195" font-family="Arial, sans-serif" font-size="10" fill="#6b7280">
+      8414 5190 000 0
+    </text>
+    
+    <text x="170" y="175" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#374151">
+      Стоимость:
+    </text>
+    <rect x="170" y="180" width="100" height="20" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="175" y="195" font-family="Arial, sans-serif" font-size="10" fill="#6b7280">
+      $15,000
+    </text>
+    
+    <text x="30" y="220" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#374151">
+      Описание товара:
+    </text>
+    <rect x="30" y="225" width="240" height="40" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="35" y="240" font-family="Arial, sans-serif" font-size="10" fill="#6b7280">
+      Кондиционеры промышленные
+    </text>
+    <text x="35" y="255" font-family="Arial, sans-serif" font-size="10" fill="#6b7280">
+      Количество: 50 шт.
+    </text>
+    
+    <!-- Stamp -->
+    <circle cx="220" cy="290" r="25" fill="url(#stampGradient)"/>
+    <text x="220" y="290" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">
+      ОДОБРЕНО
+    </text>
+    <text x="220" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white">
+      07.01.2025
+    </text>
+  </g>
+  
+  <!-- Calculator -->
+  <g transform="translate(450,100)">
+    <rect x="0" y="0" width="120" height="160" fill="#374151" rx="8"/>
+    <rect x="10" y="10" width="100" height="25" fill="#1f2937" rx="4"/>
+    <text x="60" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#10b981">
+      245,000₽
+    </text>
+    
+    <!-- Calculator buttons -->
+    <rect x="15" y="45" width="20" height="15" fill="#4b5563" rx="2"/>
+    <rect x="40" y="45" width="20" height="15" fill="#4b5563" rx="2"/>
+    <rect x="65" y="45" width="20" height="15" fill="#4b5563" rx="2"/>
+    <rect x="90" y="45" width="20" height="15" fill="#dc2626" rx="2"/>
+    
+    <text x="50" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#e5e7eb">
+      РАСЧЕТ ПОШЛИН
+    </text>
+    <text x="15" y="100" font-family="Arial, sans-serif" font-size="8" fill="#e5e7eb">
+      Пошлина: 5%
+    </text>
+    <text x="15" y="115" font-family="Arial, sans-serif" font-size="8" fill="#e5e7eb">
+      НДС: 20%
+    </text>
+    <text x="15" y="130" font-family="Arial, sans-serif" font-size="8" fill="#e5e7eb">
+      Сборы: 15,000₽
+    </text>
+    <text x="15" y="150" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#10b981">
+      Итого: 245,000₽
+    </text>
+  </g>
+  
+  <!-- Checklist -->
+  <g transform="translate(100,380)">
+    <rect x="0" y="0" width="500" height="15" fill="white" rx="4"/>
+    <text x="10" y="12" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#dc2626">
+      Необходимые документы:
+    </text>
+    
+    <!-- Checkboxes -->
+    <rect x="10" y="20" width="12" height="12" fill="#10b981" rx="2"/>
+    <text x="18" y="30" font-family="Arial, sans-serif" font-size="10" fill="white">✓</text>
+    <text x="30" y="30" font-family="Arial, sans-serif" font-size="10" fill="#374151">Контракт</text>
+    
+    <rect x="100" y="20" width="12" height="12" fill="#10b981" rx="2"/>
+    <text x="108" y="30" font-family="Arial, sans-serif" font-size="10" fill="white">✓</text>
+    <text x="120" y="30" font-family="Arial, sans-serif" font-size="10" fill="#374151">Инвойс</text>
+    
+    <rect x="180" y="20" width="12" height="12" fill="#10b981" rx="2"/>
+    <text x="188" y="30" font-family="Arial, sans-serif" font-size="10" fill="white">✓</text>
+    <text x="200" y="30" font-family="Arial, sans-serif" font-size="10" fill="#374151">Сертификат</text>
+    
+    <rect x="280" y="20" width="12" height="12" fill="#f59e0b" rx="2"/>
+    <text x="288" y="30" font-family="Arial, sans-serif" font-size="10" fill="white">!</text>
+    <text x="300" y="30" font-family="Arial, sans-serif" font-size="10" fill="#374151">Упаковочный лист</text>
+    
+    <rect x="420" y="20" width="12" height="12" fill="#ef4444" rx="2"/>
+    <text x="428" y="30" font-family="Arial, sans-serif" font-size="10" fill="white">×</text>
+    <text x="440" y="30" font-family="Arial, sans-serif" font-size="10" fill="#374151">Страховка</text>
+  </g>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1f2937">
+    Таможенное оформление импорта
+  </text>
+</svg>

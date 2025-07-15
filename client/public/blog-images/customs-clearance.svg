@@ -1,0 +1,109 @@
+<svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8fafc;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e2e8f0;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="docGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f1f5f9;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="400" fill="url(#bgGradient)"/>
+  
+  <!-- Title -->
+  <text x="400" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1f2937">
+    Таможенное оформление импорта из Китая
+  </text>
+  
+  <!-- Process steps -->
+  <g transform="translate(50,80)">
+    <!-- Step 1 -->
+    <rect x="0" y="0" width="140" height="100" rx="8" fill="url(#docGradient)" stroke="#dc2626" stroke-width="2"/>
+    <circle cx="70" cy="30" r="20" fill="#dc2626"/>
+    <text x="70" y="37" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">1</text>
+    <text x="70" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#374151">Подготовка</text>
+    <text x="70" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#374151">документов</text>
+    
+    <!-- Arrow -->
+    <path d="M150 50 L180 50" stroke="#dc2626" stroke-width="2" marker-end="url(#arrowhead)"/>
+    
+    <!-- Step 2 -->
+    <rect x="190" y="0" width="140" height="100" rx="8" fill="url(#docGradient)" stroke="#dc2626" stroke-width="2"/>
+    <circle cx="260" cy="30" r="20" fill="#dc2626"/>
+    <text x="260" y="37" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">2</text>
+    <text x="260" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#374151">Классификация</text>
+    <text x="260" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#374151">товаров</text>
+    
+    <!-- Arrow -->
+    <path d="M340 50 L370 50" stroke="#dc2626" stroke-width="2" marker-end="url(#arrowhead)"/>
+    
+    <!-- Step 3 -->
+    <rect x="380" y="0" width="140" height="100" rx="8" fill="url(#docGradient)" stroke="#dc2626" stroke-width="2"/>
+    <circle cx="450" cy="30" r="20" fill="#dc2626"/>
+    <text x="450" y="37" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">3</text>
+    <text x="450" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#374151">Расчет</text>
+    <text x="450" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#374151">платежей</text>
+    
+    <!-- Arrow -->
+    <path d="M530 50 L560 50" stroke="#dc2626" stroke-width="2" marker-end="url(#arrowhead)"/>
+    
+    <!-- Step 4 -->
+    <rect x="570" y="0" width="140" height="100" rx="8" fill="url(#docGradient)" stroke="#dc2626" stroke-width="2"/>
+    <circle cx="640" cy="30" r="20" fill="#dc2626"/>
+    <text x="640" y="37" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">4</text>
+    <text x="640" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#374151">Подача</text>
+    <text x="640" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#374151">декларации</text>
+  </g>
+  
+  <!-- Document icons -->
+  <g transform="translate(100,220)">
+    <rect x="0" y="0" width="120" height="80" rx="4" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+    <text x="60" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#374151">Документы:</text>
+    <text x="10" y="35" font-family="Arial, sans-serif" font-size="10" fill="#374151">• Контракт</text>
+    <text x="10" y="50" font-family="Arial, sans-serif" font-size="10" fill="#374151">• Инвойс</text>
+    <text x="10" y="65" font-family="Arial, sans-serif" font-size="10" fill="#374151">• Сертификат</text>
+  </g>
+  
+  <g transform="translate(280,220)">
+    <rect x="0" y="0" width="120" height="80" rx="4" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+    <text x="60" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#374151">Коды ТН ВЭД:</text>
+    <text x="10" y="35" font-family="Arial, sans-serif" font-size="10" fill="#374151">• Описание</text>
+    <text x="10" y="50" font-family="Arial, sans-serif" font-size="10" fill="#374151">• Материал</text>
+    <text x="10" y="65" font-family="Arial, sans-serif" font-size="10" fill="#374151">• Назначение</text>
+  </g>
+  
+  <g transform="translate(460,220)">
+    <rect x="0" y="0" width="120" height="80" rx="4" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+    <text x="60" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#374151">Платежи:</text>
+    <text x="10" y="35" font-family="Arial, sans-serif" font-size="10" fill="#374151">• Пошлина 5-25%</text>
+    <text x="10" y="50" font-family="Arial, sans-serif" font-size="10" fill="#374151">• НДС 20%</text>
+    <text x="10" y="65" font-family="Arial, sans-serif" font-size="10" fill="#374151">• Сборы</text>
+  </g>
+  
+  <g transform="translate(640,220)">
+    <rect x="0" y="0" width="120" height="80" rx="4" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+    <text x="60" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#374151">Результат:</text>
+    <text x="10" y="35" font-family="Arial, sans-serif" font-size="10" fill="#374151">• Декларация</text>
+    <text x="10" y="50" font-family="Arial, sans-serif" font-size="10" fill="#374151">• Оплата</text>
+    <text x="10" y="65" font-family="Arial, sans-serif" font-size="10" fill="#374151">• Выпуск</text>
+  </g>
+  
+  <!-- Bottom info -->
+  <rect x="50" y="320" width="700" height="60" rx="8" fill="white" opacity="0.9"/>
+  <text x="70" y="340" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#dc2626">
+    Важно помнить:
+  </text>
+  <text x="70" y="360" font-family="Arial, sans-serif" font-size="12" fill="#374151">
+    • Точное описание товара • Корректная классификация • Все необходимые документы • Своевременная оплата
+  </text>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#dc2626"/>
+    </marker>
+  </defs>
+</svg>

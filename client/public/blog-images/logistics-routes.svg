@@ -1,0 +1,67 @@
+<svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="mapGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f3f4f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e5e7eb;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="routeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#dc2626;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ef4444;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="400" fill="url(#mapGradient)"/>
+  
+  <!-- Map outline -->
+  <path d="M50 100 Q200 80 350 100 Q500 120 600 100 Q700 80 750 100" 
+        stroke="#9ca3af" stroke-width="2" fill="none"/>
+  <path d="M50 200 Q200 180 350 200 Q500 220 600 200 Q700 180 750 200" 
+        stroke="#9ca3af" stroke-width="2" fill="none"/>
+  <path d="M50 300 Q200 280 350 300 Q500 320 600 300 Q700 280 750 300" 
+        stroke="#9ca3af" stroke-width="2" fill="none"/>
+  
+  <!-- Cities -->
+  <circle cx="150" cy="180" r="8" fill="#dc2626"/>
+  <text x="150" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#374151">Урумчи</text>
+  
+  <circle cx="350" cy="160" r="8" fill="#dc2626"/>
+  <text x="350" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#374151">Алматы</text>
+  
+  <circle cx="550" cy="140" r="8" fill="#dc2626"/>
+  <text x="550" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#374151">Ташкент</text>
+  
+  <!-- Route lines -->
+  <path d="M150 180 Q250 160 350 160" stroke="url(#routeGradient)" stroke-width="4" fill="none"/>
+  <path d="M350 160 Q450 140 550 140" stroke="url(#routeGradient)" stroke-width="4" fill="none"/>
+  
+  <!-- Transport icons -->
+  <g transform="translate(250,150)">
+    <rect x="-15" y="-8" width="30" height="16" rx="2" fill="#dc2626"/>
+    <circle cx="-8" cy="8" r="4" fill="#374151"/>
+    <circle cx="8" cy="8" r="4" fill="#374151"/>
+    <text x="0" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">Автодорога</text>
+  </g>
+  
+  <g transform="translate(450,130)">
+    <rect x="-20" y="-6" width="40" height="12" rx="2" fill="#dc2626"/>
+    <rect x="-15" y="-10" width="30" height="4" rx="1" fill="#374151"/>
+    <text x="0" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#374151">Железная дорога</text>
+  </g>
+  
+  <!-- Title -->
+  <text x="400" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1f2937">
+    Логистические маршруты Китай-Центральная Азия
+  </text>
+  
+  <!-- Statistics -->
+  <g transform="translate(50,320)">
+    <rect x="0" y="0" width="700" height="60" rx="8" fill="white" opacity="0.9"/>
+    <text x="20" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#dc2626">
+      Ключевые показатели:
+    </text>
+    <text x="20" y="45" font-family="Arial, sans-serif" font-size="12" fill="#374151">
+      • Время доставки: 7-20 дней • Стоимость: $800-1,800 за контейнер • Пропускная способность: до 1000 контейнеров в день
+    </text>
+  </g>
+</svg>
