@@ -14,7 +14,7 @@ import {
   ArrowLeft, Plus, ShoppingCart, User, Building, Mail, Phone, MapPin, 
   CreditCard, DollarSign, Calendar, Package, TrendingUp, Edit, Trash2 
 } from 'lucide-react';
-import { AddItemForm } from '@/components/forms/AddItemForm';
+import { AddItemFormNew as AddItemForm } from '@/components/forms/AddItemFormNew';
 import { EditItemForm } from '@/components/forms/EditItemForm';
 import { AddFromWarehouseForm } from '@/components/forms/AddFromWarehouseForm';
 import type { Counterparty, Order, InsertOrder } from '@shared/schema';
