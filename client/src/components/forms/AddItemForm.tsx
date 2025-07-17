@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
-import { X, Wand2 } from 'lucide-react';
+import { Label } from '@/components/ui/label';
 import { PhotoUpload } from '@/components/PhotoUpload';
+import { useQuery } from '@tanstack/react-query';
+import { X, Wand2 } from 'lucide-react';
 
 interface AddItemFormProps {
   onClose: () => void;
@@ -44,8 +44,8 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
     remainingAmount: '0'
   });
 
-  const [autoFillEnabled, setAutoFillEnabled] = useState(false);
   const [autoCalculate, setAutoCalculate] = useState(true);
+  const [autoFillEnabled, setAutoFillEnabled] = useState(false);
 
   // Загружаем список складов
   const { data: warehouses = [] } = useQuery<any[]>({
@@ -179,71 +179,67 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
           </div>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {/* Основная информация */}
             <div className="space-y-4">
-              <h3 className="text-base sm:text-lg font-semibold">Основная информация</h3>
+              <h3 className="text-lg font-semibold">Основная информация</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="code" className="text-sm sm:text-base">Код товара</Label>
+                  <Label htmlFor="code">Код товара</Label>
                   <Input
                     id="code"
                     value={formData.code}
                     onChange={(e) => setFormData({ ...formData, code: e.target.value })}
-                    placeholder="Например: Fara-22-do"
+                    placeholder="SK110"
                     required
-                    className="h-9 sm:h-10"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="name" className="text-sm sm:text-base">Название товара</Label>
+                  <Label htmlFor="name">Название товара</Label>
                   <Input
                     id="name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="Например: Кириешки"
+                    placeholder="Скамьи с наклоном"
                     required
-                    className="h-9 sm:h-10"
                   />
                 </div>
               </div>
 
               <div>
-                <Label htmlFor="characteristics" className="text-sm sm:text-base">Характеристики</Label>
+                <Label htmlFor="characteristics">Характеристики</Label>
                 <Textarea
                   id="characteristics"
                   value={formData.characteristics}
                   onChange={(e) => setFormData({ ...formData, characteristics: e.target.value })}
                   placeholder="Описание характеристик товара"
                   rows={2}
-                  className="text-sm sm:text-base"
                 />
               </div>
             </div>
 
             {/* Количество и измерения */}
             <div className="space-y-4">
-              <h3 className="text-base sm:text-lg font-semibold">Количество и измерения</h3>
+              <h3 className="text-lg font-semibold">Количество и измерения</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <Label htmlFor="quantity" className="text-sm sm:text-base">Количество</Label>
+                  <Label htmlFor="quantity">Количество</Label>
                   <Input
                     id="quantity"
                     type="number"
-                    value={formData.quantity}
-                    onChange={(e) => setFormData({ ...formData, quantity: parseInt(e.target.value) || 0 })}
                     min="1"
+                    value={formData.quantity}
+                    onChange={(e) => setFormData({ ...formData, quantity: parseInt(e.target.value) || 1 })}
                     required
-                    className="h-9 sm:h-10"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="volumeType" className="text-sm sm:text-base">Тип измерения</Label>
+                  <Label htmlFor="volumeType">Тип измерения</Label>
                   <Select
                     value={formData.volumeType}
                     onValueChange={(value) => setFormData({ ...formData, volumeType: value })}
                   >
-                    <SelectTrigger className="h-9 sm:h-10">
+                    <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -253,7 +249,7 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
                   </Select>
                 </div>
                 <div>
-                  <Label htmlFor="transportPrice" className="text-sm sm:text-base">Цена перевозки за {formData.volumeType}</Label>
+                  <Label htmlFor="transportPrice">Цена перевозки за {formData.volumeType}</Label>
                   <Input
                     id="transportPrice"
                     type="number"
@@ -261,38 +257,31 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
                     value={formData.transportPrice}
                     onChange={(e) => setFormData({ ...formData, transportPrice: e.target.value })}
                     placeholder="0.00"
-                    className="h-9 sm:h-10"
                   />
                 </div>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {formData.volumeType === 'kg' && (
-                  <div>
-                    <Label htmlFor="weight">Вес (кг)</Label>
-                    <Input
-                      id="weight"
-                      type="number"
-                      step="0.001"
-                      value={formData.weight}
-                      onChange={(e) => setFormData({ ...formData, weight: e.target.value })}
-                      placeholder="0.000"
-                    />
-                  </div>
-                )}
-                {formData.volumeType === 'm³' && (
-                  <div>
-                    <Label htmlFor="volume">Объем (м³)</Label>
-                    <Input
-                      id="volume"
-                      type="number"
-                      step="0.001"
-                      value={formData.volume}
-                      onChange={(e) => setFormData({ ...formData, volume: e.target.value })}
-                      placeholder="0.000"
-                    />
-                  </div>
-                )}
+                <div>
+                  <Label htmlFor="weight">
+                    {formData.volumeType === 'kg' ? 'Вес (кг)' : 'Объём (м³)'}
+                  </Label>
+                  <Input
+                    id="weight"
+                    type="number"
+                    step="0.001"
+                    value={formData.volumeType === 'kg' ? formData.weight : formData.volume}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      if (formData.volumeType === 'kg') {
+                        setFormData({ ...formData, weight: value });
+                      } else {
+                        setFormData({ ...formData, volume: value });
+                      }
+                    }}
+                    placeholder="10.000"
+                  />
+                </div>
                 <div>
                   <Label htmlFor="pricePerUnit">Цена за единицу (USD)</Label>
                   <Input
@@ -301,7 +290,7 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
                     step="0.01"
                     value={formData.pricePerUnit}
                     onChange={(e) => setFormData({ ...formData, pricePerUnit: e.target.value })}
-                    placeholder="0.00"
+                    placeholder="10.00"
                   />
                 </div>
               </div>
@@ -313,13 +302,13 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
                 <h3 className="text-lg font-semibold">Расчет стоимости</h3>
                 <div className="flex items-center space-x-2">
                   <Switch
-                    id="auto-calculate"
                     checked={autoCalculate}
                     onCheckedChange={setAutoCalculate}
                   />
-                  <Label htmlFor="auto-calculate">Автоматический расчет</Label>
+                  <Label>Автоматический расчет</Label>
                 </div>
               </div>
+              
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="totalPrice">Цена за товары (USD)</Label>
@@ -327,9 +316,9 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
                     id="totalPrice"
                     type="number"
                     step="0.01"
-                    value={formData.totalPrice || ''}
+                    value={formData.totalPrice}
                     onChange={(e) => setFormData({ ...formData, totalPrice: e.target.value })}
-                    placeholder="0.00"
+                    placeholder="100.00"
                     disabled={autoCalculate}
                   />
                   {autoCalculate && (
@@ -344,7 +333,7 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
                     id="totalTransportCost"
                     type="number"
                     step="0.01"
-                    value={formData.totalTransportCost || ''}
+                    value={formData.totalTransportCost}
                     onChange={(e) => setFormData({ ...formData, totalTransportCost: e.target.value })}
                     placeholder="0.00"
                     disabled={autoCalculate}
@@ -357,8 +346,6 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
                 </div>
               </div>
             </div>
-
-
 
             {/* Транспорт */}
             <div className="space-y-4">
@@ -414,7 +401,7 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
                     id="destination"
                     value={formData.destination}
                     onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
-                    placeholder="Например: Душанбе, Таджикистан"
+                    placeholder="Душанбе, Таджикистан"
                   />
                 </div>
               </div>
@@ -514,33 +501,13 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
               </div>
             </div>
 
-
-
-            {/* Комментарии */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Комментарии</h3>
-              <div>
-                <Label htmlFor="comments">Дополнительные комментарии</Label>
-                <Textarea
-                  id="comments"
-                  value={formData.comments}
-                  onChange={(e) => setFormData({ ...formData, comments: e.target.value })}
-                  placeholder="Дополнительные комментарии..."
-                  rows={3}
-                />
-              </div>
-            </div>
-
             {/* Фотографии */}
             <div className="space-y-4">
               <h3 className="text-lg font-semibold">Фотографии</h3>
-              <div>
-                <Label>Загрузка фотографий</Label>
-                <PhotoUpload
-                  photos={formData.photos}
-                  onPhotosChange={(photos) => setFormData({ ...formData, photos })}
-                />
-              </div>
+              <PhotoUpload
+                photos={formData.photos}
+                onPhotosChange={(photos) => setFormData({ ...formData, photos })}
+              />
             </div>
 
             {/* Автозаполнение */}
@@ -574,12 +541,27 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
               </div>
             </div>
 
+            {/* Комментарии */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Комментарии</h3>
+              <div>
+                <Label htmlFor="comments">Дополнительные комментарии</Label>
+                <Textarea
+                  id="comments"
+                  value={formData.comments}
+                  onChange={(e) => setFormData({ ...formData, comments: e.target.value })}
+                  placeholder="Дополнительные комментарии..."
+                  rows={3}
+                />
+              </div>
+            </div>
+
             {/* Кнопки */}
             <div className="flex justify-end space-x-3">
               <Button type="button" variant="outline" onClick={onClose}>
                 Отмена
               </Button>
-              <Button type="submit" className="bg-red-600 hover:bg-red-700">
+              <Button type="submit" disabled={!formData.code || !formData.name}>
                 Добавить товар
               </Button>
             </div>
