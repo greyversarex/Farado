@@ -358,34 +358,7 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
               </div>
             </div>
 
-            {/* Финансовые поля */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Финансовые поля</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="totalAmount">Общая сумма (USD)</Label>
-                  <Input
-                    id="totalAmount"
-                    type="number"
-                    step="0.01"
-                    value={formData.totalAmount}
-                    onChange={(e) => setFormData({ ...formData, totalAmount: e.target.value })}
-                    placeholder="0.00"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="remainingAmount">Остаток (USD)</Label>
-                  <Input
-                    id="remainingAmount"
-                    type="number"
-                    step="0.01"
-                    value={formData.remainingAmount}
-                    onChange={(e) => setFormData({ ...formData, remainingAmount: e.target.value })}
-                    placeholder="0.00"
-                  />
-                </div>
-              </div>
-            </div>
+
 
             {/* Транспорт */}
             <div className="space-y-4">
@@ -441,7 +414,7 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
                     id="destination"
                     value={formData.destination}
                     onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
-                    placeholder="Например: Душанбе"
+                    placeholder="Например: Душанбе, Таджикистан"
                   />
                 </div>
               </div>
@@ -466,20 +439,20 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="deliveryPeriod">Срок доставки</Label>
+                  <Label htmlFor="deliveryPeriod">Срок доставки (дни)</Label>
                   <Input
                     id="deliveryPeriod"
                     value={formData.deliveryPeriod}
                     onChange={(e) => setFormData({ ...formData, deliveryPeriod: e.target.value })}
-                    placeholder="7-10 дней"
+                    placeholder="Например: 7"
                   />
                 </div>
               </div>
             </div>
 
-            {/* Статус */}
+            {/* Статус и оплата */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Статус</h3>
+              <h3 className="text-lg font-semibold">Статус и оплата</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="status">Статус товара</Label>
@@ -514,7 +487,34 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
                   </Select>
                 </div>
               </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="totalAmount">Общая сумма (USD)</Label>
+                  <Input
+                    id="totalAmount"
+                    type="number"
+                    step="0.01"
+                    value={formData.totalAmount}
+                    onChange={(e) => setFormData({ ...formData, totalAmount: e.target.value })}
+                    placeholder="0.00"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="remainingAmount">Остаток (USD)</Label>
+                  <Input
+                    id="remainingAmount"
+                    type="number"
+                    step="0.01"
+                    value={formData.remainingAmount}
+                    onChange={(e) => setFormData({ ...formData, remainingAmount: e.target.value })}
+                    placeholder="0.00"
+                  />
+                </div>
+              </div>
             </div>
+
+
 
             {/* Комментарии */}
             <div className="space-y-4">
