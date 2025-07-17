@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
-import { PhotoUpload } from '@/components/PhotoUpload';
 import { useQuery } from '@tanstack/react-query';
-import { X, Wand2 } from 'lucide-react';
+import { X } from 'lucide-react';
+import { PhotoUpload } from '@/components/PhotoUpload';
 
 interface AddItemFormProps {
   onClose: () => void;
@@ -37,7 +37,6 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
     weight: '0',
     status: 'На складе',
     paymentStatus: 'unpaid',
-    rawText: '',
     photos: [] as string[],
     warehouseId: '',
     totalAmount: '0',
@@ -45,7 +44,6 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
   });
 
   const [autoCalculate, setAutoCalculate] = useState(true);
-  const [autoFillEnabled, setAutoFillEnabled] = useState(false);
 
   // Загружаем список складов
   const { data: warehouses = [] } = useQuery<any[]>({
@@ -80,67 +78,16 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
     autoCalculate
   ]);
 
-  const handleAutoFill = () => {
-    if (!formData.rawText.trim()) return;
-
-    // Simple text parsing logic
-    const lines = formData.rawText.split('\n').filter(line => line.trim());
-    const parsed: any = {};
-
-    lines.forEach(line => {
-      const lower = line.toLowerCase();
-      if (lower.includes('код') || lower.includes('артикул')) {
-        const match = line.match(/[\w\d-]+/);
-        if (match) parsed.code = match[0];
-      }
-      if (lower.includes('название') || lower.includes('товар')) {
-        parsed.name = line.split(':')[1]?.trim() || line.trim();
-      }
-      if (lower.includes('количество') || lower.includes('кол-во')) {
-        const match = line.match(/\d+/);
-        if (match) parsed.quantity = parseInt(match[0]);
-      }
-      if (lower.includes('цена') || lower.includes('стоимость')) {
-        const match = line.match(/[\d.]+/);
-        if (match) parsed.pricePerUnit = match[0];
-      }
-      if (lower.includes('объем') || lower.includes('вес')) {
-        const match = line.match(/[\d.]+/);
-        if (match) parsed.volume = match[0];
-        if (lower.includes('кг')) parsed.volumeType = 'kg';
-        if (lower.includes('куб') || lower.includes('м³')) parsed.volumeType = 'm³';
-      }
-      if (lower.includes('характеристик') || lower.includes('описание')) {
-        parsed.characteristics = line.split(':')[1]?.trim() || line.trim();
-      }
-      if (lower.includes('транспорт') || lower.includes('доставка')) {
-        parsed.transport = line.split(':')[1]?.trim() || line.trim();
-      }
-      if (lower.includes('срок')) {
-        parsed.deliveryPeriod = line.split(':')[1]?.trim() || line.trim();
-      }
-    });
-
-    setFormData(prev => ({ ...prev, ...parsed }));
-    setAutoFillEnabled(true);
-  };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Валидация статусов с фото
-    if ((formData.status === 'Отправлено' || formData.status === 'Доставлено') && !formData.photos?.length) {
-      alert('Для статусов "Отправлено" и "Доставлено" необходимо загрузить фото');
-      return;
-    }
-    
     const submissionData = {
-      code: formData.code || '',
-      name: formData.name || '',
-      quantity: parseInt(formData.quantity.toString()) || 1,
-      characteristics: formData.characteristics || '',
-      deliveryPeriod: formData.deliveryPeriod || '',
-      destination: formData.destination || '',
+      code: formData.code,
+      name: formData.name,
+      quantity: formData.quantity,
+      characteristics: formData.characteristics,
+      deliveryPeriod: formData.deliveryPeriod,
+      destination: formData.destination,
       shipmentDate: formData.shipmentDate || null,
       expectedDeliveryDate: formData.expectedDeliveryDate || null,
       transport: formData.transport || 'Авто',
@@ -154,7 +101,6 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
       weight: parseFloat(formData.weight) || 0,
       status: formData.status || 'На складе',
       paymentStatus: formData.paymentStatus || 'unpaid',
-      rawText: formData.rawText || '',
       photos: Array.isArray(formData.photos) ? formData.photos : [],
       orderId,
       warehouseId: (formData.warehouseId && formData.warehouseId !== 'none') ? parseInt(formData.warehouseId) : null,
@@ -172,74 +118,78 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
       <Card className="w-full max-w-4xl max-h-[90vh] overflow-y-auto">
         <CardHeader className="pb-3">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
-            <CardTitle className="text-lg">Добавить товар в заказ (ОБНОВЛЕНО)</CardTitle>
+            <CardTitle className="text-lg">Добавить товар в заказ (ПОЛНОСТЬЮ ОБНОВЛЕНО)</CardTitle>
             <Button variant="outline" size="sm" onClick={onClose}>
               <X className="w-4 h-4" />
             </Button>
           </div>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             {/* Основная информация */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Основная информация</h3>
+              <h3 className="text-base sm:text-lg font-semibold">Основная информация</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="code">Код товара</Label>
+                  <Label htmlFor="code" className="text-sm sm:text-base">Код товара</Label>
                   <Input
                     id="code"
                     value={formData.code}
                     onChange={(e) => setFormData({ ...formData, code: e.target.value })}
-                    placeholder="SK110"
+                    placeholder="Например: Fara-22-do"
                     required
+                    className="h-9 sm:h-10"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="name">Название товара</Label>
+                  <Label htmlFor="name" className="text-sm sm:text-base">Название товара</Label>
                   <Input
                     id="name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="Скамьи с наклоном"
+                    placeholder="Например: Кириешки"
                     required
+                    className="h-9 sm:h-10"
                   />
                 </div>
               </div>
 
               <div>
-                <Label htmlFor="characteristics">Характеристики</Label>
+                <Label htmlFor="characteristics" className="text-sm sm:text-base">Характеристики</Label>
                 <Textarea
                   id="characteristics"
                   value={formData.characteristics}
                   onChange={(e) => setFormData({ ...formData, characteristics: e.target.value })}
                   placeholder="Описание характеристик товара"
                   rows={2}
+                  className="text-sm sm:text-base"
                 />
               </div>
             </div>
 
             {/* Количество и измерения */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Количество и измерения</h3>
+              <h3 className="text-base sm:text-lg font-semibold">Количество и измерения</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <Label htmlFor="quantity">Количество</Label>
+                  <Label htmlFor="quantity" className="text-sm sm:text-base">Количество</Label>
                   <Input
                     id="quantity"
                     type="number"
-                    min="1"
                     value={formData.quantity}
-                    onChange={(e) => setFormData({ ...formData, quantity: parseInt(e.target.value) || 1 })}
+                    onChange={(e) => setFormData({ ...formData, quantity: parseInt(e.target.value) || 0 })}
+                    min="1"
                     required
+                    className="h-9 sm:h-10"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="volumeType">Тип измерения</Label>
+                  <Label htmlFor="volumeType" className="text-sm sm:text-base">Тип измерения</Label>
                   <Select
                     value={formData.volumeType}
                     onValueChange={(value) => setFormData({ ...formData, volumeType: value })}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="h-9 sm:h-10">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -249,7 +199,7 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
                   </Select>
                 </div>
                 <div>
-                  <Label htmlFor="transportPrice">Цена перевозки за {formData.volumeType}</Label>
+                  <Label htmlFor="transportPrice" className="text-sm sm:text-base">Цена перевозки за {formData.volumeType}</Label>
                   <Input
                     id="transportPrice"
                     type="number"
@@ -257,31 +207,38 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
                     value={formData.transportPrice}
                     onChange={(e) => setFormData({ ...formData, transportPrice: e.target.value })}
                     placeholder="0.00"
+                    className="h-9 sm:h-10"
                   />
                 </div>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="weight">
-                    {formData.volumeType === 'kg' ? 'Вес (кг)' : 'Объём (м³)'}
-                  </Label>
-                  <Input
-                    id="weight"
-                    type="number"
-                    step="0.001"
-                    value={formData.volumeType === 'kg' ? formData.weight : formData.volume}
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      if (formData.volumeType === 'kg') {
-                        setFormData({ ...formData, weight: value });
-                      } else {
-                        setFormData({ ...formData, volume: value });
-                      }
-                    }}
-                    placeholder="10.000"
-                  />
-                </div>
+                {formData.volumeType === 'kg' && (
+                  <div>
+                    <Label htmlFor="weight">Вес (кг)</Label>
+                    <Input
+                      id="weight"
+                      type="number"
+                      step="0.001"
+                      value={formData.weight}
+                      onChange={(e) => setFormData({ ...formData, weight: e.target.value })}
+                      placeholder="0.000"
+                    />
+                  </div>
+                )}
+                {formData.volumeType === 'm³' && (
+                  <div>
+                    <Label htmlFor="volume">Объем (м³)</Label>
+                    <Input
+                      id="volume"
+                      type="number"
+                      step="0.001"
+                      value={formData.volume}
+                      onChange={(e) => setFormData({ ...formData, volume: e.target.value })}
+                      placeholder="0.000"
+                    />
+                  </div>
+                )}
                 <div>
                   <Label htmlFor="pricePerUnit">Цена за единицу (USD)</Label>
                   <Input
@@ -290,7 +247,7 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
                     step="0.01"
                     value={formData.pricePerUnit}
                     onChange={(e) => setFormData({ ...formData, pricePerUnit: e.target.value })}
-                    placeholder="10.00"
+                    placeholder="0.00"
                   />
                 </div>
               </div>
@@ -302,13 +259,13 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
                 <h3 className="text-lg font-semibold">Расчет стоимости</h3>
                 <div className="flex items-center space-x-2">
                   <Switch
+                    id="auto-calculate"
                     checked={autoCalculate}
                     onCheckedChange={setAutoCalculate}
                   />
-                  <Label>Автоматический расчет</Label>
+                  <Label htmlFor="auto-calculate">Автоматический расчет</Label>
                 </div>
               </div>
-              
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="totalPrice">Цена за товары (USD)</Label>
@@ -316,9 +273,9 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
                     id="totalPrice"
                     type="number"
                     step="0.01"
-                    value={formData.totalPrice}
+                    value={formData.totalPrice || ''}
                     onChange={(e) => setFormData({ ...formData, totalPrice: e.target.value })}
-                    placeholder="100.00"
+                    placeholder="0.00"
                     disabled={autoCalculate}
                   />
                   {autoCalculate && (
@@ -333,7 +290,7 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
                     id="totalTransportCost"
                     type="number"
                     step="0.01"
-                    value={formData.totalTransportCost}
+                    value={formData.totalTransportCost || ''}
                     onChange={(e) => setFormData({ ...formData, totalTransportCost: e.target.value })}
                     placeholder="0.00"
                     disabled={autoCalculate}
@@ -508,6 +465,21 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
                 photos={formData.photos}
                 onPhotosChange={(photos) => setFormData({ ...formData, photos })}
               />
+            </div>
+
+            {/* Комментарии */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Комментарии</h3>
+              <div>
+                <Label htmlFor="comments">Дополнительные комментарии</Label>
+                <Textarea
+                  id="comments"
+                  value={formData.comments}
+                  onChange={(e) => setFormData({ ...formData, comments: e.target.value })}
+                  placeholder="Дополнительные комментарии..."
+                  rows={3}
+                />
+              </div>
             </div>
 
             {/* Кнопки */}

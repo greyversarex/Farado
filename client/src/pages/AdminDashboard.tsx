@@ -22,7 +22,7 @@ import {
   Box,
   Clock
 } from 'lucide-react';
-import { AddItemFormNew as AddItemForm } from '@/components/forms/AddItemFormNew';
+import { AddItemForm } from '@/components/forms/AddItemForm';
 import { AddFromInventoryForm } from '@/components/forms/AddFromInventoryForm';
 import { EditOrderForm } from '@/components/forms/EditOrderForm';
 import { EditItemForm } from '@/components/forms/EditItemForm';
