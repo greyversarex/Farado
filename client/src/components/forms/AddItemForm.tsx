@@ -510,52 +510,6 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
               />
             </div>
 
-            {/* Автозаполнение */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Автозаполнение</h3>
-              <div className="p-4 bg-gray-50 rounded-lg border">
-                <Label className="text-sm font-medium">Автозаполнение из текста</Label>
-                <div className="mt-2 space-y-3">
-                  <Textarea
-                    placeholder="Вставьте текст с информацией о товаре..."
-                    value={formData.rawText}
-                    onChange={(e) => setFormData({ ...formData, rawText: e.target.value })}
-                    rows={3}
-                  />
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handleAutoFill}
-                    disabled={!formData.rawText.trim()}
-                    className="w-full"
-                  >
-                    <Wand2 className="w-4 h-4 mr-2" />
-                    Автозаполнить поля
-                  </Button>
-                  {autoFillEnabled && (
-                    <div className="text-sm text-green-600">
-                      ✓ Поля заполнены автоматически
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Комментарии */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Комментарии</h3>
-              <div>
-                <Label htmlFor="comments">Дополнительные комментарии</Label>
-                <Textarea
-                  id="comments"
-                  value={formData.comments}
-                  onChange={(e) => setFormData({ ...formData, comments: e.target.value })}
-                  placeholder="Дополнительные комментарии..."
-                  rows={3}
-                />
-              </div>
-            </div>
-
             {/* Кнопки */}
             <div className="flex justify-end space-x-3">
               <Button type="button" variant="outline" onClick={onClose}>
