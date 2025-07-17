@@ -181,8 +181,8 @@ export const orderItems = pgTable("order_items", {
   inventoryItemId: integer("inventory_item_id").references(() => warehouseInventory.id),
   rawText: text("raw_text"), // For autofill functionality
   photos: text("photos").array(), // Array of base64 photo strings
-  totalAmount: decimal("total_amount", { precision: 10, scale: 2 }).default("0"), // Общая сумма
-  remainingAmount: decimal("remaining_amount", { precision: 10, scale: 2 }).default("0"), // Остаток
+  totalAmount: decimal("total_amount", { precision: 10, scale: 2 }).notNull().default("0"), // Общая сумма
+  remainingAmount: decimal("remaining_amount", { precision: 10, scale: 2 }).notNull().default("0"), // Остаток
   createdBy: integer("created_by").references(() => adminUsers.id),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
@@ -300,11 +300,11 @@ export const insertOrderItemSchema = createInsertSchema(orderItems).omit({
   totalAmount: z.union([z.string(), z.number()]).transform(val => {
     if (val === '' || val === null || val === undefined) return '0';
     return typeof val === 'string' ? val : val.toString();
-  }),
+  }).optional().default('0'),
   remainingAmount: z.union([z.string(), z.number()]).transform(val => {
     if (val === '' || val === null || val === undefined) return '0';
     return typeof val === 'string' ? val : val.toString();
-  })
+  }).optional().default('0')
 });
 
 export const insertWarehouseInventorySchema = createInsertSchema(warehouseInventory).omit({

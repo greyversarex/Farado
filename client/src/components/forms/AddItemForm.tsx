@@ -158,8 +158,8 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
       photos: Array.isArray(formData.photos) ? formData.photos : [],
       orderId,
       warehouseId: (formData.warehouseId && formData.warehouseId !== 'none') ? parseInt(formData.warehouseId) : null,
-      totalAmount: parseFloat(formData.totalAmount) || 0,
-      remainingAmount: parseFloat(formData.remainingAmount) || 0
+      totalAmount: formData.totalAmount || '0',
+      remainingAmount: formData.remainingAmount || '0'
     };
     
     onSubmit(submissionData);
