@@ -172,7 +172,7 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
       <Card className="w-full max-w-4xl max-h-[90vh] overflow-y-auto">
         <CardHeader className="pb-3">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
-            <CardTitle className="text-lg">Добавить товар в заказ</CardTitle>
+            <CardTitle className="text-lg">Добавить товар в заказ (ОБНОВЛЕНО)</CardTitle>
             <Button variant="outline" size="sm" onClick={onClose}>
               <X className="w-4 h-4" />
             </Button>
