@@ -1279,8 +1279,7 @@ export default function AdminDashboard({ user, onLogout }: AdminDashboardProps) 
 
         {/* Add Item Modal */}
         {showAddItem && selectedOrder && (
-          <UniversalItemForm
-            mode="order"
+          <AddItemForm
             orderId={selectedOrder.id}
             onClose={() => setShowAddItem(false)}
             onSubmit={addItemToOrder}
