@@ -117,8 +117,7 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <Card className="w-full max-w-4xl max-h-[90vh] overflow-y-auto">
         <CardHeader className="pb-3">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
-            <CardTitle className="text-lg bg-red-600 text-white p-2 rounded">🔥 НОВАЯ ФОРМА - ОБНОВЛЕНО 🔥</CardTitle>
+          <div className="flex justify-end">
             <Button variant="outline" size="sm" onClick={onClose}>
               <X className="w-4 h-4" />
             </Button>
