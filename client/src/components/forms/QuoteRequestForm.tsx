@@ -171,7 +171,7 @@ export function QuoteRequestForm({ open, onOpenChange }: QuoteRequestFormProps) 
         <div className="space-y-6">
           <div className="space-y-2">
             <div className="flex justify-between text-sm text-gray-600">
-              <span>Шаг {currentStep} из {totalSteps}</span>
+              <span>{t('forms.quote.step')} {currentStep} {t('forms.quote.of')} {totalSteps}</span>
               <span>{Math.round(progress)}%</span>
             </div>
             <Progress value={progress} className="h-2" />
@@ -181,7 +181,7 @@ export function QuoteRequestForm({ open, onOpenChange }: QuoteRequestFormProps) 
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               {currentStep === 1 && (
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold">Контактная информация</h3>
+                  <h3 className="text-lg font-semibold">{t('forms.quote.contactInfo')}</h3>
                   
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <FormField
@@ -203,7 +203,7 @@ export function QuoteRequestForm({ open, onOpenChange }: QuoteRequestFormProps) 
                       name="phone"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Телефон/Whatsapp/Telegram *</FormLabel>
+                          <FormLabel>{t('forms.quote.phone')} *</FormLabel>
                           <FormControl>
                             <Input placeholder="+992 XX XXX XX XX" {...field} />
                           </FormControl>
@@ -245,7 +245,7 @@ export function QuoteRequestForm({ open, onOpenChange }: QuoteRequestFormProps) 
 
               {currentStep === 2 && (
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold">Детали услуги</h3>
+                  <h3 className="text-lg font-semibold">{t('forms.quote.serviceDetails')}</h3>
                   
                   <FormField
                     control={form.control}
@@ -357,12 +357,12 @@ export function QuoteRequestForm({ open, onOpenChange }: QuoteRequestFormProps) 
                   />
 
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="font-medium text-gray-900 mb-2">Что будет дальше?</h4>
+                    <h4 className="font-medium text-gray-900 mb-2">{t('forms.quote.whatNext')}</h4>
                     <ul className="text-sm text-gray-600 space-y-1">
-                      <li>• Мы изучим ваш запрос в течение 2-4 часов</li>
-                      <li>• Подготовим детальное коммерческое предложение</li>
-                      <li>• Свяжемся с вами для уточнения деталей</li>
-                      <li>• Предоставим расчет стоимости и сроков</li>
+                      <li>• {t('forms.quote.nextStep1')}</li>
+                      <li>• {t('forms.quote.nextStep2')}</li>
+                      <li>• {t('forms.quote.nextStep3')}</li>
+                      <li>• {t('forms.quote.nextStep4')}</li>
                     </ul>
                   </div>
                 </div>
@@ -377,7 +377,7 @@ export function QuoteRequestForm({ open, onOpenChange }: QuoteRequestFormProps) 
                   className="flex items-center gap-2"
                 >
                   <ArrowLeft className="w-4 h-4" />
-                  Назад
+                  {t('forms.quote.back')}
                 </Button>
 
                 {currentStep < totalSteps ? (
@@ -386,7 +386,7 @@ export function QuoteRequestForm({ open, onOpenChange }: QuoteRequestFormProps) 
                     onClick={nextStep}
                     className="flex items-center gap-2 bg-red-600 hover:bg-red-700"
                   >
-                    Далее
+                    {t('forms.quote.next')}
                     <ArrowRight className="w-4 h-4" />
                   </Button>
                 ) : (
@@ -395,7 +395,7 @@ export function QuoteRequestForm({ open, onOpenChange }: QuoteRequestFormProps) 
                     disabled={createQuoteMutation.isPending}
                     className="bg-red-600 hover:bg-red-700"
                   >
-                    {createQuoteMutation.isPending ? "Отправка..." : "Получить Предложение"}
+                    {createQuoteMutation.isPending ? t('forms.quote.sending') : t('forms.quote.getQuote')}
                   </Button>
                 )}
               </div>
