@@ -28,9 +28,9 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useTranslation } from "@/lib/simple-i18n";
 
 const quoteRequestSchema = z.object({
-  name: z.string().min(1, "Имя обязательно"),
-  email: z.string().email("Введите корректный email"),
-  phone: z.string().optional(),
+  name: z.string().min(1, "Контактное лицо обязательно"),
+  email: z.string().email("Введите корректный email").optional().or(z.literal("")),
+  phone: z.string().min(1, "Телефон обязателен"),
   company: z.string().optional(),
   serviceType: z.string().min(1, "Выберите тип услуги"),
   description: z.string().min(10, "Опишите ваш запрос подробнее"),
@@ -38,6 +38,20 @@ const quoteRequestSchema = z.object({
   timeline: z.string().optional(),
   sourceCountry: z.string().optional(),
   destinationCountry: z.string().optional(),
+});
+
+// Step-specific validation schemas
+const step1Schema = z.object({
+  name: z.string().min(1, "Контактное лицо обязательно"),
+  phone: z.string().min(1, "Телефон обязателен"),
+});
+
+const step2Schema = z.object({
+  serviceType: z.string().min(1, "Выберите тип услуги"),
+});
+
+const step3Schema = z.object({
+  description: z.string().min(10, "Опишите ваш запрос подробнее"),
 });
 
 type QuoteRequestForm = z.infer<typeof quoteRequestSchema>;
@@ -109,9 +123,31 @@ export function QuoteRequestForm({ open, onOpenChange }: QuoteRequestFormProps) 
     createQuoteMutation.mutate(data);
   };
 
-  const nextStep = () => {
+  const nextStep = async () => {
     if (currentStep < totalSteps) {
-      setCurrentStep(currentStep + 1);
+      const currentData = form.getValues();
+      let isValid = false;
+      
+      try {
+        if (currentStep === 1) {
+          step1Schema.parse(currentData);
+          isValid = true;
+        } else if (currentStep === 2) {
+          step2Schema.parse(currentData);
+          isValid = true;
+        }
+        
+        if (isValid) {
+          setCurrentStep(currentStep + 1);
+        }
+      } catch (error) {
+        // Trigger validation errors to show in the form
+        if (currentStep === 1) {
+          form.trigger(["name", "phone"]);
+        } else if (currentStep === 2) {
+          form.trigger(["serviceType"]);
+        }
+      }
     }
   };
 
@@ -167,7 +203,7 @@ export function QuoteRequestForm({ open, onOpenChange }: QuoteRequestFormProps) 
                       name="phone"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{t('forms.quote.phone')}</FormLabel>
+                          <FormLabel>Телефон/Whatsapp/Telegram *</FormLabel>
                           <FormControl>
                             <Input placeholder="+992 XX XXX XX XX" {...field} />
                           </FormControl>
@@ -182,7 +218,7 @@ export function QuoteRequestForm({ open, onOpenChange }: QuoteRequestFormProps) 
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('forms.quote.email')} *</FormLabel>
+                        <FormLabel>{t('forms.quote.email')}</FormLabel>
                         <FormControl>
                           <Input type="email" placeholder="your@email.com" {...field} />
                         </FormControl>
