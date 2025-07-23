@@ -339,11 +339,11 @@ export const insertOrderItemSchema = createInsertSchema(orderItems).omit({
   paidAmount: z.union([z.string(), z.number()]).transform(val => {
     if (val === '' || val === null || val === undefined) return '0';
     return typeof val === 'string' ? val : val.toString();
-  }),
+  }).optional().default('0'),
   unpaidAmount: z.union([z.string(), z.number()]).transform(val => {
     if (val === '' || val === null || val === undefined) return '0';
     return typeof val === 'string' ? val : val.toString();
-  }),
+  }).optional().default('0'),
   quantity: z.union([z.string(), z.number()]).transform(val => typeof val === 'string' ? parseInt(val) || 1 : val),
   photos: z.array(z.string()).optional().default([]),
   shipmentDate: z.union([z.string(), z.null()]).transform(val => {

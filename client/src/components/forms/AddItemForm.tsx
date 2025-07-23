@@ -41,7 +41,9 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
     warehouseId: '',
     truckId: '',
     totalAmount: '0',
-    remainingAmount: '0'
+    remainingAmount: '0',
+    paidAmount: '0',
+    unpaidAmount: '0'
   });
 
   const [autoCalculate, setAutoCalculate] = useState(true);
