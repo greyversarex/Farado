@@ -20,7 +20,9 @@ import {
   Trash2,
   Users,
   Box,
-  Clock
+  Clock,
+  Truck,
+  Archive
 } from 'lucide-react';
 import { AddItemForm } from '@/components/forms/AddItemForm';
 import { AddFromInventoryForm } from '@/components/forms/AddFromInventoryForm';
@@ -31,6 +33,8 @@ import { PhotoUpload } from '@/components/PhotoUpload';
 import { ItemChangeHistory } from '@/components/ItemChangeHistory';
 import Counterparties from './admin/Counterparties';
 import { WarehouseManagement } from './admin/WarehouseManagement';
+import { TrucksManagement } from './admin/TrucksManagement';
+import { ArchiveManagement } from './admin/ArchiveManagement';
 
 interface AdminDashboardProps {
   user: any;
@@ -899,7 +903,7 @@ export default function AdminDashboard({ user, onLogout }: AdminDashboardProps) 
       <main className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-4 sm:py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <div className="bg-gradient-to-r from-white to-gray-50 rounded-xl shadow-lg border border-gray-200 p-2 sm:p-3 mb-8 mobile-nav-tabs">
-            <TabsList className="grid w-full grid-cols-4 h-16 sm:h-18 bg-transparent rounded-lg gap-1 sm:gap-2">
+            <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6 h-16 sm:h-18 bg-transparent rounded-lg gap-1 sm:gap-2">
               <TabsTrigger 
                 value="orders" 
                 className="relative text-xs sm:text-sm font-semibold px-1 py-2 rounded-lg transition-all duration-300 
@@ -921,6 +925,30 @@ export default function AdminDashboard({ user, onLogout }: AdminDashboardProps) 
               >
                 <Warehouse className="w-4 h-4 sm:w-5 sm:h-5 mb-1 mobile-nav-icon" />
                 <span className="text-xs font-medium leading-tight">Склады</span>
+              </TabsTrigger>
+              
+              <TabsTrigger 
+                value="trucks" 
+                className="relative text-xs sm:text-sm font-semibold px-1 py-2 rounded-lg transition-all duration-300 
+                data-[state=active]:bg-gradient-to-r data-[state=active]:from-red-500 data-[state=active]:to-red-600 
+                data-[state=active]:text-white data-[state=active]:shadow-md
+                hover:bg-red-50 hover:text-red-600 text-gray-600
+                flex flex-col items-center justify-center mobile-nav-tab"
+              >
+                <Truck className="w-4 h-4 sm:w-5 sm:h-5 mb-1 mobile-nav-icon" />
+                <span className="text-xs font-medium leading-tight">Фуры</span>
+              </TabsTrigger>
+
+              <TabsTrigger 
+                value="archive" 
+                className="relative text-xs sm:text-sm font-semibold px-1 py-2 rounded-lg transition-all duration-300 
+                data-[state=active]:bg-gradient-to-r data-[state=active]:from-red-500 data-[state=active]:to-red-600 
+                data-[state=active]:text-white data-[state=active]:shadow-md
+                hover:bg-red-50 hover:text-red-600 text-gray-600
+                flex flex-col items-center justify-center mobile-nav-tab"
+              >
+                <Archive className="w-4 h-4 sm:w-5 sm:h-5 mb-1 mobile-nav-icon" />
+                <span className="text-xs font-medium leading-tight">Архив</span>
               </TabsTrigger>
 
               <TabsTrigger 
@@ -955,8 +983,14 @@ export default function AdminDashboard({ user, onLogout }: AdminDashboardProps) 
           <TabsContent value="warehouses">
             <WarehouseManagement />
           </TabsContent>
-          
 
+          <TabsContent value="trucks">
+            <TrucksManagement />
+          </TabsContent>
+
+          <TabsContent value="archive">
+            <ArchiveManagement />
+          </TabsContent>
           
           <TabsContent value="counterparties">
             <Counterparties />

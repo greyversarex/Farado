@@ -39,6 +39,7 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
     paymentStatus: 'unpaid',
     photos: [] as string[],
     warehouseId: '',
+    truckId: '',
     totalAmount: '0',
     remainingAmount: '0'
   });
@@ -48,6 +49,11 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
   // Загружаем список складов
   const { data: warehouses = [] } = useQuery<any[]>({
     queryKey: ['/api/admin/warehouses'],
+  });
+
+  // Загружаем список фур
+  const { data: trucks = [] } = useQuery<any[]>({
+    queryKey: ['/api/admin/trucks'],
   });
 
   // Автоматические расчеты
@@ -104,6 +110,7 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
       photos: Array.isArray(formData.photos) ? formData.photos : [],
       orderId,
       warehouseId: (formData.warehouseId && formData.warehouseId !== 'none') ? parseInt(formData.warehouseId) : null,
+      truckId: (formData.truckId && formData.truckId !== 'none') ? parseInt(formData.truckId) : null,
       totalAmount: formData.totalAmount || '0',
       remainingAmount: formData.remainingAmount || '0'
     };
@@ -331,7 +338,7 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
             {/* Логистика */}
             <div className="space-y-4">
               <h3 className="text-lg font-semibold">Логистика</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <Label htmlFor="warehouse">Склад</Label>
                   <Select
@@ -346,6 +353,25 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
                       {warehouses.map((warehouse: any) => (
                         <SelectItem key={warehouse.id} value={String(warehouse.id)}>
                           {warehouse.location}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="truck">Фура</Label>
+                  <Select
+                    value={formData.truckId}
+                    onValueChange={(value) => setFormData({ ...formData, truckId: value })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Выберите фуру" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="none">Без фуры</SelectItem>
+                      {trucks.map((truck: any) => (
+                        <SelectItem key={truck.id} value={String(truck.id)}>
+                          {truck.number} ({truck.capacity} м³)
                         </SelectItem>
                       ))}
                     </SelectContent>

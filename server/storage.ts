@@ -25,7 +25,13 @@ import type {
   Warehouse,
   InsertWarehouse,
   ChangeHistory,
-  InsertChangeHistory
+  InsertChangeHistory,
+  Truck,
+  InsertTruck,
+  ArchiveFolder,
+  InsertArchiveFolder,
+  ArchiveMaterial,
+  InsertArchiveMaterial
 } from "@shared/schema";
 
 const {
@@ -40,7 +46,10 @@ const {
   customerTracking,
   counterparties,
   warehouses,
-  changeHistory
+  changeHistory,
+  trucks,
+  archiveFolders,
+  archiveMaterials
 } = schema;
 
 export interface IStorage {
@@ -124,6 +133,28 @@ export interface IStorage {
   // Change history
   createChangeHistory(history: InsertChangeHistory): Promise<ChangeHistory>;
   getChangeHistory(entityType: string, entityId: number): Promise<ChangeHistory[]>;
+  
+  // Грузовые траки (Фуры)
+  createTruck(truck: InsertTruck): Promise<Truck>;
+  getTrucks(): Promise<Truck[]>;
+  getTruck(id: number): Promise<Truck | undefined>;
+  updateTruck(id: number, data: Partial<Truck>): Promise<void>;
+  deleteTruck(id: number): Promise<void>;
+  updateTruckVolume(truckId: number): Promise<void>;
+  getTruckItems(truckId: number): Promise<OrderItem[]>;
+  
+  // Архив
+  createArchiveFolder(folder: InsertArchiveFolder): Promise<ArchiveFolder>;
+  getArchiveFolders(parentId?: number): Promise<ArchiveFolder[]>;
+  getArchiveFolder(id: number): Promise<ArchiveFolder | undefined>;
+  updateArchiveFolder(id: number, data: Partial<ArchiveFolder>): Promise<void>;
+  deleteArchiveFolder(id: number): Promise<void>;
+  
+  createArchiveMaterial(material: InsertArchiveMaterial): Promise<ArchiveMaterial>;
+  getArchiveMaterials(folderId?: number): Promise<ArchiveMaterial[]>;
+  getArchiveMaterial(id: number): Promise<ArchiveMaterial | undefined>;
+  updateArchiveMaterial(id: number, data: Partial<ArchiveMaterial>): Promise<void>;
+  deleteArchiveMaterial(id: number): Promise<void>;
 }
 
 class DatabaseStorage implements IStorage {
@@ -448,6 +479,11 @@ class DatabaseStorage implements IStorage {
       await this.updateWarehouseStats(newItem.warehouseId);
     }
     
+    // Обновить объем грузового трака если товар назначен на трак
+    if (newItem.truckId) {
+      await this.updateTruckVolume(newItem.truckId);
+    }
+    
     await this.createChangeHistory({
       entityType: 'orderItem',
       entityId: newItem.id,
@@ -464,6 +500,7 @@ class DatabaseStorage implements IStorage {
       id: orderItems.id,
       orderId: orderItems.orderId,
       warehouseId: orderItems.warehouseId,
+      truckId: orderItems.truckId,
       warehouseName: warehouses.name,
       code: orderItems.code,
       name: orderItems.name,
@@ -907,6 +944,147 @@ class DatabaseStorage implements IStorage {
         eq(changeHistory.entityId, entityId)
       ))
       .orderBy(desc(changeHistory.createdAt));
+  }
+
+  // Грузовые траки (Фуры)
+  async createTruck(truck: InsertTruck): Promise<Truck> {
+    const [newTruck] = await db.insert(trucks).values(truck).returning();
+    
+    await this.createChangeHistory({
+      entityType: 'truck',
+      entityId: newTruck.id,
+      action: 'created',
+      description: `Создан грузовой трак: ${newTruck.number}`,
+      userId: truck.createdBy || 1
+    });
+    
+    return newTruck;
+  }
+
+  async getTrucks(): Promise<Truck[]> {
+    return await db.select().from(trucks).orderBy(desc(trucks.createdAt));
+  }
+
+  async getTruck(id: number): Promise<Truck | undefined> {
+    const [truck] = await db.select().from(trucks).where(eq(trucks.id, id));
+    return truck;
+  }
+
+  async updateTruck(id: number, data: Partial<Truck>): Promise<void> {
+    await db.update(trucks).set({
+      ...data,
+      updatedAt: new Date()
+    }).where(eq(trucks.id, id));
+  }
+
+  async deleteTruck(id: number): Promise<void> {
+    await db.delete(trucks).where(eq(trucks.id, id));
+  }
+
+  async updateTruckVolume(truckId: number): Promise<void> {
+    const items = await db.select({
+      volume: orderItems.volume
+    }).from(orderItems).where(eq(orderItems.truckId, truckId));
+
+    const totalVolume = items.reduce((sum, item) => {
+      return sum + (parseFloat(item.volume || '0') || 0);
+    }, 0);
+
+    await db.update(trucks).set({
+      currentVolume: totalVolume.toString(),
+      updatedAt: new Date()
+    }).where(eq(trucks.id, truckId));
+  }
+
+  async getTruckItems(truckId: number): Promise<OrderItem[]> {
+    return await db.select().from(orderItems)
+      .where(eq(orderItems.truckId, truckId))
+      .orderBy(desc(orderItems.createdAt));
+  }
+
+  // Архив
+  async createArchiveFolder(folder: InsertArchiveFolder): Promise<ArchiveFolder> {
+    const [newFolder] = await db.insert(archiveFolders).values(folder).returning();
+    
+    await this.createChangeHistory({
+      entityType: 'archiveFolder',
+      entityId: newFolder.id,
+      action: 'created',
+      description: `Создана папка архива: ${newFolder.name}`,
+      userId: folder.createdBy || 1
+    });
+    
+    return newFolder;
+  }
+
+  async getArchiveFolders(parentId?: number): Promise<ArchiveFolder[]> {
+    if (parentId) {
+      return await db.select().from(archiveFolders)
+        .where(eq(archiveFolders.parentId, parentId))
+        .orderBy(asc(archiveFolders.name));
+    } else {
+      return await db.select().from(archiveFolders)
+        .where(sql`${archiveFolders.parentId} IS NULL`)
+        .orderBy(asc(archiveFolders.name));
+    }
+  }
+
+  async getArchiveFolder(id: number): Promise<ArchiveFolder | undefined> {
+    const [folder] = await db.select().from(archiveFolders).where(eq(archiveFolders.id, id));
+    return folder;
+  }
+
+  async updateArchiveFolder(id: number, data: Partial<ArchiveFolder>): Promise<void> {
+    await db.update(archiveFolders).set({
+      ...data,
+      updatedAt: new Date()
+    }).where(eq(archiveFolders.id, id));
+  }
+
+  async deleteArchiveFolder(id: number): Promise<void> {
+    await db.delete(archiveFolders).where(eq(archiveFolders.id, id));
+  }
+
+  async createArchiveMaterial(material: InsertArchiveMaterial): Promise<ArchiveMaterial> {
+    const [newMaterial] = await db.insert(archiveMaterials).values(material).returning();
+    
+    await this.createChangeHistory({
+      entityType: 'archiveMaterial',
+      entityId: newMaterial.id,
+      action: 'created',
+      description: `Добавлен материал: ${newMaterial.name}`,
+      userId: material.createdBy || 1
+    });
+    
+    return newMaterial;
+  }
+
+  async getArchiveMaterials(folderId?: number): Promise<ArchiveMaterial[]> {
+    if (folderId) {
+      return await db.select().from(archiveMaterials)
+        .where(eq(archiveMaterials.folderId, folderId))
+        .orderBy(desc(archiveMaterials.createdAt));
+    } else {
+      return await db.select().from(archiveMaterials)
+        .where(sql`${archiveMaterials.folderId} IS NULL`)
+        .orderBy(desc(archiveMaterials.createdAt));
+    }
+  }
+
+  async getArchiveMaterial(id: number): Promise<ArchiveMaterial | undefined> {
+    const [material] = await db.select().from(archiveMaterials).where(eq(archiveMaterials.id, id));
+    return material;
+  }
+
+  async updateArchiveMaterial(id: number, data: Partial<ArchiveMaterial>): Promise<void> {
+    await db.update(archiveMaterials).set({
+      ...data,
+      updatedAt: new Date()
+    }).where(eq(archiveMaterials.id, id));
+  }
+
+  async deleteArchiveMaterial(id: number): Promise<void> {
+    await db.delete(archiveMaterials).where(eq(archiveMaterials.id, id));
   }
 }
 

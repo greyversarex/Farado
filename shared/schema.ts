@@ -155,6 +155,7 @@ export const orderItems = pgTable("order_items", {
   id: serial("id").primaryKey(),
   orderId: integer("order_id").references(() => orders.id).notNull(),
   warehouseId: integer("warehouse_id").references(() => warehouses.id),
+  truckId: integer("truck_id").references(() => trucks.id), // Ссылка на грузовой трак
   code: varchar("code").notNull(),
   name: varchar("name").notNull(),
   quantity: integer("quantity").notNull(),
@@ -231,6 +232,46 @@ export const customerTracking = pgTable("customer_tracking", {
   customerName: varchar("customer_name"),
   customerEmail: varchar("customer_email"),
   createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Грузовые траки (Фуры)
+export const trucks = pgTable("trucks", {
+  id: serial("id").primaryKey(),
+  number: varchar("number").notNull().unique(), // Номер грузового трака
+  capacity: decimal("capacity", { precision: 10, scale: 3 }).notNull(), // Вместимость в м³
+  status: varchar("status").notNull().default("Свободен"), // В пути, Свободен
+  currentVolume: decimal("current_volume", { precision: 10, scale: 3 }).default("0"), // Текущий объем грузов
+  documents: jsonb("documents").default("[]"), // Массив документов и файлов
+  folders: jsonb("folders").default("[]"), // Массив папок
+  createdBy: integer("created_by").references(() => adminUsers.id),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Архив - папки и материалы
+export const archiveFolders = pgTable("archive_folders", {
+  id: serial("id").primaryKey(),
+  name: varchar("name").notNull(), // Название папки
+  parentId: integer("parent_id"), // Родительская папка
+  path: text("path").notNull(), // Полный путь к папке
+  createdBy: integer("created_by").references(() => adminUsers.id),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Материалы архива
+export const archiveMaterials = pgTable("archive_materials", {
+  id: serial("id").primaryKey(),
+  name: varchar("name").notNull(), // Название файла/материала
+  type: varchar("type").notNull(), // document, photo
+  folderId: integer("folder_id").references(() => archiveFolders.id), // Папка
+  fileData: text("file_data"), // Base64 данные файла или URL
+  fileSize: integer("file_size"), // Размер файла в байтах
+  mimeType: varchar("mime_type"), // MIME тип файла
+  description: text("description"), // Описание материала
+  createdBy: integer("created_by").references(() => adminUsers.id),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
 });
 
 // Types for form validation and API
@@ -347,6 +388,29 @@ export const insertCustomerTrackingSchema = createInsertSchema(customerTracking)
   createdAt: true,
 });
 
+export const insertTruckSchema = createInsertSchema(trucks).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+}).extend({
+  capacity: z.union([z.string(), z.number()]).transform(val => {
+    if (val === '' || val === null || val === undefined) return '0';
+    return typeof val === 'string' ? val : val.toString();
+  }),
+});
+
+export const insertArchiveFolderSchema = createInsertSchema(archiveFolders).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertArchiveMaterialSchema = createInsertSchema(archiveMaterials).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
 // Relations
 export const ordersRelations = relations(orders, ({ many, one }) => ({
   items: many(orderItems),
@@ -387,6 +451,10 @@ export const orderItemsRelations = relations(orderItems, ({ one }) => ({
     fields: [orderItems.warehouseId],
     references: [warehouses.id],
   }),
+  truck: one(trucks, {
+    fields: [orderItems.truckId],
+    references: [trucks.id],
+  }),
   createdByUser: one(adminUsers, {
     fields: [orderItems.createdBy],
     references: [adminUsers.id],
@@ -423,6 +491,33 @@ export const customerTrackingRelations = relations(customerTracking, ({ one }) =
   }),
 }));
 
+export const trucksRelations = relations(trucks, ({ many, one }) => ({
+  orderItems: many(orderItems),
+  createdByUser: one(adminUsers, {
+    fields: [trucks.createdBy],
+    references: [adminUsers.id],
+  }),
+}));
+
+export const archiveFoldersRelations = relations(archiveFolders, ({ many, one }) => ({
+  materials: many(archiveMaterials),
+  createdByUser: one(adminUsers, {
+    fields: [archiveFolders.createdBy],
+    references: [adminUsers.id],
+  }),
+}));
+
+export const archiveMaterialsRelations = relations(archiveMaterials, ({ one }) => ({
+  folder: one(archiveFolders, {
+    fields: [archiveMaterials.folderId],
+    references: [archiveFolders.id],
+  }),
+  createdByUser: one(adminUsers, {
+    fields: [archiveMaterials.createdBy],
+    references: [adminUsers.id],
+  }),
+}));
+
 export type InsertQuoteRequest = z.infer<typeof insertQuoteRequestSchema>;
 export type QuoteRequest = typeof quoteRequests.$inferSelect;
 export type InsertBlogPost = z.infer<typeof insertBlogPostSchema>;
@@ -447,3 +542,9 @@ export type InsertWarehouse = z.infer<typeof insertWarehouseSchema>;
 export type Warehouse = typeof warehouses.$inferSelect;
 export type InsertChangeHistory = z.infer<typeof insertChangeHistorySchema>;
 export type ChangeHistory = typeof changeHistory.$inferSelect;
+export type InsertTruck = z.infer<typeof insertTruckSchema>;
+export type Truck = typeof trucks.$inferSelect;
+export type InsertArchiveFolder = z.infer<typeof insertArchiveFolderSchema>;
+export type ArchiveFolder = typeof archiveFolders.$inferSelect;
+export type InsertArchiveMaterial = z.infer<typeof insertArchiveMaterialSchema>;
+export type ArchiveMaterial = typeof archiveMaterials.$inferSelect;

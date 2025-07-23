@@ -19,7 +19,10 @@ import {
   insertCounterpartySchema,
   insertWarehouseSchema,
   insertChangeHistorySchema,
-  insertAdminUserSchema
+  insertAdminUserSchema,
+  insertTruckSchema,
+  insertArchiveFolderSchema,
+  insertArchiveMaterialSchema
 } from "@shared/schema";
 import { fromZodError } from "zod-validation-error";
 import { sendTelegramNotification, formatQuoteRequestMessage, formatContactMessage } from "./telegram";
@@ -902,6 +905,186 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ orders, items });
     } catch (error) {
       res.status(500).json({ message: "Search failed" });
+    }
+  });
+
+  // Грузовые траки (Фуры) API
+  app.get('/api/admin/trucks', requireAuth, async (req, res) => {
+    try {
+      const trucks = await storage.getTrucks();
+      res.json(trucks);
+    } catch (error) {
+      console.error('Get trucks error:', error);
+      res.status(500).json({ error: 'Failed to fetch trucks' });
+    }
+  });
+
+  app.get('/api/admin/trucks/:id', requireAuth, async (req, res) => {
+    try {
+      const truck = await storage.getTruck(parseInt(req.params.id));
+      if (!truck) {
+        return res.status(404).json({ error: 'Truck not found' });
+      }
+      
+      const items = await storage.getTruckItems(truck.id);
+      res.json({ ...truck, items });
+    } catch (error) {
+      console.error('Get truck error:', error);
+      res.status(500).json({ error: 'Failed to fetch truck' });
+    }
+  });
+
+  app.post('/api/admin/trucks', requireAuth, async (req: AuthenticatedRequest, res) => {
+    try {
+      const validatedData = insertTruckSchema.parse({
+        ...req.body,
+        createdBy: req.user?.id
+      });
+      
+      const truck = await storage.createTruck(validatedData);
+      res.status(201).json(truck);
+    } catch (error: any) {
+      if (error.name === 'ZodError') {
+        const validationError = fromZodError(error);
+        return res.status(400).json({ message: validationError.message });
+      }
+      console.error('Create truck error:', error);
+      res.status(500).json({ error: 'Failed to create truck' });
+    }
+  });
+
+  app.put('/api/admin/trucks/:id', requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const updateData = req.body;
+      
+      await storage.updateTruck(parseInt(id), updateData);
+      
+      // Update truck volume if status changed
+      if (updateData.status) {
+        await storage.updateTruckVolume(parseInt(id));
+      }
+      
+      res.json({ success: true });
+    } catch (error) {
+      console.error('Update truck error:', error);
+      res.status(500).json({ error: 'Failed to update truck' });
+    }
+  });
+
+  app.delete('/api/admin/trucks/:id', requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      await storage.deleteTruck(parseInt(id));
+      res.json({ success: true });
+    } catch (error) {
+      console.error('Delete truck error:', error);
+      res.status(500).json({ error: 'Failed to delete truck' });
+    }
+  });
+
+  // Архив API
+  app.get('/api/admin/archive/folders', requireAuth, async (req, res) => {
+    try {
+      const { parentId } = req.query;
+      const folders = await storage.getArchiveFolders(parentId ? parseInt(parentId as string) : undefined);
+      res.json(folders);
+    } catch (error) {
+      console.error('Get archive folders error:', error);
+      res.status(500).json({ error: 'Failed to fetch archive folders' });
+    }
+  });
+
+  app.get('/api/admin/archive/materials', requireAuth, async (req, res) => {
+    try {
+      const { folderId } = req.query;
+      const materials = await storage.getArchiveMaterials(folderId ? parseInt(folderId as string) : undefined);
+      res.json(materials);
+    } catch (error) {
+      console.error('Get archive materials error:', error);
+      res.status(500).json({ error: 'Failed to fetch archive materials' });
+    }
+  });
+
+  app.post('/api/admin/archive/folders', requireAuth, async (req: AuthenticatedRequest, res) => {
+    try {
+      const validatedData = insertArchiveFolderSchema.parse({
+        ...req.body,
+        createdBy: req.user?.id
+      });
+      
+      const folder = await storage.createArchiveFolder(validatedData);
+      res.status(201).json(folder);
+    } catch (error: any) {
+      if (error.name === 'ZodError') {
+        const validationError = fromZodError(error);
+        return res.status(400).json({ message: validationError.message });
+      }
+      console.error('Create archive folder error:', error);
+      res.status(500).json({ error: 'Failed to create archive folder' });
+    }
+  });
+
+  app.post('/api/admin/archive/materials', requireAuth, async (req: AuthenticatedRequest, res) => {
+    try {
+      const validatedData = insertArchiveMaterialSchema.parse({
+        ...req.body,
+        createdBy: req.user?.id
+      });
+      
+      const material = await storage.createArchiveMaterial(validatedData);
+      res.status(201).json(material);
+    } catch (error: any) {
+      if (error.name === 'ZodError') {
+        const validationError = fromZodError(error);
+        return res.status(400).json({ message: validationError.message });
+      }
+      console.error('Create archive material error:', error);
+      res.status(500).json({ error: 'Failed to create archive material' });
+    }
+  });
+
+  app.put('/api/admin/archive/folders/:id', requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      await storage.updateArchiveFolder(parseInt(id), req.body);
+      res.json({ success: true });
+    } catch (error) {
+      console.error('Update archive folder error:', error);
+      res.status(500).json({ error: 'Failed to update archive folder' });
+    }
+  });
+
+  app.put('/api/admin/archive/materials/:id', requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      await storage.updateArchiveMaterial(parseInt(id), req.body);
+      res.json({ success: true });
+    } catch (error) {
+      console.error('Update archive material error:', error);
+      res.status(500).json({ error: 'Failed to update archive material' });
+    }
+  });
+
+  app.delete('/api/admin/archive/folders/:id', requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      await storage.deleteArchiveFolder(parseInt(id));
+      res.json({ success: true });
+    } catch (error) {
+      console.error('Delete archive folder error:', error);
+      res.status(500).json({ error: 'Failed to delete archive folder' });
+    }
+  });
+
+  app.delete('/api/admin/archive/materials/:id', requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      await storage.deleteArchiveMaterial(parseInt(id));
+      res.json({ success: true });
+    } catch (error) {
+      console.error('Delete archive material error:', error);
+      res.status(500).json({ error: 'Failed to delete archive material' });
     }
   });
 

@@ -39,6 +39,7 @@ export function EditItemForm({ item, onClose, onUpdate }: EditItemFormProps) {
     paymentStatus: item.paymentStatus || 'unpaid',
     photos: item.photos || [],
     warehouseId: item.warehouseId ? String(item.warehouseId) : '',
+    truckId: item.truckId ? String(item.truckId) : '',
     totalAmount: String(item.totalAmount || '0'),
     remainingAmount: String(item.remainingAmount || '0')
   });
@@ -48,6 +49,11 @@ export function EditItemForm({ item, onClose, onUpdate }: EditItemFormProps) {
   // Загружаем список складов
   const { data: warehouses = [] } = useQuery<any[]>({
     queryKey: ['/api/admin/warehouses'],
+  });
+
+  // Загружаем список фур
+  const { data: trucks = [] } = useQuery<any[]>({
+    queryKey: ['/api/admin/trucks'],
   });
 
   // Автоматические расчеты
@@ -89,6 +95,7 @@ export function EditItemForm({ item, onClose, onUpdate }: EditItemFormProps) {
       volume: parseFloat(formData.volume) || 0,
       weight: parseFloat(formData.weight) || 0,
       warehouseId: (formData.warehouseId && formData.warehouseId !== 'none') ? parseInt(formData.warehouseId) : null,
+      truckId: (formData.truckId && formData.truckId !== 'none') ? parseInt(formData.truckId) : null,
       shipmentDate: formData.shipmentDate || null,
       expectedDeliveryDate: formData.expectedDeliveryDate || null,
       totalPrice: parseFloat(formData.totalPrice || '0'),
@@ -337,7 +344,7 @@ export function EditItemForm({ item, onClose, onUpdate }: EditItemFormProps) {
             {/* Логистика */}
             <div className="space-y-4">
               <h3 className="text-lg font-semibold">Логистика</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <Label htmlFor="warehouse">Склад</Label>
                   <Select
@@ -352,6 +359,25 @@ export function EditItemForm({ item, onClose, onUpdate }: EditItemFormProps) {
                       {warehouses.map((warehouse: any) => (
                         <SelectItem key={warehouse.id} value={String(warehouse.id)}>
                           {warehouse.location}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="truck">Фура</Label>
+                  <Select
+                    value={formData.truckId}
+                    onValueChange={(value) => setFormData({ ...formData, truckId: value })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Выберите фуру" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="none">Без фуры</SelectItem>
+                      {trucks.map((truck: any) => (
+                        <SelectItem key={truck.id} value={String(truck.id)}>
+                          {truck.number} ({truck.capacity} м³)
                         </SelectItem>
                       ))}
                     </SelectContent>
