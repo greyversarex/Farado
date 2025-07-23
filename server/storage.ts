@@ -990,15 +990,31 @@ class DatabaseStorage implements IStorage {
 
   async updateTruckVolume(truckId: number): Promise<void> {
     const items = await db.select({
-      volume: orderItems.volume
+      volume: orderItems.volume,
+      weight: orderItems.weight,
+      volumeType: orderItems.volumeType
     }).from(orderItems).where(eq(orderItems.truckId, truckId));
 
-    const totalVolume = items.reduce((sum, item) => {
-      return sum + (parseFloat(item.volume || '0') || 0);
-    }, 0);
+    let totalVolume = 0;
+    let totalWeight = 0;
+
+    items.forEach(item => {
+      const itemVolume = parseFloat(item.volume || '0') || 0;
+      const itemWeight = parseFloat(item.weight || '0') || 0;
+      
+      if (item.volumeType === 'cubic' || item.volumeType === 'm³') {
+        totalVolume += itemVolume;
+      } else if (item.volumeType === 'kg') {
+        totalWeight += itemVolume; // В этом случае volume содержит вес
+      }
+      
+      // Также добавляем вес из поля weight
+      totalWeight += itemWeight;
+    });
 
     await db.update(trucks).set({
       currentVolume: totalVolume.toString(),
+      currentWeight: totalWeight.toString(),
       updatedAt: new Date()
     }).where(eq(trucks.id, truckId));
   }

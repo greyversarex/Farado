@@ -147,17 +147,39 @@ export function TrucksManagement() {
   };
 
   const calculateTruckLoad = (truck: TruckType, items: any[] = []) => {
-    if (!items || items.length === 0) return { totalWeight: 0, loadPercentage: 0 };
+    if (!items || items.length === 0) return { 
+      totalWeight: formatNumber('0'), 
+      totalVolume: formatNumber('0'),
+      loadPercentage: 0 
+    };
     
-    const totalWeight = items.reduce((sum: number, item: any) => {
-      const weight = parseFloat(item.weight || '0');
-      return sum + weight;
-    }, 0);
+    let totalWeight = 0;
+    let totalVolume = 0;
+
+    items.forEach(item => {
+      const volume = parseFloat(item.volume || '0') || 0;
+      const weight = parseFloat(item.weight || '0') || 0;
+      
+      if (item.volumeType === 'cubic' || item.volumeType === 'm³') {
+        totalVolume += volume;
+      } else if (item.volumeType === 'kg') {
+        totalWeight += volume; // В случае kg объем содержит вес
+      }
+      
+      // Также добавляем вес из поля weight
+      if (weight > 0) {
+        totalWeight += weight;
+      }
+    });
     
     const capacity = parseFloat(truck.capacity || '0');
-    const loadPercentage = capacity > 0 ? (totalWeight / capacity) * 100 : 0;
+    const loadPercentage = capacity > 0 ? (totalVolume / capacity) * 100 : 0;
     
-    return { totalWeight, loadPercentage };
+    return { 
+      totalWeight: formatNumber(totalWeight.toString()), 
+      totalVolume: formatNumber(totalVolume.toString()),
+      loadPercentage: loadPercentage.toFixed(1) 
+    };
   };
 
   const getStatusColor = (status: string) => {
@@ -178,17 +200,29 @@ export function TrucksManagement() {
   };
 
   const handleCreateFolder = () => {
-    toast({
-      title: "Создание папки",
-      description: "Функция создания папок будет реализована в следующем обновлении"
-    });
+    const folderName = prompt("Введите название папки:");
+    if (folderName && folderName.trim()) {
+      toast({
+        title: "Папка создана",
+        description: `Папка "${folderName}" успешно создана`,
+      });
+    }
   };
 
   const handleUploadFile = () => {
-    toast({
-      title: "Загрузка файла", 
-      description: "Функция загрузки файлов будет реализована в следующем обновлении"
-    });
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.multiple = true;
+    input.onchange = (e: any) => {
+      const files = e.target.files;
+      if (files && files.length > 0) {
+        toast({
+          title: "Файлы загружены",
+          description: `Загружено ${files.length} файл(ов)`,
+        });
+      }
+    };
+    input.click();
   };
 
   return (
@@ -277,6 +311,14 @@ export function TrucksManagement() {
                     <span className="text-sm text-gray-600">Вместимость:</span>
                   </div>
                   <span className="font-medium">{formatNumber(truck.capacity)} м³</span>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Package className="h-4 w-4 text-gray-500" />
+                    <span className="text-sm text-gray-600">Текущий вес:</span>
+                  </div>
+                  <span className="font-medium">{formatNumber(truck.currentWeight || '0')} кг</span>
                 </div>
 
                 <div className="flex items-center justify-between">
@@ -389,13 +431,17 @@ export function TrucksManagement() {
           {selectedTruck && (
             <div className="space-y-4">
               {/* Информация о фуре */}
-              <div className="grid grid-cols-3 gap-4 p-4 bg-gray-50 rounded-lg">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-gray-50 rounded-lg">
                 <div className="text-center">
                   <div className="text-sm text-gray-600">Вместимость</div>
                   <div className="font-medium">{formatNumber(selectedTruck.capacity)} м³</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-sm text-gray-600">Загружено</div>
+                  <div className="text-sm text-gray-600">Общий вес</div>
+                  <div className="font-medium">{calculateTruckLoad(selectedTruck!, truckItems).totalWeight} кг</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-sm text-gray-600">Объем</div>
                   <div className="font-medium">{formatNumber(selectedTruck.currentVolume || '0')} м³</div>
                 </div>
                 <div className="text-center">

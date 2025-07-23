@@ -241,6 +241,7 @@ export const trucks = pgTable("trucks", {
   capacity: decimal("capacity", { precision: 10, scale: 3 }).notNull(), // Вместимость в м³
   status: varchar("status").notNull().default("Свободен"), // В пути, Свободен
   currentVolume: decimal("current_volume", { precision: 10, scale: 3 }).default("0"), // Текущий объем грузов
+  currentWeight: decimal("current_weight", { precision: 10, scale: 3 }).default("0"), // Текущий вес грузов в кг
   documents: jsonb("documents").default("[]"), // Массив документов и файлов
   folders: jsonb("folders").default("[]"), // Массив папок
   createdBy: integer("created_by").references(() => adminUsers.id),
