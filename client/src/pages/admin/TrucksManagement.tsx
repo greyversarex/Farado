@@ -164,6 +164,20 @@ export function TrucksManagement() {
     return num % 1 === 0 ? num.toString() : num.toFixed(3).replace(/\.?0+$/, '');
   };
 
+  const handleCreateFolder = () => {
+    toast({
+      title: "Создание папки",
+      description: "Функция создания папок будет реализована в следующем обновлении"
+    });
+  };
+
+  const handleUploadFile = () => {
+    toast({
+      title: "Загрузка файла", 
+      description: "Функция загрузки файлов будет реализована в следующем обновлении"
+    });
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -453,11 +467,11 @@ export function TrucksManagement() {
                 <div className="flex justify-between items-center mb-3">
                   <h3 className="text-lg font-semibold">Материалы и документы</h3>
                   <div className="flex gap-2">
-                    <Button size="sm" variant="outline">
+                    <Button size="sm" variant="outline" onClick={handleCreateFolder}>
                       <FolderPlus className="h-4 w-4 mr-1" />
                       Создать папку
                     </Button>
-                    <Button size="sm" variant="outline">
+                    <Button size="sm" variant="outline" onClick={handleUploadFile}>
                       <Upload className="h-4 w-4 mr-1" />
                       Загрузить файл
                     </Button>

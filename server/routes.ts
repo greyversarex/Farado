@@ -987,7 +987,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/api/admin/trucks/:id/items', requireAuth, async (req, res) => {
     try {
       const truckId = parseInt(req.params.id);
+      console.log('=== GET TRUCK ITEMS DEBUG ===');
+      console.log('Truck ID:', truckId);
+      
       const items = await storage.getTruckItems(truckId);
+      console.log('Found items:', items.length);
+      console.log('Items:', items.map(i => ({id: i.id, name: i.name, truckId: i.truckId})));
+      
       res.json(items);
     } catch (error) {
       console.error('Get truck items error:', error);
