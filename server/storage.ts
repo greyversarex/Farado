@@ -1057,8 +1057,13 @@ class DatabaseStorage implements IStorage {
       createdBy: orderItems.createdBy,
       createdAt: orderItems.createdAt,
       updatedAt: orderItems.updatedAt,
+      counterpartyName: counterparties.name,
+      counterpartyCompany: counterparties.company,
+      expectedDelivery: orders.expectedDelivery
     }).from(orderItems)
       .leftJoin(warehouses, eq(orderItems.warehouseId, warehouses.id))
+      .leftJoin(orders, eq(orderItems.orderId, orders.id))
+      .leftJoin(counterparties, eq(orders.counterpartyId, counterparties.id))
       .where(eq(orderItems.truckId, truckId))
       .orderBy(desc(orderItems.createdAt));
   }

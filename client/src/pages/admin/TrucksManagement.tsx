@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Truck, Plus, Edit, Trash2, Package, Gauge, FolderPlus, Upload, FolderOpen } from "lucide-react";
+import { Truck, Plus, Edit, Trash2, Package, Gauge, FolderPlus, Upload, FolderOpen, ArrowLeft, Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import type { Truck as TruckType, InsertTruck } from "@shared/schema";
 
@@ -19,6 +19,7 @@ export function TrucksManagement() {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isTruckDetailsOpen, setIsTruckDetailsOpen] = useState(false);
   const [selectedTruck, setSelectedTruck] = useState<TruckType | null>(null);
+  const [selectedFolderId, setSelectedFolderId] = useState<number | null>(null);
   const [formData, setFormData] = useState<InsertTruck>({
     number: '',
     capacity: '0',
@@ -46,6 +47,11 @@ export function TrucksManagement() {
     queryKey: [`/api/admin/trucks/${selectedTruck?.id}/documents`],
     enabled: !!selectedTruck?.id && isTruckDetailsOpen,
   });
+
+  // Фильтруем документы по выбранной папке
+  const filteredDocuments = selectedFolderId 
+    ? truckDocuments.filter((doc: any) => doc.folderId === selectedFolderId)
+    : truckDocuments.filter((doc: any) => !doc.folderId);
 
   // Отладочная информация
   console.log('TrucksManagement Debug:', {
@@ -154,6 +160,7 @@ export function TrucksManagement() {
   const handleViewTruck = (truck: TruckType) => {
     console.log('Opening truck details for:', truck.id, truck.number);
     setSelectedTruck(truck);
+    setSelectedFolderId(null); // Сбрасываем выбранную папку при открытии
     setIsTruckDetailsOpen(true);
   };
 
@@ -236,13 +243,14 @@ export function TrucksManagement() {
   });
 
   const createDocumentMutation = useMutation({
-    mutationFn: async (data: { truckId: number, name: string, fileData: string }) => {
+    mutationFn: async (data: { truckId: number, name: string, fileData: string, folderId?: number | null }) => {
       const response = await apiRequest(`/api/admin/trucks/${data.truckId}/documents`, {
         method: 'POST',
         body: JSON.stringify({ 
           name: data.name, 
           fileData: data.fileData,
-          type: 'document'
+          type: 'document',
+          folderId: data.folderId || null
         }),
       });
       if (!response.ok) throw new Error('Failed to create document');
@@ -289,13 +297,39 @@ export function TrucksManagement() {
           createDocumentMutation.mutate({
             truckId: selectedTruck.id,
             name: file.name,
-            fileData: fileData
+            fileData: fileData,
+            folderId: selectedFolderId
           });
         };
         reader.readAsDataURL(file);
       }
     };
     input.click();
+  };
+
+  const handleFolderClick = (folderId: number) => {
+    setSelectedFolderId(folderId);
+  };
+
+  const handleBackToRoot = () => {
+    setSelectedFolderId(null);
+  };
+
+  const handleDownloadFile = (document: any) => {
+    try {
+      const link = document.createElement('a');
+      link.href = document.fileData;
+      link.download = document.name;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      toast({
+        title: "Ошибка",
+        description: "Не удалось скачать файл",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -573,7 +607,7 @@ export function TrucksManagement() {
                           </CardTitle>
                         </CardHeader>
                         <CardContent className="p-4">
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm mb-3">
                             <div>
                               <span className="text-gray-600">Количество:</span>
                               <div className="font-medium">{item.quantity}</div>
@@ -590,6 +624,16 @@ export function TrucksManagement() {
                               <span className="text-gray-600">Статус:</span>
                               <div className="font-medium">{item.status}</div>
                             </div>
+                            <div>
+                              <span className="text-gray-600">Контрагент:</span>
+                              <div className="font-medium">{item.counterpartyName || 'Не указан'}</div>
+                            </div>
+                            <div>
+                              <span className="text-gray-600">Срок доставки:</span>
+                              <div className="font-medium">
+                                {item.expectedDelivery ? new Date(item.expectedDelivery).toLocaleDateString() : 'Не указан'}
+                              </div>
+                            </div>
                           </div>
                         </CardContent>
                       </Card>
@@ -601,12 +645,22 @@ export function TrucksManagement() {
               {/* Папки и материалы */}
               <div>
                 <div className="flex justify-between items-center mb-3">
-                  <h3 className="text-lg font-semibold">Материалы и документы</h3>
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-lg font-semibold">Материалы и документы</h3>
+                    {selectedFolderId && (
+                      <Button size="sm" variant="ghost" onClick={handleBackToRoot}>
+                        <ArrowLeft className="h-4 w-4 mr-1" />
+                        Назад
+                      </Button>
+                    )}
+                  </div>
                   <div className="flex gap-2">
-                    <Button size="sm" variant="outline" onClick={handleCreateFolder}>
-                      <FolderPlus className="h-4 w-4 mr-1" />
-                      Создать папку
-                    </Button>
+                    {!selectedFolderId && (
+                      <Button size="sm" variant="outline" onClick={handleCreateFolder}>
+                        <FolderPlus className="h-4 w-4 mr-1" />
+                        Создать папку
+                      </Button>
+                    )}
                     <Button size="sm" variant="outline" onClick={handleUploadFile}>
                       <Upload className="h-4 w-4 mr-1" />
                       Загрузить файл
@@ -618,32 +672,45 @@ export function TrucksManagement() {
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
                     <p className="mt-2 text-gray-500">Загрузка...</p>
                   </div>
-                ) : truckFolders.length === 0 && truckDocuments.length === 0 ? (
+                ) : (selectedFolderId ? filteredDocuments : [...truckFolders, ...filteredDocuments]).length === 0 ? (
                   <div className="text-center py-8 text-gray-500 border-2 border-dashed border-gray-300 rounded-lg">
                     <FolderOpen className="w-12 h-12 mx-auto mb-3 text-gray-300" />
-                    <p>Пока нет папок и документов. Создайте первую папку или загрузите файл.</p>
+                    <p>
+                      {selectedFolderId 
+                        ? "В этой папке пока нет файлов. Загрузите первый файл." 
+                        : "Пока нет папок и документов. Создайте первую папку или загрузите файл."
+                      }
+                    </p>
                   </div>
                 ) : (
                   <div className="space-y-3">
-                    {/* Папки */}
-                    {truckFolders.map((folder: any) => (
-                      <Card key={folder.id} className="border-l-4 border-l-blue-500">
-                        <CardContent className="p-3">
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                              <FolderOpen className="h-4 w-4 text-blue-500" />
-                              <span className="font-medium">{folder.name}</span>
-                            </div>
-                            <div className="text-xs text-gray-500">
-                              {new Date(folder.createdAt).toLocaleDateString()}
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
+                    {!selectedFolderId && (
+                      <>
+                        {/* Папки */}
+                        {truckFolders.map((folder: any) => (
+                          <Card 
+                            key={folder.id} 
+                            className="border-l-4 border-l-blue-500 cursor-pointer hover:bg-gray-50"
+                            onClick={() => handleFolderClick(folder.id)}
+                          >
+                            <CardContent className="p-3">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-2">
+                                  <FolderOpen className="h-4 w-4 text-blue-500" />
+                                  <span className="font-medium">{folder.name}</span>
+                                </div>
+                                <div className="text-xs text-gray-500">
+                                  {new Date(folder.createdAt).toLocaleDateString()}
+                                </div>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        ))}
+                      </>
+                    )}
 
                     {/* Документы */}
-                    {truckDocuments.map((document: any) => (
+                    {filteredDocuments.map((document: any) => (
                       <Card key={document.id} className="border-l-4 border-l-green-500">
                         <CardContent className="p-3">
                           <div className="flex items-center justify-between">
@@ -651,8 +718,17 @@ export function TrucksManagement() {
                               <Upload className="h-4 w-4 text-green-500" />
                               <span className="font-medium">{document.name}</span>
                             </div>
-                            <div className="text-xs text-gray-500">
-                              {new Date(document.createdAt).toLocaleDateString()}
+                            <div className="flex items-center gap-2">
+                              <Button 
+                                size="sm" 
+                                variant="ghost" 
+                                onClick={() => handleDownloadFile(document)}
+                              >
+                                <Download className="h-4 w-4" />
+                              </Button>
+                              <div className="text-xs text-gray-500">
+                                {new Date(document.createdAt).toLocaleDateString()}
+                              </div>
                             </div>
                           </div>
                         </CardContent>
