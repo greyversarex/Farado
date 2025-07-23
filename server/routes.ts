@@ -1001,6 +1001,99 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Truck folders API
+  app.post('/api/admin/trucks/:id/folders', requireAuth, async (req, res) => {
+    try {
+      const truckId = parseInt(req.params.id);
+      const { name } = req.body;
+      
+      const truck = await storage.getTruck(truckId);
+      if (!truck) {
+        return res.status(404).json({ error: 'Truck not found' });
+      }
+
+      const folders = Array.isArray(truck.folders) ? truck.folders : [];
+      const newFolder = {
+        id: Date.now(),
+        name,
+        createdAt: new Date().toISOString()
+      };
+      
+      folders.push(newFolder);
+      await storage.updateTruck(truckId, { folders });
+      
+      res.status(201).json(newFolder);
+    } catch (error) {
+      console.error('Create truck folder error:', error);
+      res.status(500).json({ error: 'Failed to create folder' });
+    }
+  });
+
+  app.get('/api/admin/trucks/:id/folders', requireAuth, async (req, res) => {
+    try {
+      const truckId = parseInt(req.params.id);
+      const truck = await storage.getTruck(truckId);
+      
+      if (!truck) {
+        return res.status(404).json({ error: 'Truck not found' });
+      }
+      
+      const folders = Array.isArray(truck.folders) ? truck.folders : [];
+      res.json(folders);
+    } catch (error) {
+      console.error('Get truck folders error:', error);
+      res.status(500).json({ error: 'Failed to fetch folders' });
+    }
+  });
+
+  // Truck documents API
+  app.post('/api/admin/trucks/:id/documents', requireAuth, async (req, res) => {
+    try {
+      const truckId = parseInt(req.params.id);
+      const { name, type, folderId, fileData } = req.body;
+      
+      const truck = await storage.getTruck(truckId);
+      if (!truck) {
+        return res.status(404).json({ error: 'Truck not found' });
+      }
+
+      const documents = Array.isArray(truck.documents) ? truck.documents : [];
+      const newDocument = {
+        id: Date.now(),
+        name,
+        type: type || 'document',
+        folderId: folderId || null,
+        fileData: fileData || '',
+        createdAt: new Date().toISOString()
+      };
+      
+      documents.push(newDocument);
+      await storage.updateTruck(truckId, { documents });
+      
+      res.status(201).json(newDocument);
+    } catch (error) {
+      console.error('Create truck document error:', error);
+      res.status(500).json({ error: 'Failed to create document' });
+    }
+  });
+
+  app.get('/api/admin/trucks/:id/documents', requireAuth, async (req, res) => {
+    try {
+      const truckId = parseInt(req.params.id);
+      const truck = await storage.getTruck(truckId);
+      
+      if (!truck) {
+        return res.status(404).json({ error: 'Truck not found' });
+      }
+      
+      const documents = Array.isArray(truck.documents) ? truck.documents : [];
+      res.json(documents);
+    } catch (error) {
+      console.error('Get truck documents error:', error);
+      res.status(500).json({ error: 'Failed to fetch documents' });
+    }
+  });
+
   // Архив API
   app.get('/api/admin/archive/folders', requireAuth, async (req, res) => {
     try {

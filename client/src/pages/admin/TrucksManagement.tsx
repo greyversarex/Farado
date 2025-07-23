@@ -36,6 +36,17 @@ export function TrucksManagement() {
     retry: 1,
   });
 
+  // Загружаем папки и документы фуры
+  const { data: truckFolders = [], isLoading: foldersLoading, refetch: refetchFolders } = useQuery<any[]>({
+    queryKey: [`/api/admin/trucks/${selectedTruck?.id}/folders`],
+    enabled: !!selectedTruck?.id && isTruckDetailsOpen,
+  });
+
+  const { data: truckDocuments = [], isLoading: documentsLoading, refetch: refetchDocuments } = useQuery<any[]>({
+    queryKey: [`/api/admin/trucks/${selectedTruck?.id}/documents`],
+    enabled: !!selectedTruck?.id && isTruckDetailsOpen,
+  });
+
   // Отладочная информация
   console.log('TrucksManagement Debug:', {
     selectedTruckId: selectedTruck?.id,
@@ -199,27 +210,89 @@ export function TrucksManagement() {
     return num % 1 === 0 ? num.toString() : num.toFixed(3).replace(/\.?0+$/, '');
   };
 
+  const createFolderMutation = useMutation({
+    mutationFn: async (data: { truckId: number, name: string }) => {
+      const response = await apiRequest(`/api/admin/trucks/${data.truckId}/folders`, {
+        method: 'POST',
+        body: JSON.stringify({ name: data.name }),
+      });
+      if (!response.ok) throw new Error('Failed to create folder');
+      return response.json();
+    },
+    onSuccess: () => {
+      refetchFolders();
+      toast({
+        title: "Успешно",
+        description: "Папка создана",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Ошибка",
+        description: "Не удалось создать папку",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const createDocumentMutation = useMutation({
+    mutationFn: async (data: { truckId: number, name: string, fileData: string }) => {
+      const response = await apiRequest(`/api/admin/trucks/${data.truckId}/documents`, {
+        method: 'POST',
+        body: JSON.stringify({ 
+          name: data.name, 
+          fileData: data.fileData,
+          type: 'document'
+        }),
+      });
+      if (!response.ok) throw new Error('Failed to create document');
+      return response.json();
+    },
+    onSuccess: () => {
+      refetchDocuments();
+      toast({
+        title: "Успешно",
+        description: "Файл загружен",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Ошибка",
+        description: "Не удалось загрузить файл",
+        variant: "destructive",
+      });
+    },
+  });
+
   const handleCreateFolder = () => {
+    if (!selectedTruck) return;
     const folderName = prompt("Введите название папки:");
     if (folderName && folderName.trim()) {
-      toast({
-        title: "Папка создана",
-        description: `Папка "${folderName}" успешно создана`,
+      createFolderMutation.mutate({
+        truckId: selectedTruck.id,
+        name: folderName.trim()
       });
     }
   };
 
   const handleUploadFile = () => {
+    if (!selectedTruck) return;
     const input = document.createElement('input');
     input.type = 'file';
-    input.multiple = true;
+    input.multiple = false;
     input.onchange = (e: any) => {
-      const files = e.target.files;
-      if (files && files.length > 0) {
-        toast({
-          title: "Файлы загружены",
-          description: `Загружено ${files.length} файл(ов)`,
-        });
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const fileData = event.target?.result as string;
+          createDocumentMutation.mutate({
+            truckId: selectedTruck.id,
+            name: file.name,
+            fileData: fileData
+          });
+        };
+        reader.readAsDataURL(file);
       }
     };
     input.click();
@@ -540,10 +613,53 @@ export function TrucksManagement() {
                     </Button>
                   </div>
                 </div>
-                <div className="text-center py-8 text-gray-500 border-2 border-dashed border-gray-300 rounded-lg">
-                  <FolderOpen className="w-12 h-12 mx-auto mb-3 text-gray-300" />
-                  <p>Функция создания папок и добавления материалов будет реализована следующим этапом</p>
-                </div>
+                {(foldersLoading || documentsLoading) ? (
+                  <div className="text-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
+                    <p className="mt-2 text-gray-500">Загрузка...</p>
+                  </div>
+                ) : truckFolders.length === 0 && truckDocuments.length === 0 ? (
+                  <div className="text-center py-8 text-gray-500 border-2 border-dashed border-gray-300 rounded-lg">
+                    <FolderOpen className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+                    <p>Пока нет папок и документов. Создайте первую папку или загрузите файл.</p>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {/* Папки */}
+                    {truckFolders.map((folder: any) => (
+                      <Card key={folder.id} className="border-l-4 border-l-blue-500">
+                        <CardContent className="p-3">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <FolderOpen className="h-4 w-4 text-blue-500" />
+                              <span className="font-medium">{folder.name}</span>
+                            </div>
+                            <div className="text-xs text-gray-500">
+                              {new Date(folder.createdAt).toLocaleDateString()}
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+
+                    {/* Документы */}
+                    {truckDocuments.map((document: any) => (
+                      <Card key={document.id} className="border-l-4 border-l-green-500">
+                        <CardContent className="p-3">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <Upload className="h-4 w-4 text-green-500" />
+                              <span className="font-medium">{document.name}</span>
+                            </div>
+                            <div className="text-xs text-gray-500">
+                              {new Date(document.createdAt).toLocaleDateString()}
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           )}
