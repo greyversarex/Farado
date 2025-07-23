@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Truck, Plus, Edit, Trash2, Package, Gauge } from "lucide-react";
+import { Truck, Plus, Edit, Trash2, Package, Gauge, FolderPlus, Upload, FolderOpen } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import type { Truck as TruckType, InsertTruck } from "@shared/schema";
 
@@ -382,14 +382,36 @@ export function TrucksManagement() {
               {/* Товары в фуре */}
               <div>
                 <h3 className="text-lg font-semibold mb-3">Товары в фуре</h3>
+                <p className="text-xs text-gray-500 mb-2">Загружено: {truckItems.length} товаров</p>
                 
                 {isLoadingItems ? (
                   <div className="flex justify-center py-8">
                     <div className="text-gray-500">Загрузка товаров...</div>
                   </div>
                 ) : truckItems.length === 0 ? (
-                  <div className="text-center py-8 text-gray-500">
-                    В этой фуре пока нет товаров
+                  <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+                    <div className="flex items-center text-red-600 mb-2">
+                      <Package className="w-5 h-5 mr-2" />
+                      <span className="font-medium">-</span>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                      <div>
+                        <span className="text-gray-600">Количество:</span>
+                        <div className="font-medium">0 кг</div>
+                      </div>
+                      <div>
+                        <span className="text-gray-600">Вес:</span>
+                        <div className="font-medium">0 кг</div>
+                      </div>
+                      <div>
+                        <span className="text-gray-600">Объём:</span>
+                        <div className="font-medium">0 м³</div>
+                      </div>
+                      <div>
+                        <span className="text-gray-600">Статус:</span>
+                        <div className="font-medium">Свободен</div>
+                      </div>
+                    </div>
                   </div>
                 ) : (
                   <div className="space-y-3">
@@ -426,11 +448,24 @@ export function TrucksManagement() {
                 )}
               </div>
 
-              {/* Папки и материалы (заглушка для будущего функционала) */}
+              {/* Папки и материалы */}
               <div>
-                <h3 className="text-lg font-semibold mb-3">Материалы и документы</h3>
+                <div className="flex justify-between items-center mb-3">
+                  <h3 className="text-lg font-semibold">Материалы и документы</h3>
+                  <div className="flex gap-2">
+                    <Button size="sm" variant="outline">
+                      <FolderPlus className="h-4 w-4 mr-1" />
+                      Создать папку
+                    </Button>
+                    <Button size="sm" variant="outline">
+                      <Upload className="h-4 w-4 mr-1" />
+                      Загрузить файл
+                    </Button>
+                  </div>
+                </div>
                 <div className="text-center py-8 text-gray-500 border-2 border-dashed border-gray-300 rounded-lg">
-                  Функция создания папок и добавления материалов будет реализована следующим этапом
+                  <FolderOpen className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+                  <p>Функция создания папок и добавления материалов будет реализована следующим этапом</p>
                 </div>
               </div>
             </div>

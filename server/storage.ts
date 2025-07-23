@@ -1004,7 +1004,45 @@ class DatabaseStorage implements IStorage {
   }
 
   async getTruckItems(truckId: number): Promise<OrderItem[]> {
-    return await db.select().from(orderItems)
+    return await db.select({
+      id: orderItems.id,
+      orderId: orderItems.orderId,
+      warehouseId: orderItems.warehouseId,
+      truckId: orderItems.truckId,
+      warehouseName: warehouses.name,
+      code: orderItems.code,
+      name: orderItems.name,
+      quantity: orderItems.quantity,
+      characteristics: orderItems.characteristics,
+      deliveryPeriod: orderItems.deliveryPeriod,
+      destination: orderItems.destination,
+      shipmentDate: orderItems.shipmentDate,
+      expectedDeliveryDate: orderItems.expectedDeliveryDate,
+      transport: orderItems.transport,
+      volumeType: orderItems.volumeType,
+      transportPrice: orderItems.transportPrice,
+      totalTransportCost: orderItems.totalTransportCost,
+      paidAmount: orderItems.paidAmount,
+      unpaidAmount: orderItems.unpaidAmount,
+      paymentType: orderItems.paymentType,
+      paymentStatus: orderItems.paymentStatus,
+      pricePerUnit: orderItems.pricePerUnit,
+      totalPrice: orderItems.totalPrice,
+      weight: orderItems.weight,
+      comments: orderItems.comments,
+      volume: orderItems.volume,
+      status: orderItems.status,
+      fromInventory: orderItems.fromInventory,
+      inventoryItemId: orderItems.inventoryItemId,
+      rawText: orderItems.rawText,
+      photos: orderItems.photos,
+      totalAmount: orderItems.totalAmount,
+      remainingAmount: orderItems.remainingAmount,
+      createdBy: orderItems.createdBy,
+      createdAt: orderItems.createdAt,
+      updatedAt: orderItems.updatedAt,
+    }).from(orderItems)
+      .leftJoin(warehouses, eq(orderItems.warehouseId, warehouses.id))
       .where(eq(orderItems.truckId, truckId))
       .orderBy(desc(orderItems.createdAt));
   }
