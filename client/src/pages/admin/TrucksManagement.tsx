@@ -29,10 +29,22 @@ export function TrucksManagement() {
     queryKey: ['/api/admin/trucks'],
   });
 
-  // Загружаем товары для выбранной фуры
-  const { data: truckItems = [], isLoading: isLoadingItems } = useQuery<any[]>({
-    queryKey: ['/api/admin/trucks', selectedTruck?.id, 'items'],
+  // Загружаем товары для выбранной фуры  
+  const { data: truckItems = [], isLoading: isLoadingItems, error: truckItemsError } = useQuery<any[]>({
+    queryKey: [`/api/admin/trucks/${selectedTruck?.id}/items`],
     enabled: !!selectedTruck?.id && isTruckDetailsOpen,
+    retry: 1,
+  });
+
+  // Отладочная информация
+  console.log('TrucksManagement Debug:', {
+    selectedTruckId: selectedTruck?.id,
+    isTruckDetailsOpen,
+    truckItemsLength: truckItems.length,
+    isLoadingItems,
+    truckItemsError,
+    queryEnabled: !!selectedTruck?.id && isTruckDetailsOpen,
+    queryKey: `/api/admin/trucks/${selectedTruck?.id}/items`
   });
 
   const createMutation = useMutation({
@@ -129,6 +141,7 @@ export function TrucksManagement() {
   };
 
   const handleViewTruck = (truck: TruckType) => {
+    console.log('Opening truck details for:', truck.id, truck.number);
     setSelectedTruck(truck);
     setIsTruckDetailsOpen(true);
   };
@@ -396,7 +409,11 @@ export function TrucksManagement() {
               {/* Товары в фуре */}
               <div>
                 <h3 className="text-lg font-semibold mb-3">Товары в фуре</h3>
-                <p className="text-xs text-gray-500 mb-2">Загружено: {truckItems.length} товаров</p>
+                <p className="text-xs text-gray-500 mb-2">
+                  Загружено: {truckItems.length} товаров 
+                  {truckItemsError && ` (Ошибка: ${truckItemsError})`}
+                  {isLoadingItems && ' (Загрузка...)'}
+                </p>
                 
                 {isLoadingItems ? (
                   <div className="flex justify-center py-8">
