@@ -328,6 +328,22 @@ export const insertOrderItemSchema = createInsertSchema(orderItems).omit({
     if (val === '' || val === null || val === undefined) return '0';
     return typeof val === 'string' ? val : val.toString();
   }),
+  transportPrice: z.union([z.string(), z.number()]).transform(val => {
+    if (val === '' || val === null || val === undefined) return '0';
+    return typeof val === 'string' ? val : val.toString();
+  }),
+  totalTransportCost: z.union([z.string(), z.number()]).transform(val => {
+    if (val === '' || val === null || val === undefined) return '0';
+    return typeof val === 'string' ? val : val.toString();
+  }),
+  paidAmount: z.union([z.string(), z.number()]).transform(val => {
+    if (val === '' || val === null || val === undefined) return '0';
+    return typeof val === 'string' ? val : val.toString();
+  }),
+  unpaidAmount: z.union([z.string(), z.number()]).transform(val => {
+    if (val === '' || val === null || val === undefined) return '0';
+    return typeof val === 'string' ? val : val.toString();
+  }),
   quantity: z.union([z.string(), z.number()]).transform(val => typeof val === 'string' ? parseInt(val) || 1 : val),
   photos: z.array(z.string()).optional().default([]),
   shipmentDate: z.union([z.string(), z.null()]).transform(val => {
