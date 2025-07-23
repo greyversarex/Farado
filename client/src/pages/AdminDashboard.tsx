@@ -1220,6 +1220,12 @@ export default function AdminDashboard({ user, onLogout }: AdminDashboardProps) 
                                     <span className="text-gray-600">Объем/Вес:</span>
                                     <span className="font-semibold text-gray-900">{formatNumber(item.volumeType === 'kg' ? item.weight : item.volume)} {item.volumeType}</span>
                                   </div>
+                                  {item.truck && (
+                                    <div className="flex justify-between py-1">
+                                      <span className="text-gray-600">Фура:</span>
+                                      <span className="font-semibold text-blue-600">{item.truck.number}</span>
+                                    </div>
+                                  )}
                                   <div className="flex justify-between py-1">
                                     <span className="text-gray-600">Дата отправки:</span>
                                     <span className="font-semibold text-gray-900">

@@ -17,6 +17,7 @@ export function TrucksManagement() {
   const queryClient = useQueryClient();
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isTruckDetailsOpen, setIsTruckDetailsOpen] = useState(false);
   const [selectedTruck, setSelectedTruck] = useState<TruckType | null>(null);
   const [formData, setFormData] = useState<InsertTruck>({
     number: '',
@@ -26,6 +27,12 @@ export function TrucksManagement() {
 
   const { data: trucks = [], isLoading } = useQuery<TruckType[]>({
     queryKey: ['/api/admin/trucks'],
+  });
+
+  // Загружаем товары для выбранной фуры
+  const { data: truckItems = [], isLoading: isLoadingItems } = useQuery<any[]>({
+    queryKey: ['/api/admin/trucks', selectedTruck?.id, 'items'],
+    enabled: !!selectedTruck?.id && isTruckDetailsOpen,
   });
 
   const createMutation = useMutation({
@@ -121,6 +128,25 @@ export function TrucksManagement() {
     }
   };
 
+  const handleViewTruck = (truck: TruckType) => {
+    setSelectedTruck(truck);
+    setIsTruckDetailsOpen(true);
+  };
+
+  const calculateTruckLoad = (truck: TruckType, items: any[] = []) => {
+    if (!items || items.length === 0) return { totalWeight: 0, loadPercentage: 0 };
+    
+    const totalWeight = items.reduce((sum: number, item: any) => {
+      const weight = parseFloat(item.weight || '0');
+      return sum + weight;
+    }, 0);
+    
+    const capacity = parseFloat(truck.capacity || '0');
+    const loadPercentage = capacity > 0 ? (totalWeight / capacity) * 100 : 0;
+    
+    return { totalWeight, loadPercentage };
+  };
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'В пути':
@@ -205,7 +231,7 @@ export function TrucksManagement() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {trucks.map((truck) => (
-            <Card key={truck.id} className="hover:shadow-lg transition-shadow">
+            <Card key={truck.id} className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => handleViewTruck(truck)}>
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -250,7 +276,10 @@ export function TrucksManagement() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => handleEdit(truck)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleEdit(truck);
+                    }}
                     className="flex-1"
                   >
                     <Edit className="h-4 w-4 mr-1" />
@@ -259,7 +288,10 @@ export function TrucksManagement() {
                   <Button
                     variant="destructive"
                     size="sm"
-                    onClick={() => handleDelete(truck.id)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDelete(truck.id);
+                    }}
                     className="flex-1"
                   >
                     <Trash2 className="h-4 w-4 mr-1" />
@@ -314,6 +346,95 @@ export function TrucksManagement() {
               {updateMutation.isPending ? 'Сохранение...' : 'Сохранить изменения'}
             </Button>
           </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Модальное окно для просмотра товаров фуры */}
+      <Dialog open={isTruckDetailsOpen} onOpenChange={setIsTruckDetailsOpen}>
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Truck className="h-5 w-5 text-blue-600" />
+              Фура {selectedTruck?.number} - Товары
+            </DialogTitle>
+          </DialogHeader>
+          
+          {selectedTruck && (
+            <div className="space-y-4">
+              {/* Информация о фуре */}
+              <div className="grid grid-cols-3 gap-4 p-4 bg-gray-50 rounded-lg">
+                <div className="text-center">
+                  <div className="text-sm text-gray-600">Вместимость</div>
+                  <div className="font-medium">{formatNumber(selectedTruck.capacity)} м³</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-sm text-gray-600">Загружено</div>
+                  <div className="font-medium">{formatNumber(selectedTruck.currentVolume || '0')} м³</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-sm text-gray-600">Заполненность</div>
+                  <div className="font-medium">
+                    {((parseFloat(selectedTruck.currentVolume || '0') / parseFloat(selectedTruck.capacity)) * 100).toFixed(1)}%
+                  </div>
+                </div>
+              </div>
+
+              {/* Товары в фуре */}
+              <div>
+                <h3 className="text-lg font-semibold mb-3">Товары в фуре</h3>
+                
+                {isLoadingItems ? (
+                  <div className="flex justify-center py-8">
+                    <div className="text-gray-500">Загрузка товаров...</div>
+                  </div>
+                ) : truckItems.length === 0 ? (
+                  <div className="text-center py-8 text-gray-500">
+                    В этой фуре пока нет товаров
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {truckItems.map((item: any) => (
+                      <Card key={item.id} className="border-l-4 border-l-red-500">
+                        <CardHeader className="bg-red-500 text-white py-2">
+                          <CardTitle className="text-sm font-medium">
+                            {item.code} - {item.name}
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-4">
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                            <div>
+                              <span className="text-gray-600">Количество:</span>
+                              <div className="font-medium">{item.quantity}</div>
+                            </div>
+                            <div>
+                              <span className="text-gray-600">Вес:</span>
+                              <div className="font-medium">{formatNumber(item.weight)} кг</div>
+                            </div>
+                            <div>
+                              <span className="text-gray-600">Объем:</span>
+                              <div className="font-medium">{formatNumber(item.volume)} м³</div>
+                            </div>
+                            <div>
+                              <span className="text-gray-600">Статус:</span>
+                              <div className="font-medium">{item.status}</div>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Папки и материалы (заглушка для будущего функционала) */}
+              <div>
+                <h3 className="text-lg font-semibold mb-3">Материалы и документы</h3>
+                <div className="text-center py-8 text-gray-500 border-2 border-dashed border-gray-300 rounded-lg">
+                  Функция создания папок и добавления материалов будет реализована следующим этапом
+                </div>
+              </div>
+            </div>
+          )}
         </DialogContent>
       </Dialog>
     </div>

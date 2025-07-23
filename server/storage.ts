@@ -502,6 +502,12 @@ class DatabaseStorage implements IStorage {
       warehouseId: orderItems.warehouseId,
       truckId: orderItems.truckId,
       warehouseName: warehouses.name,
+      truck: {
+        id: trucks.id,
+        number: trucks.number,
+        capacity: trucks.capacity,
+        status: trucks.status
+      },
       code: orderItems.code,
       name: orderItems.name,
       quantity: orderItems.quantity,
@@ -535,6 +541,7 @@ class DatabaseStorage implements IStorage {
       updatedAt: orderItems.updatedAt,
     }).from(orderItems)
       .leftJoin(warehouses, eq(orderItems.warehouseId, warehouses.id))
+      .leftJoin(trucks, eq(orderItems.truckId, trucks.id))
       .where(eq(orderItems.orderId, orderId))
       .orderBy(desc(orderItems.createdAt));
   }

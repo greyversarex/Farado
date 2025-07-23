@@ -983,6 +983,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Get truck items
+  app.get('/api/admin/trucks/:id/items', requireAuth, async (req, res) => {
+    try {
+      const truckId = parseInt(req.params.id);
+      const items = await storage.getTruckItems(truckId);
+      res.json(items);
+    } catch (error) {
+      console.error('Get truck items error:', error);
+      res.status(500).json({ error: 'Failed to fetch truck items' });
+    }
+  });
+
   // Архив API
   app.get('/api/admin/archive/folders', requireAuth, async (req, res) => {
     try {
