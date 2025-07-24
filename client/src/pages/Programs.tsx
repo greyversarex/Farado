@@ -217,7 +217,7 @@ export default function Programs() {
                 <CardContent className="relative">
                   <div className="flex items-center justify-between">
                     <Badge variant="outline" className="font-medium">
-                      {program.stages} {program.id === 'business-start' ? t('pages.programs.businessStart.stages') : t('pages.programs.control.stages')}
+                      {program.id === 'business-start' ? t('pages.programs.businessStart.stages') : t('pages.programs.control.stages')}
                     </Badge>
                     <Button 
                       variant="ghost" 
