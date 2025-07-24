@@ -13,6 +13,7 @@ import { FloatingSocial } from "@/components/ui/floating-social";
 import Landing from "@/pages/Landing";
 import Home from "@/pages/Home";
 import Services from "@/pages/Services";
+import Programs from "@/pages/Programs";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import Blog from "@/pages/Blog";
@@ -38,6 +39,7 @@ function Router() {
                 <Route path="/" component={Home} />
                 <Route path="/home" component={Home} />
                 <Route path="/services" component={Services} />
+                <Route path="/programs" component={Programs} />
                 <Route path="/about" component={About} />
                 <Route path="/contact" component={Contact} />
                 <Route path="/blog" component={Blog} />
