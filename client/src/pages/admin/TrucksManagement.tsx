@@ -332,6 +332,67 @@ export function TrucksManagement() {
     }
   };
 
+  const deleteFolderMutation = useMutation({
+    mutationFn: async ({ truckId, folderId }: { truckId: number, folderId: number }) => {
+      const response = await apiRequest(`/api/admin/trucks/${truckId}/folders/${folderId}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) throw new Error('Failed to delete folder');
+      return response.json();
+    },
+    onSuccess: () => {
+      refetchFolders();
+      refetchDocuments();
+      toast({
+        title: "Успешно",
+        description: "Папка удалена",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Ошибка",
+        description: "Не удалось удалить папку",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const deleteDocumentMutation = useMutation({
+    mutationFn: async ({ truckId, documentId }: { truckId: number, documentId: number }) => {
+      const response = await apiRequest(`/api/admin/trucks/${truckId}/documents/${documentId}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) throw new Error('Failed to delete document');
+      return response.json();
+    },
+    onSuccess: () => {
+      refetchDocuments();
+      toast({
+        title: "Успешно",
+        description: "Файл удален",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Ошибка",
+        description: "Не удалось удалить файл",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleDeleteFolder = (folderId: number) => {
+    if (selectedTruck && confirm('Вы уверены, что хотите удалить эту папку? Все файлы в ней также будут удалены.')) {
+      deleteFolderMutation.mutate({ truckId: selectedTruck.id, folderId });
+    }
+  };
+
+  const handleDeleteDocument = (documentId: number) => {
+    if (selectedTruck && confirm('Вы уверены, что хотите удалить этот файл?')) {
+      deleteDocumentMutation.mutate({ truckId: selectedTruck.id, documentId });
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -699,8 +760,20 @@ export function TrucksManagement() {
                                   <FolderOpen className="h-4 w-4 text-blue-500" />
                                   <span className="font-medium">{folder.name}</span>
                                 </div>
-                                <div className="text-xs text-gray-500">
-                                  {new Date(folder.createdAt).toLocaleDateString()}
+                                <div className="flex items-center gap-2">
+                                  <Button 
+                                    size="sm" 
+                                    variant="destructive" 
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      handleDeleteFolder(folder.id);
+                                    }}
+                                  >
+                                    <Trash2 className="h-4 w-4" />
+                                  </Button>
+                                  <div className="text-xs text-gray-500">
+                                    {new Date(folder.createdAt).toLocaleDateString()}
+                                  </div>
                                 </div>
                               </div>
                             </CardContent>
@@ -725,6 +798,16 @@ export function TrucksManagement() {
                                 onClick={() => handleDownloadFile(document)}
                               >
                                 <Download className="h-4 w-4" />
+                              </Button>
+                              <Button 
+                                size="sm" 
+                                variant="destructive" 
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleDeleteDocument(document.id);
+                                }}
+                              >
+                                <Trash2 className="h-4 w-4" />
                               </Button>
                               <div className="text-xs text-gray-500">
                                 {new Date(document.createdAt).toLocaleDateString()}

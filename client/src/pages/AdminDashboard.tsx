@@ -31,6 +31,7 @@ import { EditItemForm } from '@/components/forms/EditItemForm';
 import { UniversalItemForm } from '@/components/forms/UniversalItemForm';
 import { PhotoUpload } from '@/components/PhotoUpload';
 import { ItemChangeHistory } from '@/components/ItemChangeHistory';
+import { OrderDocuments } from '@/components/OrderDocuments';
 import Counterparties from './admin/Counterparties';
 import { WarehouseManagement } from './admin/WarehouseManagement';
 import { TrucksManagement } from './admin/TrucksManagement';
@@ -67,6 +68,7 @@ export default function AdminDashboard({ user, onLogout }: AdminDashboardProps) 
   const [showOrderHistory, setShowOrderHistory] = useState(false);
   const [photoModalItem, setPhotoModalItem] = useState<any>(null);
   const [changeHistoryItem, setChangeHistoryItem] = useState<any>(null);
+  const [documentsOrder, setDocumentsOrder] = useState<any>(null);
 
   const authHeaders = (() => {
     const savedCredentials = localStorage.getItem('adminCredentials');
@@ -1028,6 +1030,15 @@ export default function AdminDashboard({ user, onLogout }: AdminDashboardProps) 
                     </Button>
                     <Button 
                       size="sm"
+                      variant="outline"
+                      onClick={() => setDocumentsOrder(selectedOrder)}
+                      className="text-xs"
+                    >
+                      <Archive className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                      Документы
+                    </Button>
+                    <Button 
+                      size="sm"
                       variant="destructive"
                       onClick={() => deleteOrder(selectedOrder.id)}
                       className="text-xs"
@@ -1387,6 +1398,28 @@ export default function AdminDashboard({ user, onLogout }: AdminDashboardProps) 
           </div>
         )}
 
+        {/* Order Documents Modal */}
+        {documentsOrder && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-2 sm:p-4 z-50">
+            <Card className="w-full max-w-4xl max-h-screen overflow-y-auto">
+              <CardHeader className="pb-4">
+                <div className="flex justify-between items-center">
+                  <CardTitle className="text-lg sm:text-xl">Документы заказа</CardTitle>
+                  <Button variant="outline" size="sm" onClick={() => setDocumentsOrder(null)}>
+                    Закрыть
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="px-3 sm:px-6">
+                <OrderDocuments 
+                  orderId={documentsOrder.id} 
+                  orderName={documentsOrder.name} 
+                />
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
         {/* Item Change History Modal */}
         {changeHistoryItem && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-2 sm:p-4 z-50">
@@ -1569,3 +1602,4 @@ function CreateOrderModal({ onClose, onCreate }: CreateOrderModalProps) {
     </div>
   );
 }
+

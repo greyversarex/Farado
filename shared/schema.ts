@@ -145,6 +145,8 @@ export const orders = pgTable("orders", {
   totalVolume: decimal("total_volume", { precision: 10, scale: 3 }).default("0"), // Автоматически рассчитывается
   totalQuantity: integer("total_quantity").default(0), // Автоматически рассчитывается
   comments: text("comments"),
+  documents: jsonb("documents").default("[]"), // Массив документов и файлов
+  folders: jsonb("folders").default("[]"), // Массив папок
   createdBy: integer("created_by").references(() => adminUsers.id),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),

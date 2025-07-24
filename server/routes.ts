@@ -1094,6 +1094,202 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Delete truck folder
+  app.delete('/api/admin/trucks/:id/folders/:folderId', requireAuth, async (req, res) => {
+    try {
+      const truckId = parseInt(req.params.id);
+      const folderId = parseInt(req.params.folderId);
+      
+      const truck = await storage.getTruck(truckId);
+      if (!truck) {
+        return res.status(404).json({ error: 'Truck not found' });
+      }
+
+      const folders = Array.isArray(truck.folders) ? truck.folders : [];
+      const documents = Array.isArray(truck.documents) ? truck.documents : [];
+      
+      // Remove folder and all documents in it
+      const updatedFolders = folders.filter(f => f.id !== folderId);
+      const updatedDocuments = documents.filter(d => d.folderId !== folderId);
+      
+      await storage.updateTruck(truckId, { 
+        folders: updatedFolders,
+        documents: updatedDocuments
+      });
+      
+      res.json({ success: true });
+    } catch (error) {
+      console.error('Delete truck folder error:', error);
+      res.status(500).json({ error: 'Failed to delete folder' });
+    }
+  });
+
+  // Delete truck document
+  app.delete('/api/admin/trucks/:id/documents/:documentId', requireAuth, async (req, res) => {
+    try {
+      const truckId = parseInt(req.params.id);
+      const documentId = parseInt(req.params.documentId);
+      
+      const truck = await storage.getTruck(truckId);
+      if (!truck) {
+        return res.status(404).json({ error: 'Truck not found' });
+      }
+
+      const documents = Array.isArray(truck.documents) ? truck.documents : [];
+      const updatedDocuments = documents.filter(d => d.id !== documentId);
+      
+      await storage.updateTruck(truckId, { documents: updatedDocuments });
+      
+      res.json({ success: true });
+    } catch (error) {
+      console.error('Delete truck document error:', error);
+      res.status(500).json({ error: 'Failed to delete document' });
+    }
+  });
+
+  // Order document management API
+  app.post('/api/admin/orders/:id/folders', requireAuth, async (req, res) => {
+    try {
+      const orderId = parseInt(req.params.id);
+      const { name } = req.body;
+      
+      const order = await storage.getOrder(orderId);
+      if (!order) {
+        return res.status(404).json({ error: 'Order not found' });
+      }
+
+      const folders = Array.isArray(order.folders) ? order.folders : [];
+      const newFolder = {
+        id: Date.now(),
+        name,
+        createdAt: new Date().toISOString()
+      };
+      
+      folders.push(newFolder);
+      await storage.updateOrder(orderId, { folders });
+      
+      res.status(201).json(newFolder);
+    } catch (error) {
+      console.error('Create order folder error:', error);
+      res.status(500).json({ error: 'Failed to create folder' });
+    }
+  });
+
+  app.get('/api/admin/orders/:id/folders', requireAuth, async (req, res) => {
+    try {
+      const orderId = parseInt(req.params.id);
+      const order = await storage.getOrder(orderId);
+      
+      if (!order) {
+        return res.status(404).json({ error: 'Order not found' });
+      }
+      
+      const folders = Array.isArray(order.folders) ? order.folders : [];
+      res.json(folders);
+    } catch (error) {
+      console.error('Get order folders error:', error);
+      res.status(500).json({ error: 'Failed to fetch folders' });
+    }
+  });
+
+  app.post('/api/admin/orders/:id/documents', requireAuth, async (req, res) => {
+    try {
+      const orderId = parseInt(req.params.id);
+      const { name, type, folderId, fileData } = req.body;
+      
+      const order = await storage.getOrder(orderId);
+      if (!order) {
+        return res.status(404).json({ error: 'Order not found' });
+      }
+
+      const documents = Array.isArray(order.documents) ? order.documents : [];
+      const newDocument = {
+        id: Date.now(),
+        name,
+        type: type || 'document',
+        folderId: folderId || null,
+        fileData: fileData || '',
+        createdAt: new Date().toISOString()
+      };
+      
+      documents.push(newDocument);
+      await storage.updateOrder(orderId, { documents });
+      
+      res.status(201).json(newDocument);
+    } catch (error) {
+      console.error('Create order document error:', error);
+      res.status(500).json({ error: 'Failed to create document' });
+    }
+  });
+
+  app.get('/api/admin/orders/:id/documents', requireAuth, async (req, res) => {
+    try {
+      const orderId = parseInt(req.params.id);
+      const order = await storage.getOrder(orderId);
+      
+      if (!order) {
+        return res.status(404).json({ error: 'Order not found' });
+      }
+      
+      const documents = Array.isArray(order.documents) ? order.documents : [];
+      res.json(documents);
+    } catch (error) {
+      console.error('Get order documents error:', error);
+      res.status(500).json({ error: 'Failed to fetch documents' });
+    }
+  });
+
+  app.delete('/api/admin/orders/:id/folders/:folderId', requireAuth, async (req, res) => {
+    try {
+      const orderId = parseInt(req.params.id);
+      const folderId = parseInt(req.params.folderId);
+      
+      const order = await storage.getOrder(orderId);
+      if (!order) {
+        return res.status(404).json({ error: 'Order not found' });
+      }
+
+      const folders = Array.isArray(order.folders) ? order.folders : [];
+      const documents = Array.isArray(order.documents) ? order.documents : [];
+      
+      // Remove folder and all documents in it
+      const updatedFolders = folders.filter(f => f.id !== folderId);
+      const updatedDocuments = documents.filter(d => d.folderId !== folderId);
+      
+      await storage.updateOrder(orderId, { 
+        folders: updatedFolders,
+        documents: updatedDocuments
+      });
+      
+      res.json({ success: true });
+    } catch (error) {
+      console.error('Delete order folder error:', error);
+      res.status(500).json({ error: 'Failed to delete folder' });
+    }
+  });
+
+  app.delete('/api/admin/orders/:id/documents/:documentId', requireAuth, async (req, res) => {
+    try {
+      const orderId = parseInt(req.params.id);
+      const documentId = parseInt(req.params.documentId);
+      
+      const order = await storage.getOrder(orderId);
+      if (!order) {
+        return res.status(404).json({ error: 'Order not found' });
+      }
+
+      const documents = Array.isArray(order.documents) ? order.documents : [];
+      const updatedDocuments = documents.filter(d => d.id !== documentId);
+      
+      await storage.updateOrder(orderId, { documents: updatedDocuments });
+      
+      res.json({ success: true });
+    } catch (error) {
+      console.error('Delete order document error:', error);
+      res.status(500).json({ error: 'Failed to delete document' });
+    }
+  });
+
   // Архив API
   app.get('/api/admin/archive/folders', requireAuth, async (req, res) => {
     try {
