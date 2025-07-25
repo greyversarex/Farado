@@ -177,28 +177,25 @@ export function ArchiveManagement() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <Archive className="h-6 w-6 text-purple-600" />
-          <h2 className="text-2xl font-bold text-gray-900">Архив</h2>
+    <div className="space-y-4 sm:space-y-6">
+      <div className="text-center space-y-3">
+        <h2 className="text-xl sm:text-2xl font-bold">Архив</h2>
+        <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 items-stretch sm:items-center">
           {selectedFolderId && (
             <Button 
               variant="outline" 
               size="sm" 
               onClick={() => setSelectedFolderId(null)}
+              className="mobile-button"
             >
               ← Назад
             </Button>
           )}
-        </div>
-        
-        <div className="flex gap-2">
           <Dialog open={isCreateFolderDialogOpen} onOpenChange={setIsCreateFolderDialogOpen}>
             <DialogTrigger asChild>
-              <Button variant="outline" className="flex items-center gap-2">
-                <Folder className="h-4 w-4" />
-                Создать папку
+              <Button variant="outline" size="sm" className="mobile-button">
+                <Folder className="w-4 h-4 mr-2" />
+                <span className="text-sm">Создать папку</span>
               </Button>
             </DialogTrigger>
             <DialogContent>
@@ -224,9 +221,9 @@ export function ArchiveManagement() {
 
           <Dialog open={isUploadDialogOpen} onOpenChange={setIsUploadDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="flex items-center gap-2">
-                <Upload className="h-4 w-4" />
-                Загрузить файл
+              <Button size="sm" className="mobile-button">
+                <Upload className="w-4 h-4 mr-2" />
+                <span className="text-sm">Загрузить файл</span>
               </Button>
             </DialogTrigger>
             <DialogContent>

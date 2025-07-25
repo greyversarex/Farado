@@ -394,18 +394,14 @@ export function TrucksManagement() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <Truck className="h-6 w-6 text-blue-600" />
-          <h2 className="text-2xl font-bold text-gray-900">Управление фурами</h2>
-        </div>
-        
+    <div className="space-y-4 sm:space-y-6">
+      <div className="text-center space-y-3">
+        <h2 className="text-xl sm:text-2xl font-bold">Управление фурами</h2>
         <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="flex items-center gap-2">
-              <Plus className="h-4 w-4" />
-              Добавить фуру
+            <Button size="sm" className="mobile-button">
+              <Plus className="w-4 h-4 mr-2" />
+              <span className="text-sm">Добавить фуру</span>
             </Button>
           </DialogTrigger>
           <DialogContent>
