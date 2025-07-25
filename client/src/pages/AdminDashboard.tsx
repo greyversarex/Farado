@@ -1084,7 +1084,7 @@ export default function AdminDashboard({ user, onLogout }: AdminDashboardProps) 
                         <div className="space-y-3">
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                             <div className="flex justify-between">
-                              <span className="text-gray-600">Общая сумма:</span>
+                              <span className="text-gray-600">Итоговая сумма:</span>
                               <span className="font-bold text-gray-900">
                                 ${calculateOrderTotals(orderItems).totalAmount.toFixed(2)}
                               </span>
@@ -1201,7 +1201,7 @@ export default function AdminDashboard({ user, onLogout }: AdminDashboardProps) 
                                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                                     {item.totalAmount && parseFloat(item.totalAmount) > 0 && (
                                       <div className="flex justify-between py-1">
-                                        <span className="text-gray-600">Общая сумма:</span>
+                                        <span className="text-gray-600">Итоговая сумма:</span>
                                         <span className="font-bold text-gray-900">${parseFloat(item.totalAmount).toFixed(2)}</span>
                                       </div>
                                     )}

@@ -229,7 +229,7 @@ export const TRANSLATIONS = {
     'pages.clientPortal.warehouse': 'Склад',
     'pages.clientPortal.weight': 'Вес',
     'pages.clientPortal.volume': 'Объем',
-    'pages.clientPortal.totalAmount': 'Общая сумма',
+    'pages.clientPortal.totalAmount': 'Итоговая сумма',
     'pages.clientPortal.paidAmount': 'Оплачено',
     'pages.clientPortal.unpaidAmount': 'К доплате',
     

@@ -216,17 +216,7 @@ export function UniversalItemForm({
               </div>
             </div>
 
-            {/* Характеристики */}
-            <div className="space-y-2">
-              <Label htmlFor="characteristics">Характеристики</Label>
-              <Textarea
-                id="characteristics"
-                value={formData.characteristics}
-                onChange={(e) => handleInputChange('characteristics', e.target.value)}
-                placeholder="Описание характеристик товара"
-                rows={3}
-              />
-            </div>
+
 
             {/* Количество и единицы */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

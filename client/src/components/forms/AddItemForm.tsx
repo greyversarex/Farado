@@ -162,17 +162,7 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
                 </div>
               </div>
 
-              <div>
-                <Label htmlFor="characteristics" className="text-sm sm:text-base">Характеристики</Label>
-                <Textarea
-                  id="characteristics"
-                  value={formData.characteristics}
-                  onChange={(e) => setFormData({ ...formData, characteristics: e.target.value })}
-                  placeholder="Описание характеристик товара"
-                  rows={2}
-                  className="text-sm sm:text-base"
-                />
-              </div>
+
             </div>
 
             {/* Количество и измерения */}
@@ -461,7 +451,7 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="totalAmount">Общая сумма (USD)</Label>
+                  <Label htmlFor="totalAmount">Итоговая сумма (USD)</Label>
                   <Input
                     id="totalAmount"
                     type="number"
@@ -489,7 +479,7 @@ export function AddItemForm({ onClose, onSubmit, orderId }: AddItemFormProps) {
             <div className="space-y-4">
               <h3 className="text-lg font-semibold">Фотографии</h3>
               <PhotoUpload
-                photos={formData.photos}
+                existingPhotos={formData.photos}
                 onPhotosChange={(photos) => setFormData({ ...formData, photos })}
               />
             </div>

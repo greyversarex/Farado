@@ -105,7 +105,7 @@ const translations = {
         warehouse: 'Склад',
         weight: 'Вес',
         volume: 'Объем',
-        totalAmount: 'Общая сумма'
+        totalAmount: 'Итоговая сумма'
       }
     },
     

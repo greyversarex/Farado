@@ -417,7 +417,7 @@ export default function CounterpartyDetails() {
                 </h4>
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-purple-700">Общая сумма:</span>
+                    <span className="text-sm text-purple-700">Итоговая сумма:</span>
                     <span className="font-bold text-purple-800 text-right">
                       ${calculateCounterpartyTotals().totalAmount.toFixed(2)}
                     </span>
@@ -692,7 +692,7 @@ export default function CounterpartyDetails() {
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                                   {item.totalAmount && parseFloat(item.totalAmount) > 0 && (
                                     <div className="flex justify-between py-1">
-                                      <span className="text-gray-600">Общая сумма:</span>
+                                      <span className="text-gray-600">Итоговая сумма:</span>
                                       <span className="font-bold text-gray-900">${parseFloat(item.totalAmount).toFixed(2)}</span>
                                     </div>
                                   )}
@@ -765,7 +765,7 @@ export default function CounterpartyDetails() {
                               </span>
                             </div>
                             <div className="flex justify-between">
-                              <span className="text-gray-600">Общая сумма:</span>
+                              <span className="text-gray-600">Итоговая сумма:</span>
                               <span className="font-bold text-gray-900">
                                 ${orderItems.reduce((sum, item) => sum + (parseFloat(item.totalAmount) || 0), 0).toFixed(2)}
                               </span>

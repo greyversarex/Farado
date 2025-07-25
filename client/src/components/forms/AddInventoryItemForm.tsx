@@ -81,15 +81,7 @@ export function AddInventoryItemForm({ onClose, onSubmit, warehouse }: AddInvent
                   />
                 </div>
 
-                <div>
-                  <Label htmlFor="characteristics">Характеристики</Label>
-                  <Textarea
-                    id="characteristics"
-                    value={formData.characteristics}
-                    onChange={(e) => setFormData(prev => ({ ...prev, characteristics: e.target.value }))}
-                    placeholder="Размер, цвет, материал и т.д."
-                  />
-                </div>
+
 
                 <div className="grid grid-cols-2 gap-2">
                   <div>

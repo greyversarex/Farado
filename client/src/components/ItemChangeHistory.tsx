@@ -83,7 +83,7 @@ export function ItemChangeHistory({ itemId, authHeaders }: ItemChangeHistoryProp
       transportPrice: 'Цена перевозки',
       totalTransportCost: 'Общая стоимость транспорта',
       volumeType: 'Тип измерения',
-      totalAmount: 'Общая сумма',
+      totalAmount: 'Итоговая сумма',
       remainingAmount: 'Остаток'
     };
     return fieldNames[field] || field;

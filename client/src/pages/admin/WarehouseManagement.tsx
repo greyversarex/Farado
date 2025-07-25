@@ -133,34 +133,34 @@ export function WarehouseManagement() {
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-6">
       <div className="text-center space-y-3">
-        <h1 className="font-bold text-[26px]">Управление складами</h1>
+        <h1 className="font-bold text-xl sm:text-2xl lg:text-[26px]">Управление складами</h1>
         <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
           <DialogTrigger asChild>
-            <Button>
+            <Button className="w-full sm:w-auto">
               <Plus className="w-4 h-4 mr-2" />
               Добавить склад
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-md">
+          <DialogContent className="max-w-md mx-3 sm:mx-auto">
             <DialogHeader>
-              <DialogTitle>Новый склад</DialogTitle>
+              <DialogTitle className="text-lg">Новый склад</DialogTitle>
             </DialogHeader>
             <form onSubmit={handleCreate} className="space-y-4">
               <div>
-                <Label htmlFor="location">Город *</Label>
-                <Input id="location" name="location" required />
+                <Label htmlFor="location" className="text-sm font-medium">Город *</Label>
+                <Input id="location" name="location" required className="mt-1" />
               </div>
               <div>
-                <Label htmlFor="capacity">Вместимость (м³)</Label>
-                <Input id="capacity" name="capacity" type="number" step="0.1" />
+                <Label htmlFor="capacity" className="text-sm font-medium">Вместимость (м³)</Label>
+                <Input id="capacity" name="capacity" type="number" step="0.1" className="mt-1" />
               </div>
-              <div className="flex justify-end space-x-2">
-                <Button type="button" variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
+              <div className="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-2">
+                <Button type="button" variant="outline" onClick={() => setIsCreateDialogOpen(false)} className="order-2 sm:order-1">
                   Отмена
                 </Button>
-                <Button type="submit" disabled={createMutation.isPending}>
+                <Button type="submit" disabled={createMutation.isPending} className="order-1 sm:order-2">
                   {createMutation.isPending ? 'Создание...' : 'Создать'}
                 </Button>
               </div>
@@ -168,7 +168,7 @@ export function WarehouseManagement() {
           </DialogContent>
         </Dialog>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {warehouses.map((warehouse: any) => (
           <Card 
             key={warehouse.id} 
@@ -178,13 +178,13 @@ export function WarehouseManagement() {
               window.location.href = `/admin/warehouse/${warehouse.id}`;
             }}
           >
-            <CardHeader className="pb-3">
-              <CardTitle className="flex items-center justify-between">
+            <CardHeader className="pb-2 sm:pb-3">
+              <CardTitle className="flex flex-col space-y-2 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
                 <div className="flex items-center space-x-2">
-                  <Warehouse className="w-5 h-5 text-blue-600" />
-                  <span className="font-semibold">{warehouse.name}</span>
+                  <Warehouse className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
+                  <span className="font-semibold text-sm sm:text-base">{warehouse.name}</span>
                 </div>
-                <div className="flex space-x-1">
+                <div className="flex space-x-1 self-end sm:self-auto">
                   <Button
                     variant="outline"
                     size="sm"
@@ -193,8 +193,9 @@ export function WarehouseManagement() {
                       setSelectedWarehouse(warehouse);
                       setIsEditDialogOpen(true);
                     }}
+                    className="h-8 w-8 p-0"
                   >
-                    <Edit className="w-4 h-4" />
+                    <Edit className="w-3 h-3 sm:w-4 sm:h-4" />
                   </Button>
                   <Button
                     variant="outline"
@@ -205,46 +206,46 @@ export function WarehouseManagement() {
                         deleteMutation.mutate(warehouse.id);
                       }
                     }}
-                    className="text-red-600 hover:text-red-700"
+                    className="text-red-600 hover:text-red-700 h-8 w-8 p-0"
                   >
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
                   </Button>
                 </div>
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="flex items-center space-x-2 text-sm text-gray-600">
-                <MapPin className="w-4 h-4" />
-                <span>{warehouse.location}</span>
+            <CardContent className="space-y-2 sm:space-y-3">
+              <div className="flex items-center space-x-2 text-xs sm:text-sm text-gray-600">
+                <MapPin className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                <span className="truncate">{warehouse.location}</span>
               </div>
               
               {warehouse.address && (
-                <div className="text-sm text-gray-600">
+                <div className="text-xs sm:text-sm text-gray-600 pl-5 sm:pl-6">
                   {warehouse.address}
                 </div>
               )}
               
-              <div className="flex items-center space-x-2 text-sm">
-                <Package className="w-4 h-4 text-green-600" />
+              <div className="flex items-center space-x-2 text-xs sm:text-sm">
+                <Package className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 flex-shrink-0" />
                 <span className="font-medium">
                   Товаров: {inventoryCounts[warehouse.id] || 0}
                 </span>
               </div>
               
               {warehouse.capacity && (
-                <div className="text-sm text-gray-600">
+                <div className="text-xs sm:text-sm text-gray-600 pl-5 sm:pl-6">
                   Вместимость: {warehouse.capacity} м³
                 </div>
               )}
               
               {warehouse.manager && (
-                <div className="text-sm text-gray-600">
+                <div className="text-xs sm:text-sm text-gray-600 pl-5 sm:pl-6">
                   Менеджер: {warehouse.manager}
                 </div>
               )}
               
               {warehouse.phone && (
-                <div className="text-sm text-gray-600">
+                <div className="text-xs sm:text-sm text-gray-600 pl-5 sm:pl-6">
                   Телефон: {warehouse.phone}
                 </div>
               )}
@@ -254,25 +255,25 @@ export function WarehouseManagement() {
       </div>
       {/* Edit Dialog */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-md mx-3 sm:mx-auto">
           <DialogHeader>
-            <DialogTitle>Редактировать склад</DialogTitle>
+            <DialogTitle className="text-lg">Редактировать склад</DialogTitle>
           </DialogHeader>
           {selectedWarehouse && (
             <form onSubmit={handleEdit} className="space-y-4">
               <div>
-                <Label htmlFor="edit-location">Город *</Label>
-                <Input id="edit-location" name="location" defaultValue={selectedWarehouse.location} required />
+                <Label htmlFor="edit-location" className="text-sm font-medium">Город *</Label>
+                <Input id="edit-location" name="location" defaultValue={selectedWarehouse.location} required className="mt-1" />
               </div>
               <div>
-                <Label htmlFor="edit-capacity">Вместимость (м³)</Label>
-                <Input id="edit-capacity" name="capacity" type="number" step="0.1" defaultValue={selectedWarehouse.capacity || ''} />
+                <Label htmlFor="edit-capacity" className="text-sm font-medium">Вместимость (м³)</Label>
+                <Input id="edit-capacity" name="capacity" type="number" step="0.1" defaultValue={selectedWarehouse.capacity || ''} className="mt-1" />
               </div>
-              <div className="flex justify-end space-x-2">
-                <Button type="button" variant="outline" onClick={() => setIsEditDialogOpen(false)}>
+              <div className="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-2">
+                <Button type="button" variant="outline" onClick={() => setIsEditDialogOpen(false)} className="order-2 sm:order-1">
                   Отмена
                 </Button>
-                <Button type="submit" disabled={updateMutation.isPending}>
+                <Button type="submit" disabled={updateMutation.isPending} className="order-1 sm:order-2">
                   {updateMutation.isPending ? 'Сохранение...' : 'Сохранить'}
                 </Button>
               </div>
