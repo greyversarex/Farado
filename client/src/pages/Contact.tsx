@@ -320,26 +320,26 @@ export default function Contact() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-br from-red-600/20 to-blue-500/20"></div>
                     
-                    {/* Office Markers - Precisely positioned based on real coordinates */}
-                    {/* Dushanbe: 38.5598° N, 68.7870° E - Central Asia, between Russia and Afghanistan */}
-                    <div className="absolute top-[38%] left-[62%] transform -translate-x-1/2 -translate-y-1/2">
-                      <div className="bg-red-600 rounded-full p-3 shadow-lg animate-pulse mt-[0px] mb-[0px] ml-[38px] mr-[38px]">
+                    {/* Office Markers - Positioned according to user map */}
+                    {/* Dushanbe: Головной офис */}
+                    <div className="absolute top-[35%] left-[58%] transform -translate-x-1/2 -translate-y-1/2">
+                      <div className="bg-red-600 rounded-full p-3 shadow-lg animate-pulse">
                         <MapPin className="text-white w-6 h-6" />
                       </div>
                       <div className="bg-white rounded-lg p-2 mt-2 shadow-lg text-center text-sm border-2 border-red-200">
                         <div className="font-semibold text-red-700">{t('pages.home.contact.dushanbe')}</div>
-                        <div className="text-gray-600">{t('pages.home.contact.headOffice')}</div>
+                        <div className="text-gray-600">Головной офис</div>
                       </div>
                     </div>
 
-                    {/* Guangzhou: 23.1291° N, 113.2644° E - Southern China, near Hong Kong */}
-                    <div className="absolute top-[60%] right-[18%] transform translate-x-1/2 -translate-y-1/2">
-                      <div className="bg-blue-600 rounded-full p-3 shadow-lg animate-pulse mt-[0px] mb-[0px] ml-[54px] mr-[54px]">
+                    {/* Guangzhou: Представительство */}
+                    <div className="absolute top-[58%] right-[25%] transform translate-x-1/2 -translate-y-1/2">
+                      <div className="bg-blue-600 rounded-full p-3 shadow-lg animate-pulse">
                         <MapPin className="text-white w-6 h-6" />
                       </div>
                       <div className="bg-white rounded-lg p-2 mt-2 shadow-lg text-center text-sm border-2 border-blue-200">
                         <div className="font-semibold text-blue-700">{t('pages.home.contact.guangzhou')}</div>
-                        <div className="text-gray-600">{t('pages.home.contact.representative')}</div>
+                        <div className="text-gray-600">Представительство</div>
                       </div>
                     </div>
                   </div>

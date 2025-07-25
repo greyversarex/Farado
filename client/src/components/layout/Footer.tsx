@@ -67,15 +67,13 @@ export function Footer() {
               <div className="flex items-start space-x-3">
                 <i className="fas fa-map-marker-alt text-red-600 mt-1"></i>
                 <div>
-                  <div className="font-medium">Душанбе</div>
-                  <div className="text-gray-300 text-sm">ул. Рудаки 123, офис 45</div>
+                  <div className="font-medium">Душанбе - Головной офис</div>
                 </div>
               </div>
               <div className="flex items-start space-x-3">
                 <i className="fas fa-map-marker-alt text-red-600 mt-1"></i>
                 <div>
-                  <div className="font-medium">Гуанчжоу</div>
-                  <div className="text-gray-300 text-sm">Tianhe District, Office 1201</div>
+                  <div className="font-medium">Гуанчжоу - Представительство</div>
                 </div>
               </div>
               <div className="flex items-center space-x-3">

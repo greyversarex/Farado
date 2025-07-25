@@ -90,18 +90,16 @@ export default function About() {
     {
       city: t('pages.services.offices.dushanbe'),
       country: "Таджикистан",
-      address: "ул. Рудаки 123, офис 45",
       phone: "+992 170 66 5555",
       email: "contact@farado.global",
-      role: "Представительство"
+      role: "Головной офис"
     },
     {
       city: t('pages.services.offices.guangzhou'),
       country: "Китай",
-      address: "Tianhe District, Office 1201",
       phone: "+86 20 123 456 789",
       email: "guangzhou@farado.global",
-      role: "Головной офис"
+      role: "Представительство"
     }
   ];
 
@@ -337,10 +335,6 @@ export default function About() {
                   </div>
 
                   <div className="space-y-3">
-                    <div className="flex items-center space-x-3">
-                      <MapPin className="text-gray-400 w-4 h-4 flex-shrink-0" />
-                      <span className="text-gray-600">{office.address}</span>
-                    </div>
                     <div className="flex items-center space-x-3">
                       <i className="fas fa-phone text-gray-400 w-4"></i>
                       <a href={`tel:${office.phone}`} className="text-gray-600 hover:text-red-600 transition-colors">
