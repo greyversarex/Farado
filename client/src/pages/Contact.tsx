@@ -148,7 +148,6 @@ export default function Contact() {
         title={t('pages.contact.title')}
         subtitle={t('pages.contact.subtitle')}
       />
-
       {/* Contact Info */}
       <section className="py-12 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -335,7 +334,7 @@ export default function Contact() {
 
                     {/* Guangzhou: 23.1291° N, 113.2644° E - Southern China, near Hong Kong */}
                     <div className="absolute top-[60%] right-[18%] transform translate-x-1/2 -translate-y-1/2">
-                      <div className="bg-blue-600 rounded-full p-3 shadow-lg animate-pulse">
+                      <div className="bg-blue-600 rounded-full p-3 shadow-lg animate-pulse mt-[0px] mb-[0px] ml-[54px] mr-[54px]">
                         <MapPin className="text-white w-6 h-6" />
                       </div>
                       <div className="bg-white rounded-lg p-2 mt-2 shadow-lg text-center text-sm border-2 border-blue-200">
@@ -350,9 +349,6 @@ export default function Contact() {
           </div>
         </div>
       </section>
-
-      
-
       {/* FAQ Section */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -396,8 +392,6 @@ export default function Contact() {
           </div>
         </div>
       </section>
-
-
     </div>
   );
 }
