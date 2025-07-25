@@ -905,78 +905,75 @@ export default function AdminDashboard({ user, onLogout }: AdminDashboardProps) 
       <main className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-4 sm:py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <div className="bg-gradient-to-r from-white to-gray-50 rounded-xl shadow-lg border border-gray-200 p-2 sm:p-3 mb-8 mobile-nav-tabs">
-            <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6 h-16 sm:h-20 bg-transparent rounded-lg gap-0.5 sm:gap-2">
+            <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6 h-12 sm:h-20 bg-transparent rounded-lg gap-1 sm:gap-2">
               <TabsTrigger 
                 value="orders" 
-                className="relative text-xs sm:text-sm font-semibold px-0.5 sm:px-2 py-1 sm:py-2 rounded-lg transition-all duration-300 
+                className="relative text-xs sm:text-sm font-semibold px-1 sm:px-2 py-2 sm:py-2 rounded-lg transition-all duration-300 
                 data-[state=active]:bg-gradient-to-r data-[state=active]:from-red-500 data-[state=active]:to-red-600 
                 data-[state=active]:text-white data-[state=active]:shadow-md
                 hover:bg-red-50 hover:text-red-600 text-gray-600
                 flex flex-col items-center justify-center"
               >
-                <Package className="w-3 h-3 sm:w-5 sm:h-5 mb-0.5 sm:mb-1" />
-                <span className="text-[10px] sm:text-xs font-medium leading-tight">Заказы</span>
+                <Package className="w-5 h-5 sm:w-5 sm:h-5 sm:mb-1" />
+                <span className="hidden sm:block text-xs font-medium leading-tight">Заказы</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="warehouses" 
-                className="relative text-xs sm:text-sm font-semibold px-0.5 sm:px-2 py-1 sm:py-2 rounded-lg transition-all duration-300 
+                className="relative text-xs sm:text-sm font-semibold px-1 sm:px-2 py-2 sm:py-2 rounded-lg transition-all duration-300 
                 data-[state=active]:bg-gradient-to-r data-[state=active]:from-red-500 data-[state=active]:to-red-600 
                 data-[state=active]:text-white data-[state=active]:shadow-md
                 hover:bg-red-50 hover:text-red-600 text-gray-600
                 flex flex-col items-center justify-center"
               >
-                <Warehouse className="w-3 h-3 sm:w-5 sm:h-5 mb-0.5 sm:mb-1" />
-                <span className="text-[10px] sm:text-xs font-medium leading-tight">Склады</span>
+                <Warehouse className="w-5 h-5 sm:w-5 sm:h-5 sm:mb-1" />
+                <span className="hidden sm:block text-xs font-medium leading-tight">Склады</span>
               </TabsTrigger>
               
               <TabsTrigger 
                 value="trucks" 
-                className="relative text-xs sm:text-sm font-semibold px-0.5 sm:px-2 py-1 sm:py-2 rounded-lg transition-all duration-300 
+                className="relative text-xs sm:text-sm font-semibold px-1 sm:px-2 py-2 sm:py-2 rounded-lg transition-all duration-300 
                 data-[state=active]:bg-gradient-to-r data-[state=active]:from-red-500 data-[state=active]:to-red-600 
                 data-[state=active]:text-white data-[state=active]:shadow-md
                 hover:bg-red-50 hover:text-red-600 text-gray-600
                 flex flex-col items-center justify-center"
               >
-                <Truck className="w-3 h-3 sm:w-5 sm:h-5 mb-0.5 sm:mb-1" />
-                <span className="text-[10px] sm:text-xs font-medium leading-tight">Фуры</span>
+                <Truck className="w-5 h-5 sm:w-5 sm:h-5 sm:mb-1" />
+                <span className="hidden sm:block text-xs font-medium leading-tight">Фуры</span>
               </TabsTrigger>
 
               <TabsTrigger 
                 value="archive" 
-                className="relative text-xs sm:text-sm font-semibold px-0.5 sm:px-2 py-1 sm:py-2 rounded-lg transition-all duration-300 
+                className="relative text-xs sm:text-sm font-semibold px-1 sm:px-2 py-2 sm:py-2 rounded-lg transition-all duration-300 
                 data-[state=active]:bg-gradient-to-r data-[state=active]:from-red-500 data-[state=active]:to-red-600 
                 data-[state=active]:text-white data-[state=active]:shadow-md
                 hover:bg-red-50 hover:text-red-600 text-gray-600
                 flex flex-col items-center justify-center"
               >
-                <Archive className="w-3 h-3 sm:w-5 sm:h-5 mb-0.5 sm:mb-1" />
-                <span className="text-[10px] sm:text-xs font-medium leading-tight">Архив</span>
+                <Archive className="w-5 h-5 sm:w-5 sm:h-5 sm:mb-1" />
+                <span className="hidden sm:block text-xs font-medium leading-tight">Архив</span>
               </TabsTrigger>
 
               <TabsTrigger 
                 value="counterparties" 
-                className="relative text-xs sm:text-sm font-semibold px-0.5 sm:px-2 py-1 sm:py-2 rounded-lg transition-all duration-300 
+                className="relative text-xs sm:text-sm font-semibold px-1 sm:px-2 py-2 sm:py-2 rounded-lg transition-all duration-300 
                 data-[state=active]:bg-gradient-to-r data-[state=active]:from-red-500 data-[state=active]:to-red-600 
                 data-[state=active]:text-white data-[state=active]:shadow-md
                 hover:bg-red-50 hover:text-red-600 text-gray-600
                 flex flex-col items-center justify-center"
               >
-                <Users className="w-3 h-3 sm:w-5 sm:h-5 mb-0.5 sm:mb-1" />
-                <span className="text-[9px] sm:text-xs font-medium leading-[1.1] text-center">
-                  <span className="sm:hidden">К-ты</span>
-                  <span className="hidden sm:inline">Контрагенты</span>
-                </span>
+                <Users className="w-5 h-5 sm:w-5 sm:h-5 sm:mb-1" />
+                <span className="hidden sm:block text-xs font-medium leading-tight">Контрагенты</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="search" 
-                className="relative text-xs sm:text-sm font-semibold px-0.5 sm:px-2 py-1 sm:py-2 rounded-lg transition-all duration-300 
+                className="relative text-xs sm:text-sm font-semibold px-1 sm:px-2 py-2 sm:py-2 rounded-lg transition-all duration-300 
                 data-[state=active]:bg-gradient-to-r data-[state=active]:from-red-500 data-[state=active]:to-red-600 
                 data-[state=active]:text-white data-[state=active]:shadow-md
                 hover:bg-red-50 hover:text-red-600 text-gray-600
                 flex flex-col items-center justify-center"
               >
-                <Search className="w-3 h-3 sm:w-5 sm:h-5 mb-0.5 sm:mb-1" />
-                <span className="text-[10px] sm:text-xs font-medium leading-tight">Поиск</span>
+                <Search className="w-5 h-5 sm:w-5 sm:h-5 sm:mb-1" />
+                <span className="hidden sm:block text-xs font-medium leading-tight">Поиск</span>
               </TabsTrigger>
             </TabsList>
           </div>
