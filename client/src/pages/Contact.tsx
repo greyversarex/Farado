@@ -323,7 +323,7 @@ export default function Contact() {
                     {/* Office Markers - Precisely positioned based on real coordinates */}
                     {/* Dushanbe: 38.5598° N, 68.7870° E - Central Asia, between Russia and Afghanistan */}
                     <div className="absolute top-[38%] left-[62%] transform -translate-x-1/2 -translate-y-1/2">
-                      <div className="bg-red-600 rounded-full p-3 shadow-lg animate-pulse">
+                      <div className="bg-red-600 rounded-full p-3 shadow-lg animate-pulse mt-[0px] mb-[0px] ml-[38px] mr-[38px]">
                         <MapPin className="text-white w-6 h-6" />
                       </div>
                       <div className="bg-white rounded-lg p-2 mt-2 shadow-lg text-center text-sm border-2 border-red-200">
