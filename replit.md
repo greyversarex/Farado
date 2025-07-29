@@ -4,6 +4,7 @@
 Full-stack web application for FARADO Global, a logistics and trading company specializing in China-Central Asia trade routes. The project includes both a public website and an internal order management system.
 
 ## Recent Changes  
+- **2025-07-29**: CREATED ADMIN USERS IN ORDER MANAGEMENT SYSTEM - Successfully created 5 admin users with hashed passwords using bcrypt: Barumand/bar40020, Akmal/ak89090, Alisher/sher777, Baha/jigarak200, Umed/admin321. All accounts tested and confirmed working with full admin access to order management system.
 - **2025-07-25**: CORRECTED OFFICE LOCATIONS AND REMOVED COMPANY ADDRESSES - Fixed office roles according to user map: Душанбе is now "Головной офис" and Гуанчжоу is "Представительство", removed all physical addresses from website (About page, Contact page, Footer), updated map positioning on Contact page to match accurate geographical locations, maintained phone and email contact information
 - **2025-07-25**: FIXED MOBILE NAVIGATION AND FORM IMPROVEMENTS - Removed "Характеристики" field from all product add/edit forms, renamed "Общая сумма" to "Итоговая сумма" throughout the system, fixed mobile navigation tabs with compact design (smaller icons, shortened "Контрагенты" to "К-ты" on mobile), improved warehouse management mobile layout with better spacing and responsive dialogs, fixed PhotoUpload component props in forms
 - **2025-07-24**: ADDED PROGRAMS PAGE WITH BRAND COLOR COMPLIANCE - Created comprehensive Programs page showcasing FARADO Business Start and FARADO Control programs with detailed descriptions, target audiences, implementation stages, and expected results. Added "Программы" navigation tab with multi-language support (RU, EN, TJ, ZH). Fixed color scheme to use only brand colors (red and gray) instead of blue/green. Implemented interactive program details with expandable cards and professional layout using shadcn/ui components.
@@ -133,11 +134,11 @@ Full-stack web application for FARADO Global, a logistics and trading company sp
 - Login: `/admin`
 - Available user accounts:
   - admin / admin123 (default administrator)
-  - Barumand / bar40020
-  - Akmal / ak89090
-  - Alisher / sher777
-  - Baha / jigarak200
-  - Umed / admin321
+  - Barumand / bar40020 ✅ АКТИВЕН
+  - Akmal / ak89090 ✅ АКТИВЕН  
+  - Alisher / sher777 ✅ АКТИВЕН
+  - Baha / jigarak200 ✅ АКТИВЕН
+  - Umed / admin321 ✅ АКТИВЕН
 - Role-based access control with bcrypt password encryption
 
 ### Orders Management
