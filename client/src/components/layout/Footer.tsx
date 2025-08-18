@@ -67,27 +67,38 @@ export function Footer() {
               <div className="flex items-start space-x-3">
                 <i className="fas fa-map-marker-alt text-red-600 mt-1"></i>
                 <div>
-                  <div className="font-medium">Душанбе - Представительство
-</div>
+                  <div className="font-medium">Душанбе - Представительство</div>
+                  <div className="text-sm text-gray-400">ул. Рудаки 123, офис 45</div>
                 </div>
               </div>
               <div className="flex items-start space-x-3">
                 <i className="fas fa-map-marker-alt text-red-600 mt-1"></i>
                 <div>
                   <div className="font-medium">Гуанчжоу - Головной офис</div>
+                  <div className="text-sm text-gray-400">Jiahecheng No.941, No. 90 Zhanqian Road, Guangzhou, Guangdong, China</div>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
                 <i className="fas fa-phone text-red-600"></i>
-                <a href="tel:+992170665555" className="text-gray-300 hover:text-white transition-colors">
-                  +992 170 66 5555
-                </a>
+                <div className="flex flex-col space-y-1">
+                  <a href="tel:+992170665555" className="text-gray-300 hover:text-white transition-colors">
+                    +992 170 66 5555
+                  </a>
+                  <a href="tel:+8613005133155" className="text-gray-300 hover:text-white transition-colors">
+                    +86 130 0513 3155
+                  </a>
+                </div>
               </div>
               <div className="flex items-center space-x-3">
                 <i className="fas fa-envelope text-red-600"></i>
-                <a href="mailto:contact@farado.global" className="text-gray-300 hover:text-white transition-colors">
-                  contact@farado.global
-                </a>
+                <div className="flex flex-col space-y-1">
+                  <a href="mailto:contact@farado.global" className="text-gray-300 hover:text-white transition-colors">
+                    contact@farado.global
+                  </a>
+                  <a href="mailto:farado.trade@gmail.com" className="text-gray-300 hover:text-white transition-colors">
+                    farado.trade@gmail.com
+                  </a>
+                </div>
               </div>
             </div>
           </div>

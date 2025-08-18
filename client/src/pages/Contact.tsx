@@ -89,7 +89,7 @@ export default function Contact() {
       title: t('pages.home.contact.offices'),
       details: [
         `${t('pages.home.contact.dushanbe')}: ул. Рудаки 123, ${t('pages.home.contact.office')} 45`,
-        `${t('pages.home.contact.guangzhou')}: Tianhe District, Office 1201`
+        `${t('pages.home.contact.guangzhou')}: Jiahecheng No.941, No. 90 Zhanqian Road, Guangzhou, Guangdong, China`
       ]
     },
     {
@@ -97,7 +97,7 @@ export default function Contact() {
       title: t('pages.home.contact.phones'),
       details: [
         "+992 170 66 5555",
-        "+86 20 123 456 789"
+        "+8613005133155"
       ]
     },
     {
@@ -105,7 +105,7 @@ export default function Contact() {
       title: t('pages.home.contact.email'),
       details: [
         "contact@farado.global",
-        "support@farado.global"
+        "farado.trade@gmail.com"
       ]
     },
     {

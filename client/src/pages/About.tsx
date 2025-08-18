@@ -90,16 +90,18 @@ export default function About() {
     {
       city: t('pages.services.offices.dushanbe'),
       country: "Таджикистан",
+      address: "ул. Рудаки 123, офис 45",
       phone: "+992 170 66 5555",
       email: "contact@farado.global",
-      role: "Головной офис"
+      role: "Представительство"
     },
     {
       city: t('pages.services.offices.guangzhou'),
       country: "Китай",
-      phone: "+86 20 123 456 789",
-      email: "guangzhou@farado.global",
-      role: "Представительство"
+      address: "Jiahecheng No.941, No. 90 Zhanqian Road, Guangzhou, Guangdong, China",
+      phone: "+8613005133155",
+      email: "farado.trade@gmail.com",
+      role: "Головной офис"Представительство"
     }
   ];
 
