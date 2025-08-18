@@ -74,7 +74,7 @@ export function Footer() {
               <div className="flex items-start space-x-3">
                 <i className="fas fa-map-marker-alt text-red-600 mt-1"></i>
                 <div>
-                  <div className="font-medium">Гуанчжоу - Представительство</div>
+                  <div className="font-medium">Гуанчжоу - Головной офис</div>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
