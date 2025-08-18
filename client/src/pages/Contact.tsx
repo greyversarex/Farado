@@ -97,7 +97,7 @@ export default function Contact() {
       title: t('pages.home.contact.phones'),
       details: [
         "+992 170 66 5555",
-        "+8613005133155"
+        "+86 130 0513 3155"
       ]
     },
     {
