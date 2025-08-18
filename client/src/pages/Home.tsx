@@ -563,7 +563,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center p-8 bg-gradient-to-br from-red-50 to-red-100 rounded-2xl">
               <div className="text-4xl lg:text-5xl font-bold text-red-600 mb-2">
-                {stats?.totalOrders || 2000}+
+                {stats?.totalOrders || 7000}+
               </div>
               <div className="text-gray-600 font-medium">{t('pages.home.numbers.completedOrders')}</div>
             </div>
