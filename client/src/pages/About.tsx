@@ -101,7 +101,7 @@ export default function About() {
       address: "Jiahecheng No.941, No. 90 Zhanqian Road, Guangzhou, Guangdong, China",
       phone: "+8613005133155",
       email: "farado.trade@gmail.com",
-      role: "Головной офис"Представительство"
+      role: "Головной офис, Представительство"
     }
   ];
 
