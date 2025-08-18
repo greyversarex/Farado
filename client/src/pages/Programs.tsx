@@ -170,15 +170,7 @@ export default function Programs() {
                 <Phone className="w-5 h-5 mr-2 group-hover:animate-pulse" />
                 {t('pages.programs.getConsultation')}
               </Button>
-              <Button 
-                size="lg"
-                variant="outline"
-                className="border-white text-white hover:bg-white hover:text-red-600 font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 group"
-                onClick={() => document.getElementById('programs')?.scrollIntoView({ behavior: 'smooth' })}
-              >
-                {t('pages.programs.consultation')}
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-              </Button>
+              
             </div>
           </div>
         </div>
