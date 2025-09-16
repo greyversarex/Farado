@@ -1,22 +1,13 @@
 import express, { type Request, Response, NextFunction } from "express";
 import session from "express-session";
+import ConnectPgSimple from "connect-pg-simple";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
-import { initializeDatabase } from "./db";
+import { initializeDatabase, pool } from "./db";
 
 const app = express();
 
-// Session configuration
-app.use(session({
-  secret: process.env.SESSION_SECRET || 'farado-secret-key-change-in-production',
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    secure: false, // Set to true in production with HTTPS
-    httpOnly: true,
-    maxAge: 24 * 60 * 60 * 1000 // 24 hours
-  }
-}));
+// Session setup will be done after environment validation
 
 // Serve favicon files explicitly
 app.get('/favicon.ico', (req, res) => {
@@ -73,34 +64,176 @@ app.use((req, res, next) => {
   next();
 });
 
-(async () => {
-  // Initialize database tables first
-  await initializeDatabase();
+// Environment variable validation
+function validateEnvironment() {
+  const requiredVars = ['DATABASE_URL'];
   
-  const server = await registerRoutes(app);
-
-  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-    const status = err.status || err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
-
-    res.status(status).json({ message });
-    throw err;
-  });
-
-  // importantly only setup vite in development and after
-  // setting up all the other routes so the catch-all route
-  // doesn't interfere with the other routes
-  if (app.get("env") === "development") {
-    await setupVite(app, server);
-  } else {
-    serveStatic(app);
+  // In production, SESSION_SECRET is also required for security
+  if (process.env.NODE_ENV === 'production') {
+    requiredVars.push('SESSION_SECRET');
   }
+  
+  const missing = requiredVars.filter(varName => !process.env[varName]);
+  
+  if (missing.length > 0) {
+    throw new Error(`Missing required environment variables: ${missing.join(', ')}`);
+  }
+  
+  // FAIL startup if using default SESSION_SECRET in production (security risk)
+  if (process.env.NODE_ENV === 'production') {
+    if (process.env.SESSION_SECRET === 'farado-secret-key-change-in-production') {
+      throw new Error('SECURITY ERROR: Default SESSION_SECRET cannot be used in production! Please set a secure SESSION_SECRET environment variable.');
+    }
+  }
+  
+  log('Environment variables validated successfully');
+}
 
-  // ALWAYS serve the app on port 5000
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
-  const port = 5000;
-  server.listen(port, "0.0.0.0", () => {
-    log(`serving on port ${port}`);
-  });
+// Graceful shutdown handler
+function setupGracefulShutdown(server: any, sessionStore?: any) {
+  let shuttingDown = false;
+  
+  const gracefulShutdown = async (signal: string, exitCode: number = 0) => {
+    if (shuttingDown) {
+      log(`Already shutting down, ignoring ${signal}`);
+      return;
+    }
+    shuttingDown = true;
+    
+    log(`Received ${signal}, shutting down gracefully...`);
+    
+    // Close HTTP server first
+    server.close(async () => {
+      log('HTTP server closed');
+      
+      try {
+        // Close session store in production
+        if (sessionStore && typeof sessionStore.close === 'function') {
+          await sessionStore.close();
+          log('Session store closed');
+        }
+        
+        // Close database pool connections
+        await pool.end();
+        log('Database connections closed');
+      } catch (error) {
+        log(`Error closing connections: ${error}`);
+      }
+      
+      process.exit(exitCode);
+    });
+    
+    // Force close after 30 seconds
+    setTimeout(() => {
+      log('Could not close connections in time, forcefully shutting down');
+      process.exit(1);
+    }, 30000);
+  };
+
+  process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+  process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+  
+  return gracefulShutdown;
+}
+
+(async () => {
+  try {
+    log('Starting application...');
+    
+    // Validate required environment variables
+    validateEnvironment();
+    
+    // Setup session configuration after environment validation
+    log('Configuring session middleware...');
+    const isProduction = process.env.NODE_ENV === 'production';
+    const PgSession = ConnectPgSimple(session);
+    
+    // Trust proxy for secure cookies in production
+    if (isProduction) {
+      app.set('trust proxy', 1);
+    }
+
+    // Create session store (use PostgreSQL in production, memory store in development)
+    const sessionStore = isProduction 
+      ? new PgSession({
+          pool: pool,
+          tableName: 'user_sessions',
+          createTableIfMissing: true
+        })
+      : undefined; // Use default memory store in development
+
+    app.use(session({
+      store: sessionStore,
+      secret: process.env.SESSION_SECRET || 'farado-secret-key-change-in-production',
+      resave: false,
+      saveUninitialized: false,
+      name: 'sessionId', // Change default session name for security
+      cookie: {
+        secure: isProduction, // Secure cookies in production (HTTPS required)
+        httpOnly: true, // Prevent XSS attacks
+        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        sameSite: isProduction ? 'strict' : 'lax' // CSRF protection
+      }
+    }));
+    log('Session middleware configured successfully');
+    
+    // Initialize database tables first
+    log('Initializing database...');
+    await initializeDatabase();
+    log('Database initialization completed');
+    
+    // Register API routes
+    log('Registering routes...');
+    const server = await registerRoutes(app);
+    log('Routes registered successfully');
+
+    // Global error handler
+    app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+      const status = err.status || err.statusCode || 500;
+      const message = err.message || "Internal Server Error";
+      
+      log(`Error: ${status} - ${message}`);
+      res.status(status).json({ message });
+    });
+
+    // Setup development or production static file serving
+    if (process.env.NODE_ENV === "development") {
+      log('Setting up Vite for development...');
+      await setupVite(app, server);
+      log('Vite setup completed');
+    } else {
+      log('Setting up static file serving for production...');
+      serveStatic(app);
+      log('Static file serving setup completed');
+    }
+
+    // Start the server
+    const port = 5000;
+    server.listen(port, "0.0.0.0", () => {
+      log(`Application successfully started on port ${port}`);
+      log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+    });
+
+    // Setup graceful shutdown
+    const gracefulShutdown = setupGracefulShutdown(server, sessionStore);
+    
+    // Handle unhandled promise rejections
+    process.on('unhandledRejection', (reason, promise) => {
+      log(`Unhandled Rejection at: ${promise}, reason: ${reason}`);
+      console.error('Unhandled Rejection:', reason);
+      gracefulShutdown('unhandledRejection', 1);
+    });
+
+    // Handle uncaught exceptions
+    process.on('uncaughtException', (error) => {
+      log(`Uncaught Exception: ${error.message}`);
+      console.error('Uncaught Exception:', error);
+      gracefulShutdown('uncaughtException', 1);
+    });
+    
+  } catch (error) {
+    log(`Failed to start application: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    console.error('Startup error details:', error);
+    process.exit(1);
+  }
 })();

@@ -23,17 +23,15 @@ export async function initializeDatabase() {
     const result = await pool.query('SELECT NOW()');
     console.log('Database connection successful:', result.rows[0]);
     
-    // Update existing admin user or insert if not exists
-    await pool.query(`
-      INSERT INTO admin_users (username, password, full_name, role, is_active) 
-      VALUES ('admin', 'admin123', 'Administrator', 'admin', true) 
-      ON CONFLICT (username) DO UPDATE SET 
-        password = EXCLUDED.password,
-        full_name = EXCLUDED.full_name,
-        is_active = EXCLUDED.is_active;
-    `);
-    
-    console.log('Database initialized successfully');
+    // Only seed admin user in development environment
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Development mode: Seeding admin user...');
+      await pool.query(`
+        INSERT INTO admin_users (username, password, full_name, role, is_active) 
+        VALUES ('admin', 'admin123', 'Administrator', 'admin', true) 
+        ON CONFLICT (username) DO NOTHING;
+      `);
+    }
     
     console.log('Database initialized successfully');
   } catch (error) {
