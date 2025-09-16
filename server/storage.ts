@@ -218,15 +218,13 @@ class DatabaseStorage implements IStorage {
         return null;
       }
 
-      // Check if password is already hashed (bcrypt) or plain text
-      let passwordMatches = false;
-      if (user.password.startsWith('$2b$')) {
-        // Hashed password - use bcrypt compare
-        passwordMatches = await bcrypt.compare(password, user.password);
-      } else {
-        // Plain text password - direct comparison (for admin/admin123)
-        passwordMatches = user.password === password;
+      // All passwords must be hashed with bcrypt
+      if (!user.password.startsWith('$2b$')) {
+        console.error('SECURITY ERROR: User has non-hashed password. All passwords must be hashed with bcrypt.');
+        return null;
       }
+      
+      const passwordMatches = await bcrypt.compare(password, user.password);
       
       if (passwordMatches) {
         await db.update(adminUsers).set({ lastLogin: new Date() }).where(eq(adminUsers.id, user.id));
@@ -241,7 +239,18 @@ class DatabaseStorage implements IStorage {
   }
 
   async createAdminUser(user: InsertAdminUser): Promise<AdminUser> {
-    const [newUser] = await db.insert(adminUsers).values(user).returning();
+    // Hash password if it's not already hashed
+    let hashedPassword = user.password;
+    if (!user.password.startsWith('$2b$')) {
+      hashedPassword = await bcrypt.hash(user.password, 10);
+    }
+    
+    const userData = {
+      ...user,
+      password: hashedPassword
+    };
+    
+    const [newUser] = await db.insert(adminUsers).values(userData).returning();
     return newUser;
   }
 
@@ -353,6 +362,8 @@ class DatabaseStorage implements IStorage {
       totalVolume: orders.totalVolume,
       totalQuantity: orders.totalQuantity,
       comments: orders.comments,
+      documents: orders.documents,
+      folders: orders.folders,
       createdBy: orders.createdBy,
       createdAt: orders.createdAt,
       updatedAt: orders.updatedAt,

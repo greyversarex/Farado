@@ -28,7 +28,22 @@ export function PhotoUpload({ onPhotosChange, existingPhotos = [], maxPhotos = 5
         console.log('Processing file:', file.name, file.type, file.size);
         
         if (file.type.startsWith('image/')) {
-          // Размер файла не ограничен
+          // Ограничение размера файла - максимум 10MB
+          const maxFileSize = 10 * 1024 * 1024; // 10MB в байтах
+          if (file.size > maxFileSize) {
+            console.error(`File ${file.name} is too large: ${(file.size / 1024 / 1024).toFixed(2)}MB. Maximum allowed: 10MB`);
+            alert(`Файл ${file.name} слишком большой. Максимальный размер: 10 МБ`);
+            continue;
+          }
+          
+          // Проверка типа файла
+          const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+          if (!allowedTypes.includes(file.type)) {
+            console.error(`File ${file.name} has unsupported type: ${file.type}`);
+            alert(`Файл ${file.name} имеет неподдерживаемый формат. Разрешены: JPEG, PNG, GIF, WebP`);
+            continue;
+          }
+          
           console.log('Processing file:', file.name, 'Size:', (file.size / 1024 / 1024).toFixed(2) + 'MB');
           
           try {
@@ -37,7 +52,11 @@ export function PhotoUpload({ onPhotosChange, existingPhotos = [], maxPhotos = 5
             newPhotos.push(base64);
           } catch (error) {
             console.error('Error converting file to base64:', error);
+            alert(`Ошибка при обработке файла ${file.name}`);
           }
+        } else {
+          console.error(`File ${file.name} is not an image: ${file.type}`);
+          alert(`Файл ${file.name} не является изображением`);
         }
       }
 

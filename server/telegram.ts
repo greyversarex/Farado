@@ -5,13 +5,11 @@ interface TelegramMessage {
 }
 
 export async function sendTelegramNotification(message: string): Promise<boolean> {
-  const botToken = process.env.TELEGRAM_BOT_TOKEN || "7556218482:AAF5E9Cu8tYP3le6MLT-AlphyMbkq02aOdc";
-  const chatId = process.env.TELEGRAM_CHAT_ID || "683777755";
-
-  // Telegram notification attempt
+  const botToken = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
 
   if (!botToken || !chatId) {
-    // Telegram bot credentials not configured
+    console.warn('Telegram bot credentials not configured. Set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID environment variables.');
     return false;
   }
 
