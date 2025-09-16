@@ -1,4 +1,4 @@
-import { eq, sql, like, and, desc, asc, isNotNull, count } from "drizzle-orm";
+import { eq, sql, like, ilike, and, or, desc, asc, isNotNull, count } from "drizzle-orm";
 import bcrypt from "bcrypt";
 import { db } from "./db";
 import * as schema from "@shared/schema";
@@ -878,28 +878,65 @@ class DatabaseStorage implements IStorage {
     return await this.getOrder(tracking.orderId);
   }
 
-  // Search functionality
+  // Search functionality with input sanitization
+  private sanitizeSearchQuery(query: string): string {
+    if (!query || typeof query !== 'string') return '';
+    
+    // Remove SQL metacharacters and limit length
+    const sanitized = query
+      .trim()
+      .slice(0, 100) // Limit length to prevent DoS
+      .replace(/[%_\\]/g, '\\$&'); // Escape LIKE wildcards
+    
+    return sanitized;
+  }
+
   async searchOrders(query: string): Promise<Order[]> {
+    const sanitizedQuery = this.sanitizeSearchQuery(query);
+    if (!sanitizedQuery) return [];
+    
     return await db.select().from(orders).where(
-      sql`${orders.name} ILIKE ${'%' + query + '%'} OR ${orders.code} ILIKE ${'%' + query + '%'}`
+      or(
+        ilike(orders.name, `%${sanitizedQuery}%`),
+        ilike(orders.code, `%${sanitizedQuery}%`)
+      )
     );
   }
 
   async searchOrderItems(query: string): Promise<OrderItem[]> {
+    const sanitizedQuery = this.sanitizeSearchQuery(query);
+    if (!sanitizedQuery) return [];
+    
     return await db.select().from(orderItems).where(
-      sql`${orderItems.code} ILIKE ${'%' + query + '%'} OR ${orderItems.name} ILIKE ${'%' + query + '%'}`
+      or(
+        ilike(orderItems.code, `%${sanitizedQuery}%`),
+        ilike(orderItems.name, `%${sanitizedQuery}%`)
+      )
     );
   }
 
   async searchCounterparties(query: string): Promise<Counterparty[]> {
+    const sanitizedQuery = this.sanitizeSearchQuery(query);
+    if (!sanitizedQuery) return [];
+    
     return await db.select().from(counterparties).where(
-      sql`${counterparties.name} ILIKE ${'%' + query + '%'} OR ${counterparties.company} ILIKE ${'%' + query + '%'}`
+      or(
+        ilike(counterparties.name, `%${sanitizedQuery}%`),
+        ilike(counterparties.company, `%${sanitizedQuery}%`)
+      )
     );
   }
 
   async searchInventory(query: string): Promise<WarehouseInventory[]> {
+    const sanitizedQuery = this.sanitizeSearchQuery(query);
+    if (!sanitizedQuery) return [];
+    
     return await db.select().from(warehouseInventory).where(
-      sql`${warehouseInventory.code} ILIKE ${'%' + query + '%'} OR ${warehouseInventory.name} ILIKE ${'%' + query + '%'} OR ${warehouseInventory.description} ILIKE ${'%' + query + '%'}`
+      or(
+        ilike(warehouseInventory.code, `%${sanitizedQuery}%`),
+        ilike(warehouseInventory.name, `%${sanitizedQuery}%`),
+        ilike(warehouseInventory.description, `%${sanitizedQuery}%`)
+      )
     );
   }
 

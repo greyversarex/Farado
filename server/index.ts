@@ -51,6 +51,9 @@ const authLimiter = rateLimit({
   skipSuccessfulRequests: true,
 });
 
+// Trust proxy for rate limiting (needed for Replit environment)
+app.set('trust proxy', 1);
+
 // Применяем общий limiter ко всем запросам
 app.use(limiter);
 

@@ -1,5 +1,6 @@
 import type { Express, Request } from "express";
 import express from "express";
+import { body, param, query, validationResult } from "express-validator";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 
@@ -26,6 +27,28 @@ import {
 } from "@shared/schema";
 import { fromZodError } from "zod-validation-error";
 import { sendTelegramNotification, formatQuoteRequestMessage, formatContactMessage } from "./telegram";
+
+// Validation middleware
+const handleValidationErrors = (req: Request, res: any, next: any) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ 
+      message: "Validation error", 
+      errors: errors.array() 
+    });
+  }
+  next();
+};
+
+// Sanitize search queries
+const sanitizeQuery = (query: string): string => {
+  if (!query || typeof query !== 'string') return '';
+  return query
+    .trim()
+    .slice(0, 100) // Limit length to prevent DoS
+    .replace(/[<>\"'&]/g, '') // Remove XSS characters
+    .replace(/[%_\\]/g, '\\$&'); // Escape LIKE wildcards
+};
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Serve static assets before API routes with no-cache headers
@@ -766,18 +789,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Universal search endpoint
-  app.get('/api/admin/search', requireAuth, async (req, res) => {
+  app.get('/api/admin/search', 
+    [
+      query('q').notEmpty().trim().isLength({ min: 1, max: 100 }).escape(),
+      handleValidationErrors
+    ],
+    requireAuth, 
+    async (req: any, res: any) => {
     try {
-      const query = req.query.q as string;
-      if (!query) {
-        return res.status(400).json({ message: "Search query required" });
+      const searchQuery = sanitizeQuery(req.query.q as string);
+      if (!searchQuery) {
+        return res.status(400).json({ message: "Valid search query required" });
       }
 
       const [orders, items, counterparties, inventory] = await Promise.all([
-        storage.searchOrders(query),
-        storage.searchOrderItems(query),
-        storage.searchCounterparties(query),
-        storage.searchInventory(query)
+        storage.searchOrders(searchQuery),
+        storage.searchOrderItems(searchQuery),
+        storage.searchCounterparties(searchQuery),
+        storage.searchInventory(searchQuery)
       ]);
 
       res.json({ orders, items, counterparties, inventory });
@@ -813,8 +842,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Delete order item
   app.delete('/api/admin/orders/:orderId/items/:itemId', requireAuth, async (req, res) => {
     try {
-      const { itemId } = req.params;
-      await storage.deleteOrderItem(parseInt(itemId));
+      const itemId = parseInt(req.params.itemId);
+      if (isNaN(itemId)) {
+        return res.status(400).json({ message: "Invalid item ID" });
+      }
+      await storage.deleteOrderItem(itemId);
       res.json({ success: true });
     } catch (error) {
       console.error('Delete order item error:', error);
@@ -974,8 +1006,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.delete('/api/admin/trucks/:id', requireAuth, async (req, res) => {
     try {
-      const { id } = req.params;
-      await storage.deleteTruck(parseInt(id));
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid truck ID" });
+      }
+      await storage.deleteTruck(id);
       res.json({ success: true });
     } catch (error) {
       console.error('Delete truck error:', error);
