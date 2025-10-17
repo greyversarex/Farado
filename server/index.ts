@@ -10,8 +10,9 @@ import { initializeDatabase, pool } from "./db";
 const app = express();
 
 // Security middleware
+const isDevelopment = process.env.NODE_ENV === "development";
 app.use(helmet({
-  contentSecurityPolicy: {
+  contentSecurityPolicy: isDevelopment ? false : {
     directives: {
       defaultSrc: ["'self'"],
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
