@@ -32,7 +32,7 @@ app.use(helmet({
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 минут
-  max: 100, // максимум 100 запросов с одного IP за окно
+  max: isDevelopment ? 1000 : 500, // Более разумный лимит для разработки и продакшена
   message: {
     error: "Too many requests from this IP, please try again later.",
     retryAfter: 15 * 60 * 1000
