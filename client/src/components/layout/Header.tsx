@@ -49,10 +49,10 @@ export function Header() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className={`relative px-4 py-3 text-sm font-medium transition-all duration-300 rounded-full group ${
+                  className={`relative px-4 py-3 text-sm font-medium transition-all duration-300 group ${
                     isActive(item.href)
-                      ? "text-red-600 bg-red-50"
-                      : "text-gray-700 hover:text-red-600 hover:bg-gray-50"
+                      ? "text-red-600"
+                      : "text-gray-700 hover:text-red-600"
                   }`}
                 >
                   {item.name}
