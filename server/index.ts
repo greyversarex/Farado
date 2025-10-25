@@ -167,9 +167,11 @@ function setupGracefulShutdown(server: any, sessionStore?: any) {
           log('Session store closed');
         }
         
-        // Close database pool connections
-        await pool.end();
-        log('Database connections closed');
+        // Close database pool connections (only in development)
+        if (pool) {
+          await pool.end();
+          log('Database connections closed');
+        }
       } catch (error) {
         log(`Error closing connections: ${error}`);
       }
@@ -207,14 +209,17 @@ function setupGracefulShutdown(server: any, sessionStore?: any) {
       app.set('trust proxy', 1);
     }
 
-    // Create session store (use PostgreSQL in production, memory store in development)
-    const sessionStore = isProduction 
+    // Create session store
+    // Note: Using memory store for now. In Autoscale deployments with HTTP driver,
+    // we don't have a persistent pool connection. For persistent sessions in production,
+    // you would need to create a separate Pool connection for session storage.
+    const sessionStore = (isProduction && pool) 
       ? new PgSession({
           pool: pool as any,
           tableName: 'user_sessions',
           createTableIfMissing: true
         })
-      : undefined; // Use default memory store in development
+      : undefined; // Use default memory store
 
     app.use(session({
       store: sessionStore,
