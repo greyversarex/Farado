@@ -210,7 +210,7 @@ function setupGracefulShutdown(server: any, sessionStore?: any) {
     // Create session store (use PostgreSQL in production, memory store in development)
     const sessionStore = isProduction 
       ? new PgSession({
-          pool: pool,
+          pool: pool as any,
           tableName: 'user_sessions',
           createTableIfMissing: true
         })
