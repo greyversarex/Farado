@@ -1,10 +1,20 @@
 import { Pool, neonConfig } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-serverless';
-import ws from "ws";
 import * as schema from "@shared/schema";
 import bcrypt from 'bcrypt';
 
-neonConfig.webSocketConstructor = ws;
+// Configure Neon for serverless/Autoscale deployments
+// In production (Autoscale), use fetch instead of WebSocket
+// WebSocket connections are not supported in Autoscale deployments
+if (process.env.NODE_ENV === 'production') {
+  // Use fetch for Autoscale deployments
+  neonConfig.fetchConnectionCache = true;
+} else {
+  // In development, we can use WebSocket for better performance
+  import('ws').then((ws) => {
+    neonConfig.webSocketConstructor = ws.default;
+  });
+}
 
 if (!process.env.DATABASE_URL) {
   throw new Error(
