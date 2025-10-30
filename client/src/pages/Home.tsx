@@ -756,24 +756,6 @@ export default function Home() {
               <div className="text-gray-600 font-medium">{t('pages.home.numbers.warehousesInChina')}</div>
             </div>
           </div>
-          
-          <div className="mt-16 text-center">
-            <h3 className="text-2xl font-bold text-gray-900 mb-8">{t('pages.home.geography.title')}</h3>
-            <div className="bg-gray-50 rounded-2xl p-8 relative overflow-hidden">
-              <img 
-                src="https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600" 
-                alt="World map showing global trade routes and connections" 
-                className="w-full h-64 lg:h-80 object-cover rounded-xl"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-red-600/20 to-blue-500/20 rounded-xl"></div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="bg-white/90 backdrop-blur-sm rounded-xl p-6 text-center">
-                  <div className="text-2xl font-bold text-gray-900 mb-2">{t('pages.home.geography.subtitle')}</div>
-                  <div className="text-gray-600">{t('pages.home.geography.routes')}</div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
       {/* CTA Section */}
