@@ -506,6 +506,113 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Shipping Pricing Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              Цены перевозки
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Китай - Душанбе
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Card className="bg-white hover:shadow-xl transition-shadow border-2 border-gray-100">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Гуанчжоу</h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                    <span className="text-gray-600 font-medium">1 кг</span>
+                    <span className="text-2xl font-bold text-red-600">1.3$</span>
+                  </div>
+                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                    <span className="text-gray-600 font-medium">1 м³</span>
+                    <span className="text-2xl font-bold text-red-600">240$</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-white hover:shadow-xl transition-shadow border-2 border-gray-100">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Фошань</h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                    <span className="text-gray-600 font-medium">1 кг</span>
+                    <span className="text-2xl font-bold text-red-600">1.3$</span>
+                  </div>
+                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                    <span className="text-gray-600 font-medium">1 м³</span>
+                    <span className="text-2xl font-bold text-red-600">240$</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-white hover:shadow-xl transition-shadow border-2 border-gray-100">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Урумчи</h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                    <span className="text-gray-600 font-medium">1 кг</span>
+                    <span className="text-2xl font-bold text-red-600">1$</span>
+                  </div>
+                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                    <span className="text-gray-600 font-medium">1 м³</span>
+                    <span className="text-2xl font-bold text-red-600">190$</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-white hover:shadow-xl transition-shadow border-2 border-gray-100">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Кашгар</h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                    <span className="text-gray-600 font-medium">1 кг</span>
+                    <span className="text-2xl font-bold text-red-600">1$</span>
+                  </div>
+                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                    <span className="text-gray-600 font-medium">1 м³</span>
+                    <span className="text-2xl font-bold text-red-600">180$</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-white hover:shadow-xl transition-shadow border-2 border-gray-100">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Иу</h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                    <span className="text-gray-600 font-medium">1 кг</span>
+                    <span className="text-2xl font-bold text-red-600">1.1$</span>
+                  </div>
+                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                    <span className="text-gray-600 font-medium">1 м³</span>
+                    <span className="text-2xl font-bold text-red-600">220$</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="text-center mt-12">
+            <Button 
+              onClick={() => setIsQuoteFormOpen(true)}
+              className="bg-red-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-red-700 transition-colors shadow-lg"
+              data-testid="button-quote-pricing"
+            >
+              Рассчитать стоимость перевозки
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* Process Section */}
       <section id="process" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

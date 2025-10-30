@@ -16,7 +16,6 @@ import Services from "@/pages/Services";
 import Programs from "@/pages/Programs";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
-import Blog from "@/pages/Blog";
 import ClientPortal from "@/pages/ClientPortal";
 import AdminApp from "@/pages/AdminApp";
 import CounterpartyDetails from "@/pages/admin/CounterpartyDetails";
@@ -42,7 +41,6 @@ function Router() {
                 <Route path="/programs" component={Programs} />
                 <Route path="/about" component={About} />
                 <Route path="/contact" component={Contact} />
-                <Route path="/blog" component={Blog} />
                 <Route path="/client-portal" component={ClientPortal} />
                 <Route path="/portal" component={ClientPortal} />
                 <Route component={NotFound} />
