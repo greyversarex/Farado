@@ -14,7 +14,8 @@ import {
   Star,
   Handshake,
   TrendingUp,
-  Shield
+  Shield,
+  Languages
 } from "lucide-react";
 
 export default function About() {
@@ -24,6 +25,34 @@ export default function About() {
     queryKey: ["/api/stats"],
     staleTime: 5 * 60 * 1000, // 5 minutes
   }) as { data: CompanyStats | undefined };
+
+  const advantages = [
+    {
+      icon: Award,
+      title: t('services.experienceTitle'),
+      description: t('services.experienceDesc')
+    },
+    {
+      icon: Globe,
+      title: t('services.officesTitle'),
+      description: t('services.officesDesc')
+    },
+    {
+      icon: Shield,
+      title: t('services.guaranteesTitle'),
+      description: t('services.guaranteesDesc')
+    },
+    {
+      icon: Users,
+      title: t('services.comprehensiveTitle'),
+      description: t('services.comprehensiveDesc')
+    },
+    {
+      icon: Languages,
+      title: t('services.languageTitle'),
+      description: t('services.languageDesc')
+    }
+  ];
 
   const values = [
     {
@@ -164,69 +193,123 @@ export default function About() {
         </div>
       </section>
 
-      {/* Mission & Vision */}
+      {/* Why FARADO Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              {t('services.whyChoose')}
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              {t('services.whyChooseSubtitle')}
+            </p>
+          </div>
+          
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
-              <div>
-                <div className="flex items-center space-x-3 mb-4">
-                  <Target className="text-red-600 w-8 h-8" />
-                  <h2 className="text-3xl font-bold text-gray-900">{t('pages.about.mission')}</h2>
+              {advantages.map((advantage, index) => (
+                <div key={index} className="flex items-start space-x-6">
+                  <div className="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <advantage.icon className="text-white w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{advantage.title}</h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      {advantage.description}
+                    </p>
+                  </div>
                 </div>
-                <p className="text-lg text-gray-600 leading-relaxed">
-                  {t('pages.about.missionText')}
-                </p>
-              </div>
-
-              <div>
-                <div className="flex items-center space-x-3 mb-4">
-                  <Globe className="text-red-600 w-8 h-8" />
-                  <h2 className="text-3xl font-bold text-gray-900">{t('pages.about.vision')}</h2>
-                </div>
-                <p className="text-lg text-gray-600 leading-relaxed">
-                  {t('pages.about.visionText')}
-                </p>
-              </div>
+              ))}
             </div>
-
+            
             <div className="relative">
               <img 
-                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800" 
-                alt="Business team collaboration and strategic planning" 
-                className="rounded-2xl shadow-2xl w-full h-96 object-cover"
+                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800" 
+                alt="Professional business team meeting in modern office" 
+                className="rounded-2xl shadow-2xl w-full h-96 lg:h-[500px] object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-tr from-red-600/10 to-transparent rounded-2xl"></div>
+              
+              <div className="absolute bottom-6 left-6 right-6">
+                <div className="bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-lg">
+                  <div className="grid grid-cols-3 gap-4 text-center">
+                    <div>
+                      <div className="text-2xl font-bold text-gray-900">
+                        {stats?.satisfactionRate || 99.2}%
+                      </div>
+                      <div className="text-xs text-gray-600">{t('stats.satisfaction')}</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-gray-900">
+                        {stats?.onTimeDelivery || 98.7}%
+                      </div>
+                      <div className="text-xs text-gray-600">{t('stats.onTime')}</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-gray-900">
+                        {stats?.averageSavings || 25}%
+                      </div>
+                      <div className="text-xs text-gray-600">{t('stats.savings')}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Values */}
+      {/* Mission, Vision & Values */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
               {t('pages.about.values')}
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              {t('pages.about.valuesSubtitle')}
-            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {values.map((value, index) => (
-              <Card key={index} className="bg-white hover:shadow-lg transition-shadow">
-                <CardContent className="p-8 text-center">
-                  <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <value.icon className="text-red-600 w-8 h-8" />
+          {/* Mission & Vision Cards */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <Card className="bg-gradient-to-br from-red-50 to-white border-2 border-red-100">
+              <CardContent className="p-8">
+                <div className="flex items-center space-x-3 mb-4">
+                  <div className="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center">
+                    <Target className="text-white w-6 h-6" />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">{value.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">
-                    {value.description}
-                  </p>
-                </CardContent>
-              </Card>
+                  <h3 className="text-2xl font-bold text-gray-900">{t('pages.about.mission')}</h3>
+                </div>
+                <p className="text-gray-600 leading-relaxed">
+                  {t('pages.about.missionText')}
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gradient-to-br from-blue-50 to-white border-2 border-blue-100">
+              <CardContent className="p-8">
+                <div className="flex items-center space-x-3 mb-4">
+                  <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
+                    <Globe className="text-white w-6 h-6" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900">{t('pages.about.vision')}</h3>
+                </div>
+                <p className="text-gray-600 leading-relaxed">
+                  {t('pages.about.visionText')}
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Values Grid - Compact */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            {values.map((value, index) => (
+              <div key={index} className="text-center">
+                <div className="w-16 h-16 bg-white rounded-xl shadow-md flex items-center justify-center mx-auto mb-3 hover:shadow-lg transition-shadow">
+                  <value.icon className="text-red-600 w-7 h-7" />
+                </div>
+                <h4 className="text-sm font-semibold text-gray-900 mb-1">{value.title}</h4>
+                <p className="text-xs text-gray-600 leading-relaxed">
+                  {value.description}
+                </p>
+              </div>
             ))}
           </div>
         </div>
@@ -379,67 +462,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* Achievements */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              {t('pages.about.achievements')}
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              {t('pages.services.team.subtitle')}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="text-center bg-gradient-to-br from-red-50 to-red-100 border-red-200">
-              <CardContent className="p-8">
-                <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Award className="text-white w-8 h-8" />
-                </div>
-                <div className="text-3xl font-bold text-red-600 mb-2">
-                  {stats?.satisfactionRate || 99.2}%
-                </div>
-                <div className="text-gray-700 font-medium">{t('stats.satisfaction')}</div>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
-              <CardContent className="p-8">
-                <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <TrendingUp className="text-white w-8 h-8" />
-                </div>
-                <div className="text-3xl font-bold text-blue-600 mb-2">
-                  {stats?.onTimeDelivery || 98.7}%
-                </div>
-                <div className="text-gray-700 font-medium">{t('stats.onTime')}</div>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center bg-gradient-to-br from-green-50 to-green-100 border-green-200">
-              <CardContent className="p-8">
-                <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Globe className="text-white w-8 h-8" />
-                </div>
-                <div className="text-3xl font-bold text-green-600 mb-2">
-                  {stats?.countriesServed || 15}+
-                </div>
-                <div className="text-gray-700 font-medium">{t('stats.countries')}</div>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
-              <CardContent className="p-8">
-                <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="text-white w-8 h-8" />
-                </div>
-                <div className="text-3xl font-bold text-purple-600 mb-2">50+</div>
-                <div className="text-gray-700 font-medium">{t('pages.about.employees')}</div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

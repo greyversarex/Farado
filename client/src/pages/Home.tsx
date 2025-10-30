@@ -715,103 +715,25 @@ export default function Home() {
           </div>
         </div>
       </section>
-      {/* Stats Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              {t('pages.home.numbers.title')}
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              {t('pages.home.numbers.subtitle')}
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center p-8 bg-gradient-to-br from-red-50 to-red-100 rounded-2xl">
-              <div className="text-4xl lg:text-5xl font-bold text-red-600 mb-2">
-                {stats?.totalOrders || 7000}+
-              </div>
-              <div className="text-gray-600 font-medium">{t('pages.home.numbers.completedOrders')}</div>
-            </div>
-            
-            <div className="text-center p-8 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl">
-              <div className="text-4xl lg:text-5xl font-bold text-blue-600 mb-2">
-                {stats?.countriesServed || 15}+
-              </div>
-              <div className="text-gray-600 font-medium">{t('pages.home.numbers.deliveryCountries')}</div>
-            </div>
-            
-            <div className="text-center p-8 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl">
-              <div className="text-4xl lg:text-5xl font-bold text-green-600 mb-2">
-                {stats?.averageSavings || 25}%
-              </div>
-              <div className="text-gray-600 font-medium">{t('pages.home.numbers.averageSavings')}</div>
-            </div>
-            
-            <div className="text-center p-8 bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl">
-              <div className="text-4xl lg:text-5xl font-bold text-purple-600 mb-2">
-                {stats?.warehouses || 6}
-              </div>
-              <div className="text-gray-600 font-medium">{t('pages.home.numbers.warehousesInChina')}</div>
-            </div>
-          </div>
-        </div>
-      </section>
       {/* CTA Section */}
-      <section className="py-20 bg-white">
+      <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-br from-red-600 to-red-700 rounded-3xl p-8 lg:p-16 text-white text-center">
-            <h2 className="text-3xl lg:text-5xl font-bold mb-6">
-              {t('pages.home.readyToStart.title')}
-            </h2>
-            <p className="text-xl lg:text-2xl opacity-90 mb-12 max-w-3xl mx-auto">
-              {t('pages.home.readyToStart.subtitle')}
-            </p>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-8 text-left">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-                    <i className="fas fa-phone text-white"></i>
-                  </div>
-                  <div>
-                    <div className="font-semibold">{t('pages.home.readyToStart.freeConsultation')}</div>
-                    <div className="opacity-90">{t('pages.home.readyToStart.freeConsultationDesc')}</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-                    <i className="fas fa-calculator text-white"></i>
-                  </div>
-                  <div>
-                    <div className="font-semibold">{t('pages.home.readyToStart.costCalculation')}</div>
-                    <div className="opacity-90">{t('pages.home.readyToStart.costCalculationDesc')}</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-                    <i className="fas fa-file-contract text-white"></i>
-                  </div>
-                  <div>
-                    <div className="font-semibold">{t('pages.home.readyToStart.individualOffer')}</div>
-                    <div className="opacity-90">{t('pages.home.readyToStart.individualOfferDesc')}</div>
-                  </div>
-                </div>
-              </div>
-              
-              <div>
-                <Button 
-                  onClick={() => setIsQuoteFormOpen(true)}
-                  size="lg"
-                  className="bg-white text-red-600 hover:bg-gray-100 font-semibold text-lg px-8 py-4"
-                >
-                  {t('pages.home.readyToStart.getQuote')}
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-              </div>
+          <div className="bg-gradient-to-br from-red-600 to-red-700 rounded-2xl p-8 lg:p-12 text-white">
+            <div className="text-center max-w-3xl mx-auto">
+              <h2 className="text-2xl lg:text-4xl font-bold mb-4">
+                {t('pages.home.readyToStart.title')}
+              </h2>
+              <p className="text-lg opacity-90 mb-8">
+                {t('pages.home.readyToStart.subtitle')}
+              </p>
+              <Button 
+                onClick={() => setIsQuoteFormOpen(true)}
+                size="lg"
+                className="bg-white text-red-600 hover:bg-gray-100 font-semibold text-lg px-8 py-3"
+              >
+                {t('pages.home.readyToStart.getQuote')}
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
             </div>
           </div>
         </div>
