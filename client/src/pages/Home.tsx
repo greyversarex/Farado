@@ -508,107 +508,167 @@ export default function Home() {
       </section>
 
       {/* Shipping Pricing Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-red-100 rounded-full opacity-20 blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-100 rounded-full opacity-20 blur-3xl"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-12">
+            <div className="inline-block mb-4">
+              <span className="bg-red-100 text-red-600 px-4 py-2 rounded-full text-sm font-semibold">
+                Выгодные тарифы
+              </span>
+            </div>
+            <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-4">
               Цены перевозки
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Китай - Душанбе
+            <p className="text-xl text-gray-600">
+              Китай → Душанбе
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card className="bg-white hover:shadow-xl transition-shadow border-2 border-gray-100">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Гуанчжоу</h3>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
-                    <span className="text-gray-600 font-medium">1 кг</span>
-                    <span className="text-2xl font-bold text-red-600">1.3$</span>
-                  </div>
-                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
-                    <span className="text-gray-600 font-medium">1 м³</span>
-                    <span className="text-2xl font-bold text-red-600">240$</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white hover:shadow-xl transition-shadow border-2 border-gray-100">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Фошань</h3>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
-                    <span className="text-gray-600 font-medium">1 кг</span>
-                    <span className="text-2xl font-bold text-red-600">1.3$</span>
-                  </div>
-                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
-                    <span className="text-gray-600 font-medium">1 м³</span>
-                    <span className="text-2xl font-bold text-red-600">240$</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white hover:shadow-xl transition-shadow border-2 border-gray-100">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Урумчи</h3>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
-                    <span className="text-gray-600 font-medium">1 кг</span>
-                    <span className="text-2xl font-bold text-red-600">1$</span>
-                  </div>
-                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
-                    <span className="text-gray-600 font-medium">1 м³</span>
-                    <span className="text-2xl font-bold text-red-600">190$</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white hover:shadow-xl transition-shadow border-2 border-gray-100">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Кашгар</h3>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
-                    <span className="text-gray-600 font-medium">1 кг</span>
-                    <span className="text-2xl font-bold text-red-600">1$</span>
-                  </div>
-                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
-                    <span className="text-gray-600 font-medium">1 м³</span>
-                    <span className="text-2xl font-bold text-red-600">180$</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white hover:shadow-xl transition-shadow border-2 border-gray-100">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Иу</h3>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
-                    <span className="text-gray-600 font-medium">1 кг</span>
-                    <span className="text-2xl font-bold text-red-600">1.1$</span>
-                  </div>
-                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
-                    <span className="text-gray-600 font-medium">1 м³</span>
-                    <span className="text-2xl font-bold text-red-600">220$</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="text-center mt-12">
-            <Button 
-              onClick={() => setIsQuoteFormOpen(true)}
-              className="bg-red-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-red-700 transition-colors shadow-lg"
-              data-testid="button-quote-pricing"
-            >
-              Рассчитать стоимость перевозки
-            </Button>
+          <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="bg-gradient-to-r from-red-600 to-red-700">
+                    <th className="px-6 py-5 text-left text-white font-bold text-lg">
+                      Город отправления
+                    </th>
+                    <th className="px-6 py-5 text-center text-white font-bold text-lg">
+                      <div className="flex items-center justify-center gap-2">
+                        <Package className="w-5 h-5" />
+                        <span>1 кг</span>
+                      </div>
+                    </th>
+                    <th className="px-6 py-5 text-center text-white font-bold text-lg">
+                      <div className="flex items-center justify-center gap-2">
+                        <BarChart3 className="w-5 h-5" />
+                        <span>1 м³</span>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  <tr className="hover:bg-red-50 transition-colors group">
+                    <td className="px-6 py-6">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
+                          <MapPin className="w-5 h-5 text-white" />
+                        </div>
+                        <span className="font-semibold text-gray-900 text-lg">Гуанчжоу</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-6 text-center">
+                      <div className="inline-flex items-center gap-2 bg-red-50 px-4 py-2 rounded-lg group-hover:bg-white transition-colors">
+                        <span className="text-2xl font-bold text-red-600">1.3</span>
+                        <span className="text-gray-600 font-medium">USD</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-6 text-center">
+                      <div className="inline-flex items-center gap-2 bg-red-50 px-4 py-2 rounded-lg group-hover:bg-white transition-colors">
+                        <span className="text-2xl font-bold text-red-600">240</span>
+                        <span className="text-gray-600 font-medium">USD</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-red-50 transition-colors group">
+                    <td className="px-6 py-6">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg">
+                          <MapPin className="w-5 h-5 text-white" />
+                        </div>
+                        <span className="font-semibold text-gray-900 text-lg">Фошань</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-6 text-center">
+                      <div className="inline-flex items-center gap-2 bg-orange-50 px-4 py-2 rounded-lg group-hover:bg-white transition-colors">
+                        <span className="text-2xl font-bold text-orange-600">1.3</span>
+                        <span className="text-gray-600 font-medium">USD</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-6 text-center">
+                      <div className="inline-flex items-center gap-2 bg-orange-50 px-4 py-2 rounded-lg group-hover:bg-white transition-colors">
+                        <span className="text-2xl font-bold text-orange-600">240</span>
+                        <span className="text-gray-600 font-medium">USD</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-red-50 transition-colors group">
+                    <td className="px-6 py-6">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                          <MapPin className="w-5 h-5 text-white" />
+                        </div>
+                        <span className="font-semibold text-gray-900 text-lg">Урумчи</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-6 text-center">
+                      <div className="inline-flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-lg group-hover:bg-white transition-colors">
+                        <span className="text-2xl font-bold text-blue-600">1</span>
+                        <span className="text-gray-600 font-medium">USD</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-6 text-center">
+                      <div className="inline-flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-lg group-hover:bg-white transition-colors">
+                        <span className="text-2xl font-bold text-blue-600">190</span>
+                        <span className="text-gray-600 font-medium">USD</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-red-50 transition-colors group">
+                    <td className="px-6 py-6">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg">
+                          <MapPin className="w-5 h-5 text-white" />
+                        </div>
+                        <span className="font-semibold text-gray-900 text-lg">Кашгар</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-6 text-center">
+                      <div className="inline-flex items-center gap-2 bg-green-50 px-4 py-2 rounded-lg group-hover:bg-white transition-colors">
+                        <span className="text-2xl font-bold text-green-600">1</span>
+                        <span className="text-gray-600 font-medium">USD</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-6 text-center">
+                      <div className="inline-flex items-center gap-2 bg-green-50 px-4 py-2 rounded-lg group-hover:bg-white transition-colors">
+                        <span className="text-2xl font-bold text-green-600">180</span>
+                        <span className="text-gray-600 font-medium">USD</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-red-50 transition-colors group">
+                    <td className="px-6 py-6">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                          <MapPin className="w-5 h-5 text-white" />
+                        </div>
+                        <span className="font-semibold text-gray-900 text-lg">Иу</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-6 text-center">
+                      <div className="inline-flex items-center gap-2 bg-purple-50 px-4 py-2 rounded-lg group-hover:bg-white transition-colors">
+                        <span className="text-2xl font-bold text-purple-600">1.1</span>
+                        <span className="text-gray-600 font-medium">USD</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-6 text-center">
+                      <div className="inline-flex items-center gap-2 bg-purple-50 px-4 py-2 rounded-lg group-hover:bg-white transition-colors">
+                        <span className="text-2xl font-bold text-purple-600">220</span>
+                        <span className="text-gray-600 font-medium">USD</span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-6 py-4 border-t border-gray-200">
+              <p className="text-sm text-gray-600 text-center">
+                * Указаны базовые тарифы. Итоговая стоимость зависит от типа груза, объема и дополнительных услуг
+              </p>
+            </div>
           </div>
         </div>
       </section>
