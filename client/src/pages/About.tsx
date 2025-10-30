@@ -258,58 +258,31 @@ export default function About() {
         </div>
       </section>
 
-      {/* Mission, Vision & Values */}
+      {/* Values */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
               {t('pages.about.values')}
             </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              {t('pages.about.valuesSubtitle')}
+            </p>
           </div>
 
-          {/* Mission & Vision Cards */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-            <Card className="bg-gradient-to-br from-red-50 to-white border-2 border-red-100">
-              <CardContent className="p-8">
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center">
-                    <Target className="text-white w-6 h-6" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900">{t('pages.about.mission')}</h3>
-                </div>
-                <p className="text-gray-600 leading-relaxed">
-                  {t('pages.about.missionText')}
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-gradient-to-br from-blue-50 to-white border-2 border-blue-100">
-              <CardContent className="p-8">
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
-                    <Globe className="text-white w-6 h-6" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900">{t('pages.about.vision')}</h3>
-                </div>
-                <p className="text-gray-600 leading-relaxed">
-                  {t('pages.about.visionText')}
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Values Grid - Compact */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {values.map((value, index) => (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-white rounded-xl shadow-md flex items-center justify-center mx-auto mb-3 hover:shadow-lg transition-shadow">
-                  <value.icon className="text-red-600 w-7 h-7" />
-                </div>
-                <h4 className="text-sm font-semibold text-gray-900 mb-1">{value.title}</h4>
-                <p className="text-xs text-gray-600 leading-relaxed">
-                  {value.description}
-                </p>
-              </div>
+              <Card key={index} className="bg-white hover:shadow-lg transition-shadow">
+                <CardContent className="p-8 text-center">
+                  <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <value.icon className="text-red-600 w-8 h-8" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">{value.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    {value.description}
+                  </p>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
