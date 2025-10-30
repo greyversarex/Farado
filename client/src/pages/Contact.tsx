@@ -319,29 +319,6 @@ export default function Contact() {
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-br from-red-600/20 to-blue-500/20"></div>
-                    
-                    {/* Office Markers - Positioned according to user map */}
-                    {/* Dushanbe: Головной офис */}
-                    <div className="absolute top-[35%] left-[58%] transform -translate-x-1/2 -translate-y-1/2">
-                      <div className="bg-red-600 rounded-full p-3 shadow-lg animate-pulse">
-                        <MapPin className="text-white w-6 h-6" />
-                      </div>
-                      <div className="bg-white rounded-lg p-2 mt-2 shadow-lg text-center text-sm border-2 border-red-200">
-                        <div className="font-semibold text-red-700">{t('pages.home.contact.dushanbe')}</div>
-                        <div className="text-gray-600">Головной офис</div>
-                      </div>
-                    </div>
-
-                    {/* Guangzhou: Представительство */}
-                    <div className="absolute top-[58%] right-[25%] transform translate-x-1/2 -translate-y-1/2">
-                      <div className="bg-blue-600 rounded-full p-3 shadow-lg animate-pulse">
-                        <MapPin className="text-white w-6 h-6" />
-                      </div>
-                      <div className="bg-white rounded-lg p-2 mt-2 shadow-lg text-center text-sm border-2 border-blue-200">
-                        <div className="font-semibold text-blue-700">{t('pages.home.contact.guangzhou')}</div>
-                        <div className="text-gray-600">Представительство</div>
-                      </div>
-                    </div>
                   </div>
                 </CardContent>
               </Card>
