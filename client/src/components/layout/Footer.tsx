@@ -40,7 +40,7 @@ export function Footer() {
           </div>
           
           <div className="text-right">
-            <h3 className="text-lg font-semibold mb-6">{t('nav.contact')}</h3>
+            <h3 className="text-lg font-semibold mb-6 pl-[23px] pr-[23px]">{t('nav.contact')}</h3>
             <div className="space-y-4 flex flex-col items-end">
               <div className="flex items-start space-x-3 flex-row-reverse space-x-reverse">
                 <i className="fas fa-map-marker-alt text-red-600 mt-1"></i>
