@@ -31,8 +31,15 @@ import {
   Download,
   Star,
   Send,
-  Trophy
+  Trophy,
+  DollarSign
 } from "lucide-react";
+
+import guangzhouImg from "@assets/i (1)_1761901428135.webp";
+import foshanImg from "@assets/maxresdefault_1761901431824.jpg";
+import urumqiImg from "@assets/i (3)_1761901428135.webp";
+import yiwuImg from "@assets/i (4)_1761901428136.webp";
+import kashgarImg from "@assets/i (5)_1761901428136.webp";
 
 export default function Home() {
   const [isQuoteFormOpen, setIsQuoteFormOpen] = useState(false);
@@ -123,6 +130,49 @@ export default function Home() {
       number: 4,
       title: t('pages.home.howWeWork.step4'),
       description: t('pages.home.howWeWork.step4Desc')
+    }
+  ];
+
+  const cities = [
+    {
+      name: t('pages.home.cities.guangzhou.name'),
+      nameChinese: t('pages.home.cities.guangzhou.nameChinese'),
+      description: t('pages.home.cities.guangzhou.description'),
+      pricePerKg: t('pages.home.cities.guangzhou.pricePerKg'),
+      pricePerCubic: t('pages.home.cities.guangzhou.pricePerCubic'),
+      image: guangzhouImg
+    },
+    {
+      name: t('pages.home.cities.foshan.name'),
+      nameChinese: t('pages.home.cities.foshan.nameChinese'),
+      description: t('pages.home.cities.foshan.description'),
+      pricePerKg: t('pages.home.cities.foshan.pricePerKg'),
+      pricePerCubic: t('pages.home.cities.foshan.pricePerCubic'),
+      image: foshanImg
+    },
+    {
+      name: t('pages.home.cities.urumqi.name'),
+      nameChinese: t('pages.home.cities.urumqi.nameChinese'),
+      description: t('pages.home.cities.urumqi.description'),
+      pricePerKg: t('pages.home.cities.urumqi.pricePerKg'),
+      pricePerCubic: t('pages.home.cities.urumqi.pricePerCubic'),
+      image: urumqiImg
+    },
+    {
+      name: t('pages.home.cities.yiwu.name'),
+      nameChinese: t('pages.home.cities.yiwu.nameChinese'),
+      description: t('pages.home.cities.yiwu.description'),
+      pricePerKg: t('pages.home.cities.yiwu.pricePerKg'),
+      pricePerCubic: t('pages.home.cities.yiwu.pricePerCubic'),
+      image: yiwuImg
+    },
+    {
+      name: t('pages.home.cities.kashgar.name'),
+      nameChinese: t('pages.home.cities.kashgar.nameChinese'),
+      description: t('pages.home.cities.kashgar.description'),
+      pricePerKg: t('pages.home.cities.kashgar.pricePerKg'),
+      pricePerCubic: t('pages.home.cities.kashgar.pricePerCubic'),
+      image: kashgarImg
     }
   ];
 
@@ -443,168 +493,84 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Shipping Pricing Section */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-red-100 rounded-full opacity-20 blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-100 rounded-full opacity-20 blur-3xl"></div>
+      {/* City Hubs Section */}
+      <section className="py-20 bg-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-red-100 rounded-full opacity-10 blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-red-50 rounded-full opacity-10 blur-3xl"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-12">
-            <div className="inline-block mb-4">
-              <span className="bg-red-100 text-red-600 px-4 py-2 rounded-full text-sm font-semibold">
-                Выгодные тарифы
-              </span>
-            </div>
+          <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-4">
-              Цены перевозки
+              {t('pages.home.cities.title')}
             </h2>
-            <p className="text-xl text-gray-600">
-              Китай → Душанбе
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              {t('pages.home.cities.subtitle')}
             </p>
           </div>
 
-          <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="bg-gradient-to-r from-red-600 to-red-700">
-                    <th className="px-6 py-5 text-left text-white font-bold text-lg">
-                      Город отправления
-                    </th>
-                    <th className="px-6 py-5 text-center text-white font-bold text-lg">
-                      <div className="flex items-center justify-center gap-2">
-                        <Package className="w-5 h-5" />
-                        <span>1 кг</span>
-                      </div>
-                    </th>
-                    <th className="px-6 py-5 text-center text-white font-bold text-lg">
-                      <div className="flex items-center justify-center gap-2">
-                        <BarChart3 className="w-5 h-5" />
-                        <span>1 м³</span>
-                      </div>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100">
-                  <tr className="hover:bg-red-50 transition-colors group">
-                    <td className="px-6 py-6">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
-                          <MapPin className="w-5 h-5 text-white" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {cities.map((city, index) => (
+              <Card 
+                key={index} 
+                className="group overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-red-200"
+                data-testid={`card-city-${index}`}
+              >
+                <div className="relative h-48 overflow-hidden">
+                  <img 
+                    src={city.image} 
+                    alt={`${city.name} cityscape`}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                  
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <div className="flex items-center gap-2 mb-1">
+                      <MapPin className="w-5 h-5 text-white" />
+                      <h3 className="text-2xl font-bold text-white">{city.name}</h3>
+                    </div>
+                    <p className="text-white/90 text-sm font-medium">{city.nameChinese}</p>
+                  </div>
+                </div>
+
+                <CardContent className="p-6">
+                  <p className="text-gray-600 text-sm leading-relaxed mb-6 min-h-[80px]">
+                    {city.description}
+                  </p>
+
+                  <div className="border-t border-gray-100 pt-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-red-50 rounded-lg p-3 text-center">
+                        <div className="flex items-center justify-center gap-1 mb-1">
+                          <Package className="w-4 h-4 text-red-600" />
+                          <span className="text-xs text-gray-600">{t('pages.home.cities.perKg')}</span>
                         </div>
-                        <span className="font-semibold text-gray-900 text-lg">Гуанчжоу</span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-6 text-center">
-                      <div className="inline-flex items-center gap-2 bg-red-50 px-4 py-2 rounded-lg group-hover:bg-white transition-colors">
-                        <span className="text-2xl font-bold text-red-600">1.3</span>
-                        <span className="text-gray-600 font-medium">USD</span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-6 text-center">
-                      <div className="inline-flex items-center gap-2 bg-red-50 px-4 py-2 rounded-lg group-hover:bg-white transition-colors">
-                        <span className="text-2xl font-bold text-red-600">240</span>
-                        <span className="text-gray-600 font-medium">USD</span>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr className="hover:bg-red-50 transition-colors group">
-                    <td className="px-6 py-6">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg">
-                          <MapPin className="w-5 h-5 text-white" />
+                        <div className="flex items-baseline justify-center gap-1">
+                          <span className="text-xs text-gray-500">{t('pages.home.cities.priceFrom')}</span>
+                          <span className="text-2xl font-bold text-red-600">${city.pricePerKg}</span>
                         </div>
-                        <span className="font-semibold text-gray-900 text-lg">Фошань</span>
                       </div>
-                    </td>
-                    <td className="px-6 py-6 text-center">
-                      <div className="inline-flex items-center gap-2 bg-orange-50 px-4 py-2 rounded-lg group-hover:bg-white transition-colors">
-                        <span className="text-2xl font-bold text-orange-600">1.3</span>
-                        <span className="text-gray-600 font-medium">USD</span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-6 text-center">
-                      <div className="inline-flex items-center gap-2 bg-orange-50 px-4 py-2 rounded-lg group-hover:bg-white transition-colors">
-                        <span className="text-2xl font-bold text-orange-600">240</span>
-                        <span className="text-gray-600 font-medium">USD</span>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr className="hover:bg-red-50 transition-colors group">
-                    <td className="px-6 py-6">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                          <MapPin className="w-5 h-5 text-white" />
+
+                      <div className="bg-red-50 rounded-lg p-3 text-center">
+                        <div className="flex items-center justify-center gap-1 mb-1">
+                          <BarChart3 className="w-4 h-4 text-red-600" />
+                          <span className="text-xs text-gray-600">{t('pages.home.cities.perCubic')}</span>
                         </div>
-                        <span className="font-semibold text-gray-900 text-lg">Урумчи</span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-6 text-center">
-                      <div className="inline-flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-lg group-hover:bg-white transition-colors">
-                        <span className="text-2xl font-bold text-blue-600">1</span>
-                        <span className="text-gray-600 font-medium">USD</span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-6 text-center">
-                      <div className="inline-flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-lg group-hover:bg-white transition-colors">
-                        <span className="text-2xl font-bold text-blue-600">190</span>
-                        <span className="text-gray-600 font-medium">USD</span>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr className="hover:bg-red-50 transition-colors group">
-                    <td className="px-6 py-6">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg">
-                          <MapPin className="w-5 h-5 text-white" />
+                        <div className="flex items-baseline justify-center gap-1">
+                          <span className="text-xs text-gray-500">{t('pages.home.cities.priceFrom')}</span>
+                          <span className="text-2xl font-bold text-red-600">${city.pricePerCubic}</span>
                         </div>
-                        <span className="font-semibold text-gray-900 text-lg">Кашгар</span>
                       </div>
-                    </td>
-                    <td className="px-6 py-6 text-center">
-                      <div className="inline-flex items-center gap-2 bg-green-50 px-4 py-2 rounded-lg group-hover:bg-white transition-colors">
-                        <span className="text-2xl font-bold text-green-600">1</span>
-                        <span className="text-gray-600 font-medium">USD</span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-6 text-center">
-                      <div className="inline-flex items-center gap-2 bg-green-50 px-4 py-2 rounded-lg group-hover:bg-white transition-colors">
-                        <span className="text-2xl font-bold text-green-600">180</span>
-                        <span className="text-gray-600 font-medium">USD</span>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr className="hover:bg-red-50 transition-colors group">
-                    <td className="px-6 py-6">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-                          <MapPin className="w-5 h-5 text-white" />
-                        </div>
-                        <span className="font-semibold text-gray-900 text-lg">Иу</span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-6 text-center">
-                      <div className="inline-flex items-center gap-2 bg-purple-50 px-4 py-2 rounded-lg group-hover:bg-white transition-colors">
-                        <span className="text-2xl font-bold text-purple-600">1.1</span>
-                        <span className="text-gray-600 font-medium">USD</span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-6 text-center">
-                      <div className="inline-flex items-center gap-2 bg-purple-50 px-4 py-2 rounded-lg group-hover:bg-white transition-colors">
-                        <span className="text-2xl font-bold text-purple-600">220</span>
-                        <span className="text-gray-600 font-medium">USD</span>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            
-            <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-6 py-4 border-t border-gray-200">
-              <p className="text-sm text-gray-600 text-center">
-                * Указаны базовые тарифы. Итоговая стоимость зависит от типа груза, объема и дополнительных услуг
-              </p>
-            </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="bg-gradient-to-r from-red-50 via-white to-red-50 rounded-2xl p-6 border border-red-100">
+            <p className="text-sm text-gray-600 text-center">
+              {t('pages.home.cities.priceNote')}
+            </p>
           </div>
         </div>
       </section>
