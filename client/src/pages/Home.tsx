@@ -410,7 +410,7 @@ export default function Home() {
                   </div>
                   
                   {/* Инфографика процесса для каждой услуги */}
-                  <div className="p-3 bg-gray-50 rounded-lg border border-gray-200 pt-[20px] pb-[20px] pl-[20px] pr-[20px] ml-[-1px] mr-[-1px] mt-[20px] mb-[20px]">
+                  <div className="p-3 bg-white rounded-lg border border-gray-200 pt-[20px] pb-[20px] pl-[20px] pr-[20px] ml-[-1px] mr-[-1px] mt-[20px] mb-[20px]">
                     <div className="grid grid-cols-5 gap-0">
                       <div className="flex flex-col items-center space-y-0.5">
                         <div className="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center">
@@ -512,7 +512,7 @@ export default function Home() {
             {cities.map((city, index) => (
               <Card 
                 key={index} 
-                className="group overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-red-200"
+                className="group overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-red-200 flex flex-col h-full"
                 data-testid={`card-city-${index}`}
               >
                 <div className="relative h-48 overflow-hidden">
@@ -532,8 +532,8 @@ export default function Home() {
                   </div>
                 </div>
 
-                <CardContent className="p-6 flex flex-col h-full">
-                  <p className="text-gray-600 text-sm leading-relaxed mb-6 flex-1">
+                <CardContent className="p-6 flex flex-col flex-1">
+                  <p className="text-gray-600 text-sm leading-relaxed mb-6 min-h-[80px]">
                     {city.description}
                   </p>
 
