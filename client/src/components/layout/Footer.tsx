@@ -17,17 +17,7 @@ export function Footer() {
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div className="space-y-6">
-            <div className="text-2xl font-bold">
-              <span className="text-red-600">FARADO</span>
-            </div>
-            <p className="text-gray-300 leading-relaxed">
-              {t('footer.description')}
-            </p>
-
-          </div>
-          
-          <div>
+          <div className="text-left">
             <h3 className="text-lg font-semibold mb-6">{t('nav.services')}</h3>
             <ul className="space-y-3">
               {services.map((service, index) => (
@@ -40,26 +30,35 @@ export function Footer() {
             </ul>
           </div>
           
-          <div>
+          <div className="space-y-6 text-center">
+            <div className="text-2xl font-bold">
+              <span className="text-red-600">FARADO</span>
+            </div>
+            <p className="text-gray-300 leading-relaxed">
+              {t('footer.description')}
+            </p>
+          </div>
+          
+          <div className="text-right">
             <h3 className="text-lg font-semibold mb-6">{t('nav.contact')}</h3>
-            <div className="space-y-4">
-              <div className="flex items-start space-x-3">
+            <div className="space-y-4 flex flex-col items-end">
+              <div className="flex items-start space-x-3 flex-row-reverse space-x-reverse">
                 <i className="fas fa-map-marker-alt text-red-600 mt-1"></i>
-                <div>
+                <div className="text-right">
                   <div className="font-medium">Душанбе - Представительство</div>
                   <div className="text-sm text-gray-400">ул. Рудаки 123, офис 45</div>
                 </div>
               </div>
-              <div className="flex items-start space-x-3">
+              <div className="flex items-start space-x-3 flex-row-reverse space-x-reverse">
                 <i className="fas fa-map-marker-alt text-red-600 mt-1"></i>
-                <div>
+                <div className="text-right">
                   <div className="font-medium">Гуанчжоу - Головной офис</div>
                   <div className="text-sm text-gray-400">Jiahecheng No.941, No. 90 Zhanqian Road, Guangzhou, Guangdong, China</div>
                 </div>
               </div>
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-3 flex-row-reverse space-x-reverse">
                 <i className="fas fa-phone text-red-600"></i>
-                <div className="flex flex-col space-y-1">
+                <div className="flex flex-col space-y-1 items-end">
                   <a href="tel:+992170665555" className="text-gray-300 hover:text-white transition-colors">
                     +992 170 66 5555
                   </a>
@@ -68,9 +67,9 @@ export function Footer() {
                   </a>
                 </div>
               </div>
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-3 flex-row-reverse space-x-reverse">
                 <i className="fas fa-envelope text-red-600"></i>
-                <div className="flex flex-col space-y-1">
+                <div className="flex flex-col space-y-1 items-end">
                   <a href="mailto:contact@farado.global" className="text-gray-300 hover:text-white transition-colors">
                     contact@farado.global
                   </a>
