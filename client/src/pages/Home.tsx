@@ -282,7 +282,7 @@ export default function Home() {
         </div>
       </section>
       {/* Services Section */}
-      <section id="services" className="py-20 bg-gray-50">
+      <section id="services" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
@@ -532,12 +532,12 @@ export default function Home() {
                   </div>
                 </div>
 
-                <CardContent className="p-6">
-                  <p className="text-gray-600 text-sm leading-relaxed mb-6 min-h-[80px]">
+                <CardContent className="p-6 flex flex-col h-full">
+                  <p className="text-gray-600 text-sm leading-relaxed mb-6 flex-1">
                     {city.description}
                   </p>
 
-                  <div className="border-t border-gray-100 pt-4">
+                  <div className="border-t border-gray-100 pt-4 mt-auto">
                     <div className="grid grid-cols-2 gap-4">
                       <div className="bg-red-50 rounded-lg p-3 text-center">
                         <div className="flex items-center justify-center gap-1 mb-1">
