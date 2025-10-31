@@ -13,18 +13,10 @@ export function Footer() {
     t('services.sampling'),
   ];
 
-  const companyLinks = [
-    { name: t('footer.aboutUs'), href: '/about' },
-    { name: t('nav.process'), href: '/#process' },
-    { name: t('nav.blog'), href: '/blog' },
-    { name: t('footer.careers'), href: '#' },
-    { name: t('footer.partners'), href: '#' },
-  ];
-
   return (
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div className="space-y-6">
             <div className="text-2xl font-bold">
               <span className="text-red-600">FARADO</span>
@@ -42,19 +34,6 @@ export function Footer() {
                 <li key={index}>
                   <a href="/services" className="text-gray-300 hover:text-white transition-colors">
                     {service}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="text-lg font-semibold mb-6">{t('footer.company')}</h3>
-            <ul className="space-y-3">
-              {companyLinks.map((link) => (
-                <li key={link.name}>
-                  <a href={link.href} className="text-gray-300 hover:text-white transition-colors">
-                    {link.name}
                   </a>
                 </li>
               ))}
