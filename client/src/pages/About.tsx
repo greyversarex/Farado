@@ -136,10 +136,11 @@ export default function About() {
 
   const team = [
     {
-      name: t('pages.services.team.farkhodName'),
-      position: t('pages.services.team.farkhodPosition'),
-      experience: t('pages.services.team.farkhodExperience'),
-      description: t('pages.services.team.farkhodDesc')
+      name: t('pages.services.team.bakhtiyorName'),
+      position: t('pages.services.team.bakhtiyorPosition'),
+      experience: t('pages.services.team.bakhtiyorExperience'),
+      description: t('pages.services.team.bakhtiyorDesc'),
+      image: '/attached_assets/ChatGPT Image 8 нояб. 2025 г., 00_36_33_1762544266830.png'
     },
     {
       name: t('pages.services.team.alisherName'),
@@ -149,10 +150,11 @@ export default function About() {
       image: '/attached_assets/photo_2025-06-25_16-17-41_1762542603216.jpg'
     },
     {
-      name: t('pages.services.team.liName'),
-      position: t('pages.services.team.liPosition'),
-      experience: t('pages.services.team.liExperience'),
-      description: t('pages.services.team.liDesc')
+      name: t('pages.services.team.pumbachaName'),
+      position: t('pages.services.team.pumbachaPosition'),
+      experience: t('pages.services.team.pumbachaExperience'),
+      description: t('pages.services.team.pumbachaDesc'),
+      image: '/attached_assets/photo_2025-07-06_16-45-18_1762544298990.jpg'
     },
     {
       name: t('pages.services.team.annaName'),
