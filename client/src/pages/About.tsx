@@ -142,6 +142,13 @@ export default function About() {
       description: t('pages.services.team.farkhodDesc')
     },
     {
+      name: t('pages.services.team.alisherName'),
+      position: t('pages.services.team.alisherPosition'),
+      experience: t('pages.services.team.alisherExperience'),
+      description: t('pages.services.team.alisherDesc'),
+      image: '/attached_assets/photo_2025-06-25_16-17-41_1762542603216.jpg'
+    },
+    {
       name: t('pages.services.team.liName'),
       position: t('pages.services.team.liPosition'),
       experience: t('pages.services.team.liExperience'),
@@ -344,9 +351,19 @@ export default function About() {
             {team.map((member, index) => (
               <Card key={index} className="bg-white hover:shadow-lg transition-shadow">
                 <CardContent className="p-8 text-center">
-                  <div className="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center">
-                    <Users className="text-gray-500 w-12 h-12" />
-                  </div>
+                  {member.image ? (
+                    <div className="w-24 h-24 rounded-full mx-auto mb-6 overflow-hidden">
+                      <img 
+                        src={member.image} 
+                        alt={member.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center">
+                      <Users className="text-gray-500 w-12 h-12" />
+                    </div>
+                  )}
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">{member.name}</h3>
                   <div className="text-red-600 font-medium mb-2">{member.position}</div>
                   <div className="text-sm text-gray-500 mb-4">{member.experience}</div>
