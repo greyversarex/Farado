@@ -539,25 +539,25 @@ export default function Home() {
 
                   <div className="border-t border-gray-100 pt-4 mt-auto">
                     <div className="grid grid-cols-2 gap-4">
-                      <div className="bg-red-50 rounded-lg p-3 text-center">
+                      <div className="bg-red-600 rounded-lg p-3 text-center">
                         <div className="flex items-center justify-center gap-1 mb-1">
-                          <Package className="w-4 h-4 text-red-600" />
-                          <span className="text-xs text-gray-600">{t('pages.home.cities.perKg')}</span>
+                          <Package className="w-4 h-4 text-white" />
+                          <span className="text-xs text-white">{t('pages.home.cities.perKg')}</span>
                         </div>
                         <div className="flex items-baseline justify-center gap-1">
-                          <span className="text-xs text-gray-500">{t('pages.home.cities.priceFrom')}</span>
-                          <span className="text-2xl font-bold text-red-600">${city.pricePerKg}</span>
+                          <span className="text-xs text-white/80">{t('pages.home.cities.priceFrom')}</span>
+                          <span className="text-2xl font-bold text-white">${city.pricePerKg}</span>
                         </div>
                       </div>
 
-                      <div className="bg-red-50 rounded-lg p-3 text-center">
+                      <div className="bg-red-600 rounded-lg p-3 text-center">
                         <div className="flex items-center justify-center gap-1 mb-1">
-                          <BarChart3 className="w-4 h-4 text-red-600" />
-                          <span className="text-xs text-gray-600">{t('pages.home.cities.perCubic')}</span>
+                          <BarChart3 className="w-4 h-4 text-white" />
+                          <span className="text-xs text-white">{t('pages.home.cities.perCubic')}</span>
                         </div>
                         <div className="flex items-baseline justify-center gap-1">
-                          <span className="text-xs text-gray-500">{t('pages.home.cities.priceFrom')}</span>
-                          <span className="text-2xl font-bold text-red-600">${city.pricePerCubic}</span>
+                          <span className="text-xs text-white/80">{t('pages.home.cities.priceFrom')}</span>
+                          <span className="text-2xl font-bold text-white">${city.pricePerCubic}</span>
                         </div>
                       </div>
                     </div>
