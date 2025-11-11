@@ -154,7 +154,7 @@ export default function About() {
       position: t('pages.services.team.pumbachaPosition'),
       experience: t('pages.services.team.pumbachaExperience'),
       description: t('pages.services.team.pumbachaDesc'),
-      image: '/attached_assets/photo_2025-07-06_16-45-18_1762544298990.jpg'
+      image: '/attached_assets/hui_chi_photo.jpg'
     },
     {
       name: t('pages.services.team.annaName'),
