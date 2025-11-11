@@ -203,10 +203,10 @@ export const TRANSLATIONS = {
     'pages.services.team.pumbachaPosition': 'Руководитель отдела закупок',
     'pages.services.team.pumbachaExperience': '12+ лет в сфере закупок',
     'pages.services.team.pumbachaDesc': 'Специалист по поиску поставщиков и контролю качества в Китае',
-    'pages.services.team.annaName': 'Анна Петрова',
-    'pages.services.team.annaPosition': 'Менеджер по логистике',
-    'pages.services.team.annaExperience': '8+ лет в логистике',
-    'pages.services.team.annaDesc': 'Эксперт по организации международных перевозок',
+    'pages.services.team.annaName': 'Миньян Пэн',
+    'pages.services.team.annaPosition': 'Менеджер по закупкам в Гуанчжоу',
+    'pages.services.team.annaExperience': '10+ лет опыта в закупках',
+    'pages.services.team.annaDesc': 'Специалист по поиску производителей и контролю качества товаров в Южном Китае',
     
     // About page
     'pages.about.title': 'О нас',
@@ -485,10 +485,10 @@ export const TRANSLATIONS = {
     'pages.services.team.pumbachaPosition': 'Procurement Manager',
     'pages.services.team.pumbachaExperience': '12+ years in procurement',
     'pages.services.team.pumbachaDesc': 'Specialist in supplier search and quality control in China',
-    'pages.services.team.annaName': 'Anna Petrova',
-    'pages.services.team.annaPosition': 'Logistics Manager',
-    'pages.services.team.annaExperience': '8+ years in logistics',
-    'pages.services.team.annaDesc': 'Expert in organizing international transportation',
+    'pages.services.team.annaName': 'Minyan Peng',
+    'pages.services.team.annaPosition': 'Guangzhou Procurement Manager',
+    'pages.services.team.annaExperience': '10+ years in procurement',
+    'pages.services.team.annaDesc': 'Specialist in sourcing manufacturers and quality control in Southern China',
     
     // About page
     'pages.about.title': 'About Us',
@@ -767,10 +767,10 @@ export const TRANSLATIONS = {
     'pages.services.team.pumbachaPosition': 'Мудири бахши харидорӣ',
     'pages.services.team.pumbachaExperience': '12+ сол дар соҳаи харидорӣ',
     'pages.services.team.pumbachaDesc': 'Мутахассис дар ҷустуҷӯи таъминкунандагон ва назорати сифат дар Чин',
-    'pages.services.team.annaName': 'Анна Петрова',
-    'pages.services.team.annaPosition': 'Менеҷери логистика',
-    'pages.services.team.annaExperience': '8+ сол дар логистика',
-    'pages.services.team.annaDesc': 'Мутахассис дар ташкили наклиёти байналмилалӣ',
+    'pages.services.team.annaName': 'Миньян Пэн',
+    'pages.services.team.annaPosition': 'Менеҷери харидорӣ дар Гуанчжоу',
+    'pages.services.team.annaExperience': '10+ сол таҷриба дар харидорӣ',
+    'pages.services.team.annaDesc': 'Мутахассис дар ҷустуҷӯи истеҳсолкунандагон ва назорати сифат дар ҷануби Чин',
     
     // About page
     'pages.about.title': 'Дар бораи мо',
@@ -1049,10 +1049,10 @@ export const TRANSLATIONS = {
     'pages.services.team.pumbachaPosition': '采购经理',
     'pages.services.team.pumbachaExperience': '12年以上采购经验',
     'pages.services.team.pumbachaDesc': '中国供应商搜索和质量控制专家',
-    'pages.services.team.annaName': '安娜·彼得罗娃',
-    'pages.services.team.annaPosition': '物流经理',
-    'pages.services.team.annaExperience': '8年以上物流经验',
-    'pages.services.team.annaDesc': '国际运输组织专家',
+    'pages.services.team.annaName': '彭敏燕',
+    'pages.services.team.annaPosition': '广州采购经理',
+    'pages.services.team.annaExperience': '10年以上采购经验',
+    'pages.services.team.annaDesc': '华南地区制造商寻源和质量控制专家',
     
     // About page
     'pages.about.title': '关于我们',
