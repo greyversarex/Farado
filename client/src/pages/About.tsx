@@ -154,7 +154,8 @@ export default function About() {
       position: t('pages.services.team.umedPosition'),
       experience: t('pages.services.team.umedExperience'),
       description: t('pages.services.team.umedDesc'),
-      image: '/attached_assets/photo_2023-12-15_14-28-45_1762861683805.jpg'
+      image: '/attached_assets/photo_2023-12-15_14-28-45_1762861683805.jpg',
+      imagePosition: 'object-[center_20%]'
     },
     {
       name: t('pages.services.team.pumbachaName'),
@@ -373,7 +374,7 @@ export default function About() {
                       <img 
                         src={member.image} 
                         alt={member.name}
-                        className="w-full h-full object-cover"
+                        className={`w-full h-full object-cover ${(member as any).imagePosition || ''}`}
                       />
                     </div>
                   ) : (
