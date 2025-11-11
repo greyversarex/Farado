@@ -193,7 +193,7 @@ export const TRANSLATIONS = {
     'pages.services.team.subtitle': 'Профессионалы с многолетним опытом',
     'pages.services.team.bakhtiyorName': 'Бахтиёр Курбанов',
     'pages.services.team.bakhtiyorPosition': 'Руководитель отдела логистики в РТ',
-    'pages.services.team.bakhtiyorExperience': '15+ лет опыта в логистике',
+    'pages.services.team.bakhtiyorExperience': '5+ лет опыта в логистике',
     'pages.services.team.bakhtiyorDesc': 'Эксперт по организации логистических маршрутов и таможенному оформлению в Центральной Азии',
     'pages.services.team.alisherName': 'Алишер Каноатзода',
     'pages.services.team.alisherPosition': 'Руководитель компании в РТ',
@@ -207,6 +207,10 @@ export const TRANSLATIONS = {
     'pages.services.team.annaPosition': 'Менеджер по закупкам в Гуанчжоу',
     'pages.services.team.annaExperience': '10+ лет опыта в закупках',
     'pages.services.team.annaDesc': 'Специалист по поиску производителей и контролю качества товаров в Южном Китае',
+    'pages.services.team.jianrongName': 'Цзяньжун Чжу',
+    'pages.services.team.jianrongPosition': 'Специалист по логистике в Китае',
+    'pages.services.team.jianrongExperience': '8+ лет опыта в логистике',
+    'pages.services.team.jianrongDesc': 'Координатор логистических операций и отгрузок из портов Южного Китая',
     
     // About page
     'pages.about.title': 'О нас',
@@ -475,7 +479,7 @@ export const TRANSLATIONS = {
     'pages.services.team.subtitle': 'Professionals with years of experience',
     'pages.services.team.bakhtiyorName': 'Bakhtiyor Kurbanov',
     'pages.services.team.bakhtiyorPosition': 'Logistics Manager in Tajikistan',
-    'pages.services.team.bakhtiyorExperience': '15+ years in logistics',
+    'pages.services.team.bakhtiyorExperience': '5+ years in logistics',
     'pages.services.team.bakhtiyorDesc': 'Expert in organizing logistics routes and customs clearance in Central Asia',
     'pages.services.team.alisherName': 'Alisher Kanoatzoda',
     'pages.services.team.alisherPosition': 'Company Director in Tajikistan',
@@ -489,6 +493,10 @@ export const TRANSLATIONS = {
     'pages.services.team.annaPosition': 'Guangzhou Procurement Manager',
     'pages.services.team.annaExperience': '10+ years in procurement',
     'pages.services.team.annaDesc': 'Specialist in sourcing manufacturers and quality control in Southern China',
+    'pages.services.team.jianrongName': 'Jianrong Zhu',
+    'pages.services.team.jianrongPosition': 'Logistics Specialist in China',
+    'pages.services.team.jianrongExperience': '8+ years in logistics',
+    'pages.services.team.jianrongDesc': 'Coordinator of logistics operations and shipments from Southern China ports',
     
     // About page
     'pages.about.title': 'About Us',
@@ -757,7 +765,7 @@ export const TRANSLATIONS = {
     'pages.services.team.subtitle': 'Мутахассисони бо солҳо таҷриба',
     'pages.services.team.bakhtiyorName': 'Бахтиёр Курбанов',
     'pages.services.team.bakhtiyorPosition': 'Руководитель отдела логистики в РТ',
-    'pages.services.team.bakhtiyorExperience': '15+ лет опыта в логистике',
+    'pages.services.team.bakhtiyorExperience': '5+ лет опыта в логистике',
     'pages.services.team.bakhtiyorDesc': 'Эксперт по организации логистических маршрутов и таможенному оформлению в Центральной Азии',
     'pages.services.team.alisherName': 'Алишер Каноатзода',
     'pages.services.team.alisherPosition': 'Раҳбари ширкат дар ҶТ',
@@ -771,6 +779,10 @@ export const TRANSLATIONS = {
     'pages.services.team.annaPosition': 'Менеҷери харидорӣ дар Гуанчжоу',
     'pages.services.team.annaExperience': '10+ сол таҷриба дар харидорӣ',
     'pages.services.team.annaDesc': 'Мутахассис дар ҷустуҷӯи истеҳсолкунандагон ва назорати сифат дар ҷануби Чин',
+    'pages.services.team.jianrongName': 'Цзяньжун Чжу',
+    'pages.services.team.jianrongPosition': 'Мутахассиси логистика дар Чин',
+    'pages.services.team.jianrongExperience': '8+ сол таҷриба дар логистика',
+    'pages.services.team.jianrongDesc': 'Координатори амалиёти логистикӣ ва интиқол аз бандаргоҳҳои ҷануби Чин',
     
     // About page
     'pages.about.title': 'Дар бораи мо',
@@ -1039,7 +1051,7 @@ export const TRANSLATIONS = {
     'pages.services.team.subtitle': '具有多年经验的专业人士',
     'pages.services.team.bakhtiyorName': '巴赫季约尔·库尔巴诺夫',
     'pages.services.team.bakhtiyorPosition': '塔吉克斯坦物流部经理',
-    'pages.services.team.bakhtiyorExperience': '15年以上物流经验',
+    'pages.services.team.bakhtiyorExperience': '5年以上物流经验',
     'pages.services.team.bakhtiyorDesc': '中亚物流路线组织和海关清关专家',
     'pages.services.team.alisherName': '阿利舍尔·卡诺阿特佐达',
     'pages.services.team.alisherPosition': '塔吉克斯坦公司总监',
@@ -1053,6 +1065,10 @@ export const TRANSLATIONS = {
     'pages.services.team.annaPosition': '广州采购经理',
     'pages.services.team.annaExperience': '10年以上采购经验',
     'pages.services.team.annaDesc': '华南地区制造商寻源和质量控制专家',
+    'pages.services.team.jianrongName': '朱建荣',
+    'pages.services.team.jianrongPosition': '中国物流专员',
+    'pages.services.team.jianrongExperience': '8年以上物流经验',
+    'pages.services.team.jianrongDesc': '华南港口物流运营和发货协调员',
     
     // About page
     'pages.about.title': '关于我们',

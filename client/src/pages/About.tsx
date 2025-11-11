@@ -162,6 +162,13 @@ export default function About() {
       experience: t('pages.services.team.annaExperience'),
       description: t('pages.services.team.annaDesc'),
       image: '/attached_assets/photo_2025-11-10_14-00-36 (3)_1762859892177.jpg'
+    },
+    {
+      name: t('pages.services.team.jianrongName'),
+      position: t('pages.services.team.jianrongPosition'),
+      experience: t('pages.services.team.jianrongExperience'),
+      description: t('pages.services.team.jianrongDesc'),
+      image: '/attached_assets/photo_2025-11-10_14-00-36 (4)_1762860764854.jpg'
     }
   ];
 
