@@ -160,7 +160,8 @@ export default function About() {
       name: t('pages.services.team.annaName'),
       position: t('pages.services.team.annaPosition'),
       experience: t('pages.services.team.annaExperience'),
-      description: t('pages.services.team.annaDesc')
+      description: t('pages.services.team.annaDesc'),
+      image: '/attached_assets/photo_2025-11-10_14-00-36 (3)_1762859892177.jpg'
     }
   ];
 
