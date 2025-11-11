@@ -150,6 +150,13 @@ export default function About() {
       image: '/attached_assets/photo_2025-06-25_16-17-41_1762542603216.jpg'
     },
     {
+      name: t('pages.services.team.umedName'),
+      position: t('pages.services.team.umedPosition'),
+      experience: t('pages.services.team.umedExperience'),
+      description: t('pages.services.team.umedDesc'),
+      image: '/attached_assets/photo_2023-12-15_14-28-45_1762861683805.jpg'
+    },
+    {
       name: t('pages.services.team.pumbachaName'),
       position: t('pages.services.team.pumbachaPosition'),
       experience: t('pages.services.team.pumbachaExperience'),
@@ -169,13 +176,6 @@ export default function About() {
       experience: t('pages.services.team.jianrongExperience'),
       description: t('pages.services.team.jianrongDesc'),
       image: '/attached_assets/photo_2025-11-10_14-00-36 (4)_1762860764854.jpg'
-    },
-    {
-      name: t('pages.services.team.umedName'),
-      position: t('pages.services.team.umedPosition'),
-      experience: t('pages.services.team.umedExperience'),
-      description: t('pages.services.team.umedDesc'),
-      image: '/attached_assets/photo_2025-11-11_16-38-44_1762861258094.jpg'
     }
   ];
 
