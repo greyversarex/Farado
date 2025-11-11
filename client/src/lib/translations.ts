@@ -211,6 +211,10 @@ export const TRANSLATIONS = {
     'pages.services.team.jianrongPosition': 'Специалист по логистике в Китае',
     'pages.services.team.jianrongExperience': '8+ лет опыта в логистике',
     'pages.services.team.jianrongDesc': 'Координатор логистических операций и отгрузок из портов Южного Китая',
+    'pages.services.team.umedName': 'Умед Сафарализода',
+    'pages.services.team.umedPosition': 'Руководитель отдела маркетинга',
+    'pages.services.team.umedExperience': '5+ лет опыта в маркетинге',
+    'pages.services.team.umedDesc': 'Стратег цифрового маркетинга и развития бренда на рынках Центральной Азии',
     
     // About page
     'pages.about.title': 'О нас',
@@ -497,6 +501,10 @@ export const TRANSLATIONS = {
     'pages.services.team.jianrongPosition': 'Logistics Specialist in China',
     'pages.services.team.jianrongExperience': '8+ years in logistics',
     'pages.services.team.jianrongDesc': 'Coordinator of logistics operations and shipments from Southern China ports',
+    'pages.services.team.umedName': 'Umed Safaralizoda',
+    'pages.services.team.umedPosition': 'Marketing Director',
+    'pages.services.team.umedExperience': '5+ years in marketing',
+    'pages.services.team.umedDesc': 'Digital marketing strategist and brand development expert in Central Asian markets',
     
     // About page
     'pages.about.title': 'About Us',
@@ -783,6 +791,10 @@ export const TRANSLATIONS = {
     'pages.services.team.jianrongPosition': 'Мутахассиси логистика дар Чин',
     'pages.services.team.jianrongExperience': '8+ сол таҷриба дар логистика',
     'pages.services.team.jianrongDesc': 'Координатори амалиёти логистикӣ ва интиқол аз бандаргоҳҳои ҷануби Чин',
+    'pages.services.team.umedName': 'Умед Сафарализода',
+    'pages.services.team.umedPosition': 'Мудири бахши маркетинг',
+    'pages.services.team.umedExperience': '5+ сол таҷриба дар маркетинг',
+    'pages.services.team.umedDesc': 'Стратеги маркетинги рақамӣ ва рушди бренд дар бозорҳои Осиёи Марказӣ',
     
     // About page
     'pages.about.title': 'Дар бораи мо',
@@ -1069,6 +1081,10 @@ export const TRANSLATIONS = {
     'pages.services.team.jianrongPosition': '中国物流专员',
     'pages.services.team.jianrongExperience': '8年以上物流经验',
     'pages.services.team.jianrongDesc': '华南港口物流运营和发货协调员',
+    'pages.services.team.umedName': '乌梅德·萨法拉利佐达',
+    'pages.services.team.umedPosition': '市场营销总监',
+    'pages.services.team.umedExperience': '5年以上营销经验',
+    'pages.services.team.umedDesc': '中亚市场数字营销策略和品牌发展专家',
     
     // About page
     'pages.about.title': '关于我们',
