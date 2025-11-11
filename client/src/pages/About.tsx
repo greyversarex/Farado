@@ -155,7 +155,7 @@ export default function About() {
       experience: t('pages.services.team.umedExperience'),
       description: t('pages.services.team.umedDesc'),
       image: '/attached_assets/photo_2023-12-15_14-28-45_1762861683805.jpg',
-      imagePosition: 'object-[center_10%] scale-95'
+      imagePosition: 'object-[center_5%] scale-95'
     },
     {
       name: t('pages.services.team.pumbachaName'),
