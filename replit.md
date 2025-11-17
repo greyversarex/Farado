@@ -62,8 +62,13 @@ PostgreSQL is used as the relational database, with Drizzle ORM for database int
 - Production deployment configuration set up:
   - Target: `autoscale` (stateless web application)
   - Build command: `npm run build`
-  - Run command: `npm run start`
-- Application tested and running successfully
+  - Run command: `NODE_ENV=production node dist/index.js`
+  - Environment: NODE_ENV set to production
+- Required environment variables configured:
+  - ✅ DATABASE_URL (PostgreSQL connection)
+  - ✅ SESSION_SECRET (production security)
+- Production build tested successfully
+- Application startup verified in production mode
 - All team photos and information updated
-- Multi-language support fully implemented
+- Multi-language support fully implemented (RU, EN, TJ, CN)
 ```
