@@ -147,7 +147,7 @@ export default function About() {
       position: t('pages.services.team.alisherPosition'),
       experience: t('pages.services.team.alisherExperience'),
       description: t('pages.services.team.alisherDesc'),
-      image: '/attached_assets/photo_2025-06-25_16-17-41_1762542603216.jpg'
+      image: '/attached_assets/IMG_4503_1763365902466.PNG'
     },
     {
       name: t('pages.services.team.umedName'),
