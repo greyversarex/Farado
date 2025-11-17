@@ -162,14 +162,16 @@ export default function About() {
       position: t('pages.services.team.pumbachaPosition'),
       experience: t('pages.services.team.pumbachaExperience'),
       description: t('pages.services.team.pumbachaDesc'),
-      image: '/attached_assets/hui_chi_photo.jpg'
+      image: '/attached_assets/hui_chi_photo.jpg',
+      imagePosition: 'object-[center_40%]'
     },
     {
       name: t('pages.services.team.annaName'),
       position: t('pages.services.team.annaPosition'),
       experience: t('pages.services.team.annaExperience'),
       description: t('pages.services.team.annaDesc'),
-      image: '/attached_assets/photo_2025-11-10_14-00-36 (3)_1762859892177.jpg'
+      image: '/attached_assets/photo_2025-11-10_14-00-36 (3)_1762859892177.jpg',
+      imagePosition: 'object-[center_40%]'
     },
     {
       name: t('pages.services.team.jianrongName'),
