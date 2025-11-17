@@ -140,8 +140,8 @@ export default function About() {
       position: t('pages.services.team.bakhtiyorPosition'),
       experience: t('pages.services.team.bakhtiyorExperience'),
       description: t('pages.services.team.bakhtiyorDesc'),
-      image: '/attached_assets/IMG_4505_1763379970229.PNG',
-      imagePosition: 'scale-90'
+      image: '/attached_assets/IMG_8574_1763412909518.JPG',
+      imagePosition: 'scale-110'
     },
     {
       name: t('pages.services.team.alisherName'),
