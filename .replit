@@ -8,7 +8,7 @@ packages = ["freetype", "imagemagick", "lcms2", "libimagequant", "libjpeg", "lib
 
 [deployment]
 deploymentTarget = "autoscale"
-run = ["sh", "-c", "NODE_ENV=production node dist/index.js"]
+run = ["npm", "run", "start"]
 build = ["npm", "run", "build"]
 
 [[ports]]
@@ -16,7 +16,7 @@ localPort = 5000
 externalPort = 80
 
 [[ports]]
-localPort = 34519
+localPort = 35385
 externalPort = 5000
 
 [[ports]]
