@@ -245,10 +245,9 @@ export default function Home() {
             <div className="relative mt-8 lg:mt-0">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <img 
-                  src="/attached_assets/ChatGPT Image 21 июн. 2025 г., 19_40_27_1750516876387.png" 
-                  alt="FARADO office reception with professional staff" 
+                  src="/attached_assets/photo_2025-11-19_16-43-30_1763552620386.jpg" 
+                  alt="Бахтиёр Курбанов - Руководитель отдела логистики FARADO" 
                   className="w-full h-64 md:h-96 lg:h-[500px] object-cover"
-                  style={{ objectPosition: '25% center' }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-tr from-red-600/20 to-transparent"></div>
               </div>
