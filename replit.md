@@ -57,18 +57,26 @@ PostgreSQL is used as the relational database, with Drizzle ORM for database int
 
 ## Deployment Status
 ✅ **Ready for Publishing**
-- PostgreSQL database created and configured
-- Database schema deployed successfully
+- PostgreSQL database created and configured (November 19, 2025)
+- Database schema deployed successfully with all tables and relations
 - Production deployment configuration set up:
   - Target: `autoscale` (stateless web application)
   - Build command: `npm run build`
-  - Run command: `NODE_ENV=production node dist/index.js`
+  - Run command: `npm start`
   - Environment: NODE_ENV set to production
 - Required environment variables configured:
-  - ✅ DATABASE_URL (PostgreSQL connection)
+  - ✅ DATABASE_URL (PostgreSQL connection via Neon)
+  - ✅ PGHOST, PGUSER, PGPASSWORD, PGDATABASE, PGPORT (all configured)
   - ✅ SESSION_SECRET (production security)
 - Production build tested successfully
 - Application startup verified in production mode
 - All team photos and information updated
+- Hero section image updated with high-quality office reception photo
 - Multi-language support fully implemented (RU, EN, TJ, CN)
+
+## Recent Changes (November 19, 2025)
+- Updated Bakhtiyar Kurbanov team member photo in About page
+- Replaced hero section image on homepage with professional office reception photo
+- Database fully configured and migrations applied
+- Deployment configuration completed for Autoscale publishing
 ```

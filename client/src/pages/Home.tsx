@@ -245,7 +245,7 @@ export default function Home() {
             <div className="relative mt-8 lg:mt-0">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <img 
-                  src="/attached_assets/Generated Image November 19, 2025 - 5_54PM_1763556959472.png" 
+                  src="/attached_assets/Generated Image November 19, 2025 - 5_54PM (1)_1763557446271.png" 
                   alt="FARADO office reception with professional staff" 
                   className="w-full h-64 md:h-96 lg:h-[500px] object-cover object-right"
                 />
