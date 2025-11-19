@@ -245,7 +245,7 @@ export default function Home() {
             <div className="relative mt-8 lg:mt-0">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <img 
-                  src="/attached_assets/ChatGPT Image 21 июн. 2025 г., 19_40_27_1750516876387.png" 
+                  src="/attached_assets/Generated Image November 19, 2025 - 5_11PM (1)_1763555265017.png" 
                   alt="FARADO office reception with professional staff" 
                   className="w-full h-64 md:h-96 lg:h-[500px] object-cover"
                 />
