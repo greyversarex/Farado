@@ -247,7 +247,7 @@ export default function Home() {
                 <img 
                   src="/attached_assets/Generated Image November 19, 2025 - 5_54PM_1763556959472.png" 
                   alt="FARADO office reception with professional staff" 
-                  className="w-full h-64 md:h-96 lg:h-[500px] object-cover"
+                  className="w-full h-64 md:h-96 lg:h-[500px] object-cover object-right"
                 />
                 <div className="absolute inset-0 bg-gradient-to-tr from-red-600/20 to-transparent"></div>
               </div>
