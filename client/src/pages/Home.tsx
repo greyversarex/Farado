@@ -248,6 +248,7 @@ export default function Home() {
                   src="/attached_assets/photo_2025-11-19_16-43-30_1763552620386.jpg" 
                   alt="Бахтиёр Курбанов - Руководитель отдела логистики FARADO" 
                   className="w-full h-64 md:h-96 lg:h-[500px] object-cover"
+                  style={{ objectPosition: '70% center' }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-tr from-red-600/20 to-transparent"></div>
               </div>
