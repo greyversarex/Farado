@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -28,6 +28,20 @@ import {
   Send,
   CheckCircle
 } from "lucide-react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+
+import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
+
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: markerIcon2x,
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow,
+});
 
 const contactSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -313,12 +327,28 @@ export default function Contact() {
               <Card className="h-full">
                 <CardContent className="p-0 h-full">
                   <div className="relative h-full min-h-[500px] bg-gray-100 rounded-lg overflow-hidden">
-                    <img 
-                      src="https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
-                      alt="FARADO office locations on world map" 
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-br from-red-600/20 to-blue-500/20"></div>
+                    <MapContainer 
+                      center={[23.1486, 113.2579]} 
+                      zoom={17} 
+                      style={{ height: "100%", width: "100%", minHeight: "500px" }}
+                      scrollWheelZoom={false}
+                    >
+                      <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                      />
+                      <Marker position={[23.1486, 113.2579]}>
+                        <Popup>
+                          <div className="text-center">
+                            <strong className="text-red-600">FARADO Office</strong>
+                            <br />
+                            Jiahecheng No.941, No. 90 Zhanqian Road
+                            <br />
+                            Guangzhou, Guangdong, China
+                          </div>
+                        </Popup>
+                      </Marker>
+                    </MapContainer>
                   </div>
                 </CardContent>
               </Card>

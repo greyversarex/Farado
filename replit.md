@@ -75,6 +75,14 @@ PostgreSQL is used as the relational database, with Drizzle ORM for database int
 - Multi-language support fully implemented (RU, EN, TJ, CN)
 
 ## Recent Changes
+### December 5, 2025
+- ✅ PostgreSQL database created and configured
+- ✅ Database schema pushed with Drizzle ORM
+- ✅ Deployment configuration verified (autoscale)
+- ✅ Interactive Leaflet map added to Contact page with Guangzhou office marker
+  - Location: Jiahecheng No.941, No. 90 Zhanqian Road, Guangzhou, Guangdong, China
+  - Coordinates: 23.1486°N, 113.2579°E
+
 ### November 21, 2025
 - ✅ PostgreSQL database recreated and fully configured
 - ✅ All database tables created (15 tables):
