@@ -214,6 +214,93 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Admin Users Management API
+  app.get('/api/admin/users', requireAuth, async (req, res) => {
+    try {
+      const users = await storage.getAdminUsers();
+      // Remove password from response
+      const safeUsers = users.map(({ password, ...user }) => user);
+      res.json(safeUsers);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+      res.status(500).json({ message: "Failed to fetch users" });
+    }
+  });
+
+  app.get('/api/admin/users/:id', requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid user ID" });
+      }
+      const user = await storage.getAdminUser(id);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      // Remove password from response
+      const { password, ...safeUser } = user;
+      res.json(safeUser);
+    } catch (error) {
+      console.error('Error fetching user:', error);
+      res.status(500).json({ message: "Failed to fetch user" });
+    }
+  });
+
+  app.post('/api/admin/users', requireAuth, async (req: AuthenticatedRequest, res) => {
+    try {
+      const validatedData = insertAdminUserSchema.parse(req.body);
+      const newUser = await storage.createAdminUser(validatedData);
+      // Remove password from response
+      const { password, ...safeUser } = newUser;
+      res.status(201).json(safeUser);
+    } catch (error: any) {
+      console.error('Error creating user:', error);
+      if (error.name === 'ZodError') {
+        const validationError = fromZodError(error);
+        return res.status(400).json({ message: validationError.message });
+      }
+      if (error.code === '23505') {
+        return res.status(409).json({ message: "Username already exists" });
+      }
+      res.status(500).json({ message: "Failed to create user" });
+    }
+  });
+
+  app.put('/api/admin/users/:id', requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid user ID" });
+      }
+      await storage.updateAdminUser(id, req.body);
+      res.json({ message: "User updated successfully" });
+    } catch (error: any) {
+      console.error('Error updating user:', error);
+      if (error.code === '23505') {
+        return res.status(409).json({ message: "Username already exists" });
+      }
+      res.status(500).json({ message: "Failed to update user" });
+    }
+  });
+
+  app.delete('/api/admin/users/:id', requireAuth, async (req: AuthenticatedRequest, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid user ID" });
+      }
+      // Prevent deleting yourself
+      if (req.user!.id === id) {
+        return res.status(400).json({ message: "Cannot delete yourself" });
+      }
+      await storage.deleteAdminUser(id);
+      res.json({ message: "User deleted successfully" });
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      res.status(500).json({ message: "Failed to delete user" });
+    }
+  });
+
   // Контрагенты API
   app.get('/api/admin/counterparties', requireAuth, async (req, res) => {
     try {

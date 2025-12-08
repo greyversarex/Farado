@@ -69,9 +69,13 @@ export interface IStorage {
   // Contact submissions
   createContactSubmission(submission: InsertContactSubmission): Promise<ContactSubmission>;
   
-  // Admin authentication
+  // Admin authentication and user management
   authenticateAdmin(username: string, password: string): Promise<AdminUser | null>;
   createAdminUser(user: InsertAdminUser): Promise<AdminUser>;
+  getAdminUsers(): Promise<AdminUser[]>;
+  getAdminUser(id: number): Promise<AdminUser | undefined>;
+  updateAdminUser(id: number, data: Partial<InsertAdminUser>): Promise<void>;
+  deleteAdminUser(id: number): Promise<void>;
   
   // Контрагенты
   createCounterparty(counterparty: InsertCounterparty): Promise<Counterparty>;
@@ -255,6 +259,30 @@ class DatabaseStorage implements IStorage {
     
     const [newUser] = await db.insert(adminUsers).values(userData).returning();
     return newUser;
+  }
+
+  async getAdminUsers(): Promise<AdminUser[]> {
+    return await db.select().from(adminUsers).orderBy(desc(adminUsers.createdAt));
+  }
+
+  async getAdminUser(id: number): Promise<AdminUser | undefined> {
+    const [user] = await db.select().from(adminUsers).where(eq(adminUsers.id, id));
+    return user;
+  }
+
+  async updateAdminUser(id: number, data: Partial<InsertAdminUser>): Promise<void> {
+    const updateData: any = { ...data };
+    
+    // Hash password if it's being updated and not already hashed
+    if (data.password && !data.password.startsWith('$2b$')) {
+      updateData.password = await bcrypt.hash(data.password, 10);
+    }
+    
+    await db.update(adminUsers).set(updateData).where(eq(adminUsers.id, id));
+  }
+
+  async deleteAdminUser(id: number): Promise<void> {
+    await db.delete(adminUsers).where(eq(adminUsers.id, id));
   }
 
   // Контрагенты
