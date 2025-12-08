@@ -231,7 +231,7 @@ function setupGracefulShutdown(server: any, sessionStore?: any) {
         secure: isProduction, // Secure cookies in production (HTTPS required)
         httpOnly: true, // Prevent XSS attacks
         maxAge: 24 * 60 * 60 * 1000, // 24 hours
-        sameSite: isProduction ? 'strict' : 'lax' // CSRF protection
+        sameSite: 'lax' // 'lax' allows cookies on navigation, needed for login
       }
     }));
     log('Session middleware configured successfully');
