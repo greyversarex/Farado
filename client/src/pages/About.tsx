@@ -298,40 +298,32 @@ export default function About() {
           </div>
 
           <div className="relative">
-            {/* Timeline line with dashed style */}
-            <div className="absolute left-8 top-0 bottom-0 w-1 hidden lg:block" style={{
-              background: 'repeating-linear-gradient(to bottom, #ef4444 0, #ef4444 8px, transparent 8px, transparent 16px)'
-            }}></div>
-            
-            {/* Animated Truck */}
-            <div className="absolute left-[26px] hidden lg:block z-20" style={{
-              animation: 'truckDrive 12s ease-in-out infinite alternate'
-            }}>
-              <div className="bg-white rounded-lg p-1 shadow-lg border-2 border-red-500">
-                <Truck className="w-8 h-8 text-red-600" />
+            {/* Road/path line */}
+            <div className="absolute left-8 top-0 bottom-0 w-1 hidden lg:block overflow-visible">
+              <div className="absolute inset-0 bg-gradient-to-b from-gray-300 via-gray-400 to-gray-300 rounded-full"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-red-600 via-red-500 to-red-600 rounded-full opacity-60"></div>
+              
+              {/* Dashed road markings */}
+              <div className="absolute inset-0 flex flex-col items-center justify-between py-4">
+                <div className="flex-1 border-l-2 border-dashed border-white/50"></div>
+              </div>
+              
+              {/* Driving truck animation */}
+              <div className="absolute left-1/2 animate-drive-truck">
+                <svg 
+                  className="w-12 h-12 text-red-600 drop-shadow-xl" 
+                  viewBox="0 0 24 24" 
+                  fill="currentColor"
+                >
+                  <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                </svg>
               </div>
             </div>
-            
-            <style>{`
-              @keyframes truckDrive {
-                0% {
-                  top: 0%;
-                  transform: rotate(0deg);
-                }
-                100% {
-                  top: calc(100% - 50px);
-                  transform: rotate(0deg);
-                }
-              }
-            `}</style>
             
             <div className="space-y-12">
               {timeline.map((item, index) => (
                 <div key={index} className="relative flex items-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-700 rounded-full flex items-center justify-center text-white font-bold text-lg hidden lg:flex shadow-lg shadow-red-300/50" style={{
-                    animation: `pulse 2s ease-in-out infinite`,
-                    animationDelay: `${index * 0.3}s`
-                  }}>
+                  <div className={`w-16 h-16 bg-red-600 rounded-full flex items-center justify-center text-white font-bold text-lg hidden lg:flex timeline-circle`}>
                     {item.year.slice(-2)}
                   </div>
                   <div className="lg:ml-12 flex-1">
