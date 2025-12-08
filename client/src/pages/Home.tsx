@@ -588,7 +588,28 @@ export default function Home() {
           </div>
           
           <div className="relative">
-            <div className="absolute top-12 left-8 right-8 h-0.5 bg-gradient-to-r from-red-600 via-red-600 to-red-600 hidden lg:block"></div>
+            {/* Animated timeline with flying airplane */}
+            <div className="absolute top-12 left-8 right-8 h-1 hidden lg:block overflow-visible">
+              {/* Road/path background */}
+              <div className="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-400 to-gray-300 rounded-full"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-red-600 via-red-500 to-red-600 rounded-full opacity-60"></div>
+              
+              {/* Dashed road markings */}
+              <div className="absolute inset-0 flex items-center justify-between px-4">
+                <div className="flex-1 border-t-2 border-dashed border-white/50"></div>
+              </div>
+              
+              {/* Flying airplane animation */}
+              <div className="absolute top-1/2 animate-fly-plane">
+                <svg 
+                  className="w-8 h-8 text-red-600 drop-shadow-lg" 
+                  viewBox="0 0 24 24" 
+                  fill="currentColor"
+                >
+                  <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                </svg>
+              </div>
+            </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {processSteps.map((step, index) => (

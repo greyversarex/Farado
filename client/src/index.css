@@ -382,3 +382,31 @@ html {
     display: none !important;
   }
 }
+
+/* Flying airplane animation for timeline */
+@keyframes fly-plane {
+  0% {
+    left: 0%;
+    transform: translateY(-50%) rotate(90deg);
+  }
+  45% {
+    left: calc(100% - 2rem);
+    transform: translateY(-50%) rotate(90deg);
+  }
+  50% {
+    left: calc(100% - 2rem);
+    transform: translateY(-50%) rotate(-90deg);
+  }
+  95% {
+    left: 0%;
+    transform: translateY(-50%) rotate(-90deg);
+  }
+  100% {
+    left: 0%;
+    transform: translateY(-50%) rotate(90deg);
+  }
+}
+
+.animate-fly-plane {
+  animation: fly-plane 6s ease-in-out infinite;
+}
