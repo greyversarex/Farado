@@ -15,7 +15,8 @@ import {
   Handshake,
   TrendingUp,
   Shield,
-  Languages
+  Languages,
+  Truck
 } from "lucide-react";
 
 export default function About() {
@@ -297,12 +298,40 @@ export default function About() {
           </div>
 
           <div className="relative">
-            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-red-200 hidden lg:block"></div>
+            {/* Timeline line with dashed style */}
+            <div className="absolute left-8 top-0 bottom-0 w-1 hidden lg:block" style={{
+              background: 'repeating-linear-gradient(to bottom, #ef4444 0, #ef4444 8px, transparent 8px, transparent 16px)'
+            }}></div>
+            
+            {/* Animated Truck */}
+            <div className="absolute left-[26px] hidden lg:block z-20" style={{
+              animation: 'truckDrive 12s ease-in-out infinite alternate'
+            }}>
+              <div className="bg-white rounded-lg p-1 shadow-lg border-2 border-red-500">
+                <Truck className="w-8 h-8 text-red-600" />
+              </div>
+            </div>
+            
+            <style>{`
+              @keyframes truckDrive {
+                0% {
+                  top: 0%;
+                  transform: rotate(0deg);
+                }
+                100% {
+                  top: calc(100% - 50px);
+                  transform: rotate(0deg);
+                }
+              }
+            `}</style>
             
             <div className="space-y-12">
               {timeline.map((item, index) => (
                 <div key={index} className="relative flex items-center">
-                  <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center text-white font-bold text-lg hidden lg:flex">
+                  <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-700 rounded-full flex items-center justify-center text-white font-bold text-lg hidden lg:flex shadow-lg shadow-red-300/50" style={{
+                    animation: `pulse 2s ease-in-out infinite`,
+                    animationDelay: `${index * 0.3}s`
+                  }}>
                     {item.year.slice(-2)}
                   </div>
                   <div className="lg:ml-12 flex-1">
