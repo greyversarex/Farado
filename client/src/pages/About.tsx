@@ -270,8 +270,8 @@ export default function About() {
             {values.map((value, index) => (
               <Card key={index} className="bg-white hover:shadow-lg transition-shadow">
                 <CardContent className="p-8 text-center">
-                  <div className="flex items-center justify-center mx-auto mb-6">
-                    <value.icon className="text-red-600 w-10 h-10 stroke-[1.5]" />
+                  <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-red-500 via-red-600 to-red-700 rounded-2xl flex items-center justify-center shadow-lg shadow-red-300/50 transform hover:scale-105 transition-transform">
+                    <value.icon className="text-white w-8 h-8 stroke-[2] drop-shadow-md" />
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">{value.title}</h3>
                   <p className="text-gray-600 leading-relaxed">
