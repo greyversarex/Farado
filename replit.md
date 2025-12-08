@@ -83,6 +83,11 @@ PostgreSQL is used as the relational database, with Drizzle ORM for database int
 - ✅ Created deploy.sh script with automatic database backup
 - ✅ Fixed session cookie settings (sameSite: 'lax') for production login
 - ✅ Created admin and 4 users (Alisher, Barumand, Bahtiyor, Akmal)
+- ✅ Added full user management functionality for admin:
+  - Create, edit, and delete users from admin dashboard
+  - Password security: passwords are hashed, never returned in API responses
+  - Self-delete protection (admin cannot delete their own account)
+  - New "Пользователи" tab in admin dashboard navigation
 
 ### December 5, 2025
 - ✅ PostgreSQL database created and configured
