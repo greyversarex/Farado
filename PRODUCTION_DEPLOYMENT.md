@@ -291,6 +291,24 @@ cd /var/www/farado
 psql -U farado -h localhost farado_db < /var/backups/farado/backup_YYYYMMDD_HHMMSS.sql
 ```
 
+## Initial Users (Auto-Created)
+
+When the application starts on a fresh database, it automatically creates these users:
+
+| Логин | Пароль | Роль | Имя |
+|-------|--------|------|-----|
+| admin | admin123 | admin | Администратор |
+| alisher | Alisher2024! | manager | Алишер |
+| barumand | Barumand2024! | manager | Барумонд |
+| bahtiyor | Bahtiyor2024! | manager | Бахтиёр |
+| akmal | Akmal2024! | manager | Акмал |
+
+**Important:** Change these passwords after first login!
+
+Users are only created if the database has no existing users. This ensures:
+- Fresh deployments get all users automatically
+- Existing user data is never overwritten
+
 ## Database Backup
 
 ### Create Backup

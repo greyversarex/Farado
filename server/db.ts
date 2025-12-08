@@ -47,6 +47,62 @@ export const dbReady = initDb();
 // Export db and pool - must await dbReady before use
 export { db, pool };
 
+// Seed initial users (admin + managers) if database is empty
+async function seedInitialUsers() {
+  const isProduction = process.env.NODE_ENV === 'production';
+  
+  // Check if any users exist
+  let userCount = 0;
+  
+  if (isProduction) {
+    // Use HTTP driver for production
+    const result = await db.execute('SELECT COUNT(*) as count FROM admin_users');
+    userCount = parseInt((result as any).rows?.[0]?.count || '0');
+  } else if (pool) {
+    // Use pool for development
+    const result = await pool.query('SELECT COUNT(*) as count FROM admin_users');
+    userCount = parseInt(result.rows[0]?.count || '0');
+  }
+  
+  if (userCount > 0) {
+    console.log(`Found ${userCount} existing users, skipping seed`);
+    return;
+  }
+  
+  console.log('No users found, creating initial users...');
+  
+  // Users to create: admin + 4 managers
+  const users = [
+    { username: 'admin', password: 'admin123', fullName: 'Администратор', role: 'admin' },
+    { username: 'alisher', password: 'Alisher2024!', fullName: 'Алишер', role: 'manager' },
+    { username: 'barumand', password: 'Barumand2024!', fullName: 'Барумонд', role: 'manager' },
+    { username: 'bahtiyor', password: 'Bahtiyor2024!', fullName: 'Бахтиёр', role: 'manager' },
+    { username: 'akmal', password: 'Akmal2024!', fullName: 'Акмал', role: 'manager' },
+  ];
+  
+  for (const user of users) {
+    const hashedPassword = await bcrypt.hash(user.password, 10);
+    
+    if (isProduction) {
+      await db.execute(`
+        INSERT INTO admin_users (username, password, full_name, role, is_active) 
+        VALUES ('${user.username}', '${hashedPassword}', '${user.fullName}', '${user.role}', true) 
+        ON CONFLICT (username) DO NOTHING
+      `);
+    } else if (pool) {
+      await pool.query(`
+        INSERT INTO admin_users (username, password, full_name, role, is_active) 
+        VALUES ($1, $2, $3, $4, true) 
+        ON CONFLICT (username) DO NOTHING
+      `, [user.username, hashedPassword, user.fullName, user.role]);
+    }
+    
+    console.log(`Created user: ${user.username} (${user.role})`);
+  }
+  
+  console.log('Initial users created successfully');
+}
+
 // Initialize database tables
 export async function initializeDatabase() {
   // Ensure db is initialized first
@@ -66,19 +122,8 @@ export async function initializeDatabase() {
       console.log('Database connection successful:', result.rows[0]);
     }
     
-    // Only seed admin user in development environment
-    if (!isProduction) {
-      console.log('Development mode: Seeding admin user...');
-      const hashedPassword = await bcrypt.hash('admin123', 10);
-      
-      if (pool) {
-        await pool.query(`
-          INSERT INTO admin_users (username, password, full_name, role, is_active) 
-          VALUES ('admin', $1, 'Administrator', 'admin', true) 
-          ON CONFLICT (username) DO NOTHING;
-        `, [hashedPassword]);
-      }
-    }
+    // Seed users if database is empty (works in both dev and production)
+    await seedInitialUsers();
     
     console.log('Database initialized successfully');
   } catch (error) {
