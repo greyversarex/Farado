@@ -169,8 +169,8 @@ export default function Contact() {
             {contactInfo.map((info, index) => (
               <Card key={index} className="text-center hover:shadow-lg transition-shadow">
                 <CardContent className="p-6 md:p-8">
-                  <div className="w-12 h-12 md:w-16 md:h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
-                    <info.icon className="text-red-600 w-6 h-6 md:w-8 md:h-8" />
+                  <div className="w-14 h-14 md:w-18 md:h-18 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6 shadow-lg shadow-red-200">
+                    <info.icon className="text-white w-7 h-7 md:w-9 md:h-9 stroke-[2.5]" />
                   </div>
                   <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-3 md:mb-4">{info.title}</h3>
                   <div className="space-y-2">
