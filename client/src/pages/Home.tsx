@@ -602,7 +602,7 @@ export default function Home() {
               {/* Flying airplane animation */}
               <div className="absolute top-1/2 animate-fly-plane">
                 <svg 
-                  className="w-8 h-8 text-red-600 drop-shadow-lg" 
+                  className="w-12 h-12 text-red-600 drop-shadow-xl" 
                   viewBox="0 0 24 24" 
                   fill="currentColor"
                 >
@@ -614,7 +614,10 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {processSteps.map((step, index) => (
                 <div key={index} className="relative text-center">
-                  <div className="w-24 h-24 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-6 relative z-10">
+                  <div 
+                    className="w-24 h-24 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-6 relative z-10 timeline-circle shadow-lg"
+                    style={{ animationDelay: `${index * 2.5}s` }}
+                  >
                     <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
                       <span className="text-red-600 font-bold text-xl">{step.number}</span>
                     </div>
