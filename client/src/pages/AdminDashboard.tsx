@@ -977,6 +977,7 @@ export default function AdminDashboard({ user, onLogout }: AdminDashboardProps) 
                 <Search className="w-5 h-5 sm:w-6 sm:h-6 mb-0 sm:mb-1 mobile-nav-icon" />
                 <span className="hidden sm:block text-xs font-medium">Поиск</span>
               </TabsTrigger>
+              {user.role === 'admin' && (
               <TabsTrigger 
                 value="users" 
                 className="relative font-semibold px-2 py-2 rounded-lg transition-all duration-300 
@@ -989,6 +990,7 @@ export default function AdminDashboard({ user, onLogout }: AdminDashboardProps) 
                 <UserCog className="w-5 h-5 sm:w-6 sm:h-6 mb-0 sm:mb-1 mobile-nav-icon" />
                 <span className="hidden sm:block text-xs font-medium">Пользователи</span>
               </TabsTrigger>
+              )}
             </TabsList>
           </div>
           
@@ -1016,9 +1018,11 @@ export default function AdminDashboard({ user, onLogout }: AdminDashboardProps) 
             {renderSearch()}
           </TabsContent>
 
+          {user.role === 'admin' && (
           <TabsContent value="users">
             <UsersManagement />
           </TabsContent>
+          )}
         </Tabs>
 
         {/* Order Details Modal */}

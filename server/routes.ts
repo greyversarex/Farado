@@ -8,6 +8,7 @@ interface AuthenticatedRequest extends Request {
   user?: {
     id: number;
     username: string;
+    role: string;
   };
 }
 import { 
@@ -185,7 +186,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(401).json({ message: "Invalid credentials" });
     }
     
-    req.user = { id: user.id, username: user.username };
+    req.user = { id: user.id, username: user.username, role: user.role };
+    next();
+  };
+
+  // Admin-only middleware (requires admin role)
+  const requireAdmin = async (req: AuthenticatedRequest, res: any, next: any) => {
+    if (!req.user || req.user.role !== 'admin') {
+      return res.status(403).json({ message: "Access denied. Admin privileges required." });
+    }
     next();
   };
 
@@ -204,8 +213,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(401).json({ message: "Invalid credentials" });
       }
       
-      // Save user to session
-      (req as any).session.user = { id: user.id, username: user.username };
+      // Save user to session (include role for authorization)
+      (req as any).session.user = { id: user.id, username: user.username, role: user.role };
       
       res.json({ user: { id: user.id, username: user.username, fullName: user.fullName, role: user.role } });
     } catch (error) {
@@ -214,8 +223,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Admin Users Management API
-  app.get('/api/admin/users', requireAuth, async (req, res) => {
+  // Admin Users Management API (admin-only)
+  app.get('/api/admin/users', requireAuth, requireAdmin, async (req, res) => {
     try {
       const users = await storage.getAdminUsers();
       // Remove password from response
@@ -227,7 +236,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get('/api/admin/users/:id', requireAuth, async (req, res) => {
+  app.get('/api/admin/users/:id', requireAuth, requireAdmin, async (req, res) => {
     try {
       const id = parseInt(req.params.id);
       if (isNaN(id)) {
@@ -246,7 +255,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post('/api/admin/users', requireAuth, async (req: AuthenticatedRequest, res) => {
+  app.post('/api/admin/users', requireAuth, requireAdmin, async (req: AuthenticatedRequest, res) => {
     try {
       const validatedData = insertAdminUserSchema.parse(req.body);
       const newUser = await storage.createAdminUser(validatedData);
@@ -266,7 +275,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put('/api/admin/users/:id', requireAuth, async (req, res) => {
+  app.put('/api/admin/users/:id', requireAuth, requireAdmin, async (req, res) => {
     try {
       const id = parseInt(req.params.id);
       if (isNaN(id)) {
@@ -283,7 +292,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete('/api/admin/users/:id', requireAuth, async (req: AuthenticatedRequest, res) => {
+  app.delete('/api/admin/users/:id', requireAuth, requireAdmin, async (req: AuthenticatedRequest, res) => {
     try {
       const id = parseInt(req.params.id);
       if (isNaN(id)) {
