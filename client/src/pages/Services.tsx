@@ -199,17 +199,10 @@ export default function Services() {
               return (
                 <Card key={index} className="group overflow-hidden hover:shadow-xl transition-all duration-300 border-0 h-full flex flex-col">
                   <CardHeader className="bg-white p-4 md:p-6">
-                    <div className="flex items-center space-x-3 md:space-x-4">
-                      <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center group-hover:from-red-600 group-hover:to-red-700 transition-all duration-300 shadow-lg group-hover:shadow-xl">
-                        <IconComponent className="w-6 h-6 md:w-8 md:h-8 text-white" />
-                      </div>
-                      <div>
-                        <CardTitle className="text-lg md:text-xl font-bold text-gray-900 group-hover:text-red-600 transition-colors">
-                          {service.title}
-                        </CardTitle>
-                      </div>
-                    </div>
-                    <CardDescription className="text-gray-600 mt-3 md:mt-4 leading-relaxed text-sm md:text-base">
+                    <CardTitle className="text-lg md:text-xl font-bold text-gray-900 group-hover:text-red-600 transition-colors">
+                      {service.title}
+                    </CardTitle>
+                    <CardDescription className="text-gray-600 mt-2 leading-relaxed text-sm md:text-base">
                       {service.description}
                     </CardDescription>
                   </CardHeader>
