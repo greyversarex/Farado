@@ -907,7 +907,7 @@ export default function AdminDashboard({ user, onLogout }: AdminDashboardProps) 
       <main className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-4 sm:py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <div className="bg-gradient-to-r from-white to-gray-50 rounded-xl shadow-lg border border-gray-200 p-3 sm:p-4 mb-6 mobile-nav-tabs">
-            <TabsList className="grid w-full grid-cols-7 h-16 sm:h-20 bg-transparent rounded-lg gap-1 sm:gap-2 p-1">
+            <TabsList className={`grid w-full ${user.role === 'admin' ? 'grid-cols-7' : 'grid-cols-6'} h-16 sm:h-20 bg-transparent rounded-lg gap-1 sm:gap-2 p-1`}>
               <TabsTrigger 
                 value="orders" 
                 className="relative font-semibold px-2 py-2 rounded-lg transition-all duration-300 
