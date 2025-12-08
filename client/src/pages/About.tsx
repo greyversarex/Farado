@@ -193,9 +193,6 @@ export default function About() {
       <section className="py-12 bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
-              {t('pages.about.description')}
-            </p>
             <div className="flex justify-center items-center space-x-8 pt-6">
               <div className="text-center">
                 <div className="text-3xl font-bold text-red-600">
@@ -255,31 +252,6 @@ export default function About() {
                 alt="Professional business team meeting in modern office" 
                 className="rounded-2xl shadow-2xl w-full h-96 lg:h-[500px] object-cover"
               />
-              
-              <div className="absolute bottom-6 left-6 right-6">
-                <div className="bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-lg">
-                  <div className="grid grid-cols-3 gap-4 text-center">
-                    <div>
-                      <div className="text-2xl font-bold text-gray-900">
-                        {stats?.satisfactionRate || 99.2}%
-                      </div>
-                      <div className="text-xs text-gray-600">{t('stats.satisfaction')}</div>
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold text-gray-900">
-                        {stats?.onTimeDelivery || 98.7}%
-                      </div>
-                      <div className="text-xs text-gray-600">{t('stats.onTime')}</div>
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold text-gray-900">
-                        {stats?.averageSavings || 25}%
-                      </div>
-                      <div className="text-xs text-gray-600">{t('stats.savings')}</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -298,8 +270,8 @@ export default function About() {
             {values.map((value, index) => (
               <Card key={index} className="bg-white hover:shadow-lg transition-shadow">
                 <CardContent className="p-8 text-center">
-                  <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <value.icon className="text-red-600 w-8 h-8" />
+                  <div className="flex items-center justify-center mx-auto mb-6">
+                    <value.icon className="text-red-600 w-10 h-10 stroke-[1.5]" />
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">{value.title}</h3>
                   <p className="text-gray-600 leading-relaxed">

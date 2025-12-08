@@ -218,7 +218,7 @@ export const TRANSLATIONS = {
     
     // About page
     'pages.about.title': 'О нас',
-    'pages.about.subtitle': 'Лидер в сфере торговли и логистики между Китаем и Центральной Азией',
+    'pages.about.subtitle': 'Мы — международная логистическая компания, специализирующаяся на торговых маршрутах между Китаем и Центральной Азией.',
     'pages.about.mission': 'Наша миссия',
     'pages.about.missionText': 'Обеспечивать надежную связь между китайскими производителями и центральноазиатскими рынками',
     'pages.about.vision': 'Наше видение',
@@ -508,7 +508,7 @@ export const TRANSLATIONS = {
     
     // About page
     'pages.about.title': 'About Us',
-    'pages.about.subtitle': 'Leader in trade and logistics between China and Central Asia',
+    'pages.about.subtitle': 'We are an international logistics company specializing in trade routes between China and Central Asia.',
     'pages.about.mission': 'Our mission',
     'pages.about.missionText': 'To provide reliable connection between Chinese manufacturers and Central Asian markets',
     'pages.about.vision': 'Our vision',
@@ -798,7 +798,7 @@ export const TRANSLATIONS = {
     
     // About page
     'pages.about.title': 'Дар бораи мо',
-    'pages.about.subtitle': 'Пешсаф дар соҳаи тиҷорат ва логистика байни Чин ва Осиёи Марказӣ',
+    'pages.about.subtitle': 'Мо ширкати логистикии байналмилалӣ ҳастем, ки дар масирҳои тиҷоратии байни Чин ва Осиёи Марказӣ тахассус дорем.',
     'pages.about.mission': 'Мақсади мо',
     'pages.about.missionText': 'Таъмини алоқаи боэътимод байни истеҳсолкунандагони чинӣ ва бозорҳои Осиёи Марказӣ',
     'pages.about.vision': 'Дурбинии мо',
@@ -1088,7 +1088,7 @@ export const TRANSLATIONS = {
     
     // About page
     'pages.about.title': '关于我们',
-    'pages.about.subtitle': '中国与中亚贸易物流领域的领导者',
+    'pages.about.subtitle': '我们是一家专业从事中国与中亚贸易路线的国际物流公司。',
     'pages.about.mission': '我们的使命',
     'pages.about.missionText': '为中国制造商和中亚市场提供可靠连接',
     'pages.about.vision': '我们的愿景',
