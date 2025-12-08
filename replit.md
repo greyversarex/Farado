@@ -75,6 +75,15 @@ PostgreSQL is used as the relational database, with Drizzle ORM for database int
 - Multi-language support fully implemented (RU, EN, TJ, CN)
 
 ## Recent Changes
+### December 8, 2025
+- ✅ Prepared application for external server deployment (Timeweb)
+- ✅ Created .env.example with all required environment variables
+- ✅ Added /api/health endpoint for monitoring
+- ✅ Created PRODUCTION_DEPLOYMENT.md with comprehensive setup instructions
+- ✅ Created deploy.sh script with automatic database backup
+- ✅ Fixed session cookie settings (sameSite: 'lax') for production login
+- ✅ Created admin and 4 users (Alisher, Barumand, Bahtiyor, Akmal)
+
 ### December 5, 2025
 - ✅ PostgreSQL database created and configured
 - ✅ Database schema pushed with Drizzle ORM
