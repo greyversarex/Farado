@@ -297,9 +297,6 @@ export default function Home() {
             {services.map((service, index) => (
               <Card key={index} className="bg-white hover:shadow-lg transition-shadow h-full flex flex-col">
                 <CardContent className="p-6 flex-1 flex flex-col pt-[8px] pb-[8px] pl-[24px] pr-[24px] ml-[1px] mr-[1px] mt-[0px] mb-[0px]">
-                  <div className="w-12 h-12 bg-red-50 rounded-lg flex items-center justify-center ml-[0px] mr-[0px] mt-[7px] mb-[7px]">
-                    <service.icon className="text-red-600 w-6 h-6" />
-                  </div>
                   <h3 className="text-xl font-bold text-gray-900 ml-[0px] mr-[0px] mt-[10px] mb-[10px] pt-[0px] pb-[0px] pl-[0px] pr-[0px]">{service.title}</h3>
                   <div className="flex-1 mb-4">
                     <p className="text-gray-600 mt-[-2px] mb-[-2px] ml-[0px] mr-[0px] pl-[0px] pr-[0px] pt-[0px] pb-[0px] text-[15px]">
