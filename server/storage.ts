@@ -271,14 +271,27 @@ class DatabaseStorage implements IStorage {
   }
 
   async updateAdminUser(id: number, data: Partial<InsertAdminUser>): Promise<void> {
-    const updateData: any = { ...data };
+    const updateData: any = {};
     
-    // Hash password if it's being updated and not already hashed
-    if (data.password && !data.password.startsWith('$2b$')) {
-      updateData.password = await bcrypt.hash(data.password, 10);
+    // Only include fields that are explicitly provided and not empty
+    if (data.username !== undefined) updateData.username = data.username;
+    if (data.fullName !== undefined) updateData.fullName = data.fullName;
+    if (data.role !== undefined) updateData.role = data.role;
+    if (data.isActive !== undefined) updateData.isActive = data.isActive;
+    
+    // Hash password only if it's being updated with a non-empty value
+    if (data.password && data.password.trim() !== '') {
+      if (!data.password.startsWith('$2b$')) {
+        updateData.password = await bcrypt.hash(data.password, 10);
+      } else {
+        updateData.password = data.password;
+      }
     }
+    // If password is not provided or empty, we simply don't update it (preserve existing hash)
     
-    await db.update(adminUsers).set(updateData).where(eq(adminUsers.id, id));
+    if (Object.keys(updateData).length > 0) {
+      await db.update(adminUsers).set(updateData).where(eq(adminUsers.id, id));
+    }
   }
 
   async deleteAdminUser(id: number): Promise<void> {
