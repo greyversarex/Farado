@@ -155,6 +155,9 @@ export interface IStorage {
   getArchiveMaterial(id: number): Promise<ArchiveMaterial | undefined>;
   updateArchiveMaterial(id: number, data: Partial<ArchiveMaterial>): Promise<void>;
   deleteArchiveMaterial(id: number): Promise<void>;
+  
+  // Health check
+  checkDatabaseConnection(): Promise<boolean>;
 }
 
 class DatabaseStorage implements IStorage {
@@ -1199,6 +1202,16 @@ class DatabaseStorage implements IStorage {
 
   async deleteArchiveMaterial(id: number): Promise<void> {
     await db.delete(archiveMaterials).where(eq(archiveMaterials.id, id));
+  }
+
+  // Health check
+  async checkDatabaseConnection(): Promise<boolean> {
+    try {
+      await db.execute(sql`SELECT 1`);
+      return true;
+    } catch {
+      return false;
+    }
   }
 }
 

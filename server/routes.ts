@@ -60,6 +60,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   }));
   
+  // Health check endpoint for monitoring
+  app.get('/api/health', async (req, res) => {
+    try {
+      const dbCheck = await storage.checkDatabaseConnection();
+      res.json({
+        status: 'ok',
+        timestamp: new Date().toISOString(),
+        database: dbCheck ? 'connected' : 'disconnected'
+      });
+    } catch (error) {
+      res.status(503).json({
+        status: 'error',
+        timestamp: new Date().toISOString(),
+        database: 'disconnected'
+      });
+    }
+  });
+
   // Public API routes
 
   // Quote requests
