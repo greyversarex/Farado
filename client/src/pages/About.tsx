@@ -230,7 +230,7 @@ export default function About() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div className="space-y-8">
               {advantages.map((advantage, index) => (
                 <div key={index} className="flex items-start space-x-6">

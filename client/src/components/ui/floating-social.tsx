@@ -1,12 +1,12 @@
 export function FloatingSocial() {
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 flex flex-col gap-2 md:gap-3">
       {/* Telegram */}
       <a
         href="https://t.me/Farado_Global"
         target="_blank"
         rel="noopener noreferrer"
-        className="w-14 h-14 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl group"
+        className="w-12 h-12 md:w-14 md:h-14 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl group"
         title="Telegram"
       >
         <svg viewBox="0 0 24 24" className="w-6 h-6 group-hover:scale-110 transition-transform duration-200" fill="currentColor">
@@ -19,7 +19,7 @@ export function FloatingSocial() {
         href="https://wa.me/992170665555"
         target="_blank"
         rel="noopener noreferrer"
-        className="w-14 h-14 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl group"
+        className="w-12 h-12 md:w-14 md:h-14 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl group"
         title="WhatsApp"
       >
         <svg viewBox="0 0 24 24" className="w-6 h-6 group-hover:scale-110 transition-transform duration-200" fill="currentColor">
@@ -32,7 +32,7 @@ export function FloatingSocial() {
         href="https://www.instagram.com/farado.global/"
         target="_blank"
         rel="noopener noreferrer"
-        className="w-14 h-14 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl group"
+        className="w-12 h-12 md:w-14 md:h-14 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl group"
         title="Instagram"
       >
         <svg viewBox="0 0 24 24" className="w-6 h-6 group-hover:scale-110 transition-transform duration-200" fill="currentColor">

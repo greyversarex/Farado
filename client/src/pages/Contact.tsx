@@ -326,11 +326,11 @@ export default function Contact() {
             <div>
               <Card className="h-full">
                 <CardContent className="p-0 h-full">
-                  <div className="relative h-full min-h-[500px] bg-gray-100 rounded-lg overflow-hidden">
+                  <div className="relative h-full min-h-[350px] md:min-h-[500px] bg-gray-100 rounded-lg overflow-hidden">
                     <MapContainer 
                       center={[23.1486, 113.2579]} 
                       zoom={17} 
-                      style={{ height: "100%", width: "100%", minHeight: "500px" }}
+                      style={{ height: "100%", width: "100%" }}
                       scrollWheelZoom={false}
                     >
                       <TileLayer
