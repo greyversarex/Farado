@@ -249,8 +249,8 @@ export default function About() {
             
             <div className="relative">
               <img 
-                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800" 
-                alt="Professional business team meeting in modern office" 
+                src="/attached_assets/Generated_Image_January_08,_2026_-_12_23PM_1767857005847.png" 
+                alt="Business meeting in office with port view - FARADO logistics" 
                 className="rounded-2xl shadow-2xl w-full h-96 lg:h-[500px] object-cover"
               />
             </div>
