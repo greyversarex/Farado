@@ -29,6 +29,8 @@ app.use(helmet({
       connectSrc: ["'self'", "https://api.telegram.org"],
     },
   },
+  // Disable X-Frame-Options to allow embedding in Replit webview
+  frameguard: false,
   hsts: {
     maxAge: 31536000,
     includeSubDomains: true,
