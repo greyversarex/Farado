@@ -83,11 +83,26 @@ export function AIChatBot() {
           className="fixed bottom-[4.5rem] right-4 md:bottom-[5.25rem] md:right-6 z-50 h-12 w-12 md:h-14 md:w-14 rounded-full bg-primary shadow-lg hover-elevate"
           size="icon"
         >
-          <svg viewBox="0 0 24 24" className="h-8 w-8">
-            <path fill="white" d="M12 2C6.477 2 2 5.925 2 10.667c0 2.333 1.054 4.444 2.778 6.017-.122 1.2-.61 2.317-1 3.05-.2.378-.05.828.35 1.028.167.083.333.117.5.117.267 0 .533-.1.733-.3 2.333-2.233 5.306-3.35 6.45-3.7 1.89.717 3.983 1.121 6.189 1.121 5.523 0 10-3.925 10-8.667S17.523 2 12 2z"/>
-            <circle fill="#dc2626" cx="8" cy="10.5" r="1.5"/>
-            <circle fill="#dc2626" cx="12" cy="10.5" r="1.5"/>
-            <circle fill="#dc2626" cx="16" cy="10.5" r="1.5"/>
+          <svg viewBox="0 0 24 24" className="h-7 w-7 md:h-8 md:w-8" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path 
+              d="M12 3C7.029 3 3 6.582 3 11c0 2.045.866 3.904 2.28 5.313-.146 1.416-.677 2.713-1.248 3.687-.227.387-.036.88.394 1.08a1.004 1.004 0 00.94-.193c1.77-1.669 3.994-2.64 5.134-2.967.817.172 1.668.26 2.5.26 4.971 0 9-3.582 9-8s-4.029-8-9-8z" 
+              fill="white"
+            />
+            <circle cx="8" cy="11" r="1.2" fill="#dc2626"/>
+            <circle cx="12" cy="11" r="1.2" fill="#dc2626"/>
+            <circle cx="16" cy="11" r="1.2" fill="#dc2626"/>
+            <path 
+              d="M19 8.5c0-.828-.448-1.5-1-1.5s-1 .672-1 1.5"
+              stroke="#dc2626"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+            <path 
+              d="M19 8.5c.552 0 1-.448 1-1s-.448-1-1-1"
+              stroke="#dc2626"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+            />
           </svg>
         </Button>
       )}
