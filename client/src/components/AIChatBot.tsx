@@ -92,7 +92,7 @@ export function AIChatBot() {
       )}
 
       {isOpen && (
-        <Card className="fixed bottom-6 right-6 z-50 flex h-[500px] w-[380px] flex-col overflow-hidden shadow-2xl">
+        <Card className="fixed inset-4 md:inset-auto md:bottom-6 md:right-6 z-50 flex h-auto md:h-[500px] w-auto md:w-[380px] flex-col overflow-hidden shadow-2xl">
           <div className="flex items-center justify-between border-b bg-primary p-4 text-primary-foreground">
             <div className="flex items-center gap-2">
               <Headset className="h-5 w-5" />
