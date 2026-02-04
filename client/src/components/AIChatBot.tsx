@@ -77,19 +77,18 @@ export function AIChatBot() {
   return (
     <>
       {!isOpen && (
-        <Button
+        <button
           data-testid="button-open-chat"
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-[4.5rem] right-4 md:bottom-[5.25rem] md:right-6 z-50 h-12 w-12 md:h-14 md:w-14 rounded-full bg-primary shadow-lg hover-elevate"
-          size="icon"
+          className="fixed bottom-[5rem] right-4 md:bottom-[5.5rem] md:right-6 z-50 h-14 w-14 md:h-16 md:w-16 rounded-full bg-primary shadow-xl hover:bg-primary/90 hover:scale-105 transition-all duration-200 flex items-center justify-center"
         >
-          <svg viewBox="0 0 24 24" className="h-7 w-7 md:h-8 md:w-8" fill="white">
-            <path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.52 3.57 1.41 5.04L2 22l4.96-1.41C8.43 21.48 10.15 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.61 0-3.11-.46-4.38-1.25l-.31-.19-3.24.92.92-3.24-.19-.31C4.46 15.11 4 13.61 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/>
-            <circle cx="8" cy="12" r="1.5"/>
-            <circle cx="12" cy="12" r="1.5"/>
-            <circle cx="16" cy="12" r="1.5"/>
+          <svg viewBox="0 0 24 24" className="h-8 w-8 md:h-9 md:w-9" fill="white">
+            <path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.52 3.57 1.41 5.04L2 22l4.96-1.41C8.43 21.48 10.15 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/>
+            <circle cx="8" cy="12" r="1.8" fill="#dc2626"/>
+            <circle cx="12" cy="12" r="1.8" fill="#dc2626"/>
+            <circle cx="16" cy="12" r="1.8" fill="#dc2626"/>
           </svg>
-        </Button>
+        </button>
       )}
 
       {isOpen && (
