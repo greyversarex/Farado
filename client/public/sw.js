@@ -1,4 +1,4 @@
-const CACHE_NAME = 'farado-cache-v1';
+const CACHE_NAME = 'farado-cache-v2';
 const STATIC_ASSETS = [
   '/',
   '/favicon.ico',
