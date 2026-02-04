@@ -8,6 +8,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { FloatingSocial } from "@/components/ui/floating-social";
+import { AIChatBot } from "@/components/AIChatBot";
 
 // Pages
 import Landing from "@/pages/Landing";
@@ -48,6 +49,7 @@ function Router() {
             </main>
             <Footer />
             <FloatingSocial />
+            <AIChatBot />
           </div>
         </Route>
       </Switch>

@@ -28,6 +28,7 @@ import {
 } from "@shared/schema";
 import { fromZodError } from "zod-validation-error";
 import { sendTelegramNotification, formatQuoteRequestMessage, formatContactMessage } from "./telegram";
+import { chat, isGeminiConfigured } from "./gemini";
 
 // Validation middleware
 const handleValidationErrors = (req: Request, res: any, next: any) => {
@@ -80,6 +81,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Public API routes
+
+  // AI Chat endpoint
+  app.post('/api/chat', async (req, res) => {
+    try {
+      if (!isGeminiConfigured()) {
+        return res.status(503).json({ 
+          message: "ИИ-консультант временно недоступен. Пожалуйста, свяжитесь с нами напрямую через форму на сайте." 
+        });
+      }
+
+      const { messages } = req.body;
+      if (!messages || !Array.isArray(messages) || messages.length === 0) {
+        return res.status(400).json({ message: "Сообщения обязательны" });
+      }
+
+      const response = await chat(messages);
+      res.json({ response });
+    } catch (error: any) {
+      console.error('Chat error:', error);
+      res.status(500).json({ 
+        message: "Извините, произошла ошибка. Попробуйте позже или свяжитесь с нами напрямую." 
+      });
+    }
+  });
 
   // Quote requests
   app.post('/api/quote-requests', async (req, res) => {
