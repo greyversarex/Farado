@@ -80,7 +80,7 @@ export function AIChatBot() {
         <button
           data-testid="button-open-chat"
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-[5rem] right-4 md:bottom-[5.5rem] md:right-6 z-50 h-14 w-14 md:h-16 md:w-16 rounded-full bg-primary shadow-xl hover:bg-primary/90 hover:scale-105 transition-all duration-200 flex items-center justify-center"
+          className="fixed bottom-[5.5rem] right-4 md:bottom-[6rem] md:right-6 z-50 h-14 w-14 md:h-16 md:w-16 rounded-full bg-primary shadow-xl hover:bg-primary/90 hover:scale-105 transition-all duration-200 flex items-center justify-center"
         >
           <svg viewBox="0 0 24 24" className="h-8 w-8 md:h-9 md:w-9" fill="white">
             <path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.52 3.57 1.41 5.04L2 22l4.96-1.41C8.43 21.48 10.15 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/>
