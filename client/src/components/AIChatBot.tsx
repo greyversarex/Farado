@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { MessageSquareMore, X, Send, Bot, User, Loader2 } from "lucide-react";
+import { X, Send, Bot, User, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Message {
@@ -80,10 +80,15 @@ export function AIChatBot() {
         <Button
           data-testid="button-open-chat"
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-52 right-4 md:bottom-56 md:right-6 z-50 h-12 w-12 md:h-14 md:w-14 rounded-full bg-primary shadow-lg hover-elevate"
+          className="fixed bottom-36 right-4 md:bottom-40 md:right-6 z-50 h-12 w-12 md:h-14 md:w-14 rounded-full bg-primary shadow-lg hover-elevate"
           size="icon"
         >
-          <MessageSquareMore className="h-6 w-6" />
+          <svg viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.04 2 11c0 2.21.9 4.21 2.35 5.73-.2 1.77-.88 3.38-1.35 4.27 2.12-.3 4.17-1.1 5.73-2.13.41.05.84.13 1.27.13 5.52 0 10-4.04 10-9S17.52 2 12 2z"/>
+            <circle cx="8" cy="11" r="1.5" fill="white"/>
+            <circle cx="12" cy="11" r="1.5" fill="white"/>
+            <circle cx="16" cy="11" r="1.5" fill="white"/>
+          </svg>
         </Button>
       )}
 
