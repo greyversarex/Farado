@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { MessageCircle, X, Send, Bot, User, Loader2 } from "lucide-react";
+import { MessageSquareMore, X, Send, Bot, User, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Message {
@@ -80,10 +80,10 @@ export function AIChatBot() {
         <Button
           data-testid="button-open-chat"
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-24 right-6 z-50 h-14 w-14 rounded-full bg-primary shadow-lg hover-elevate"
+          className="fixed bottom-52 right-4 md:bottom-56 md:right-6 z-50 h-12 w-12 md:h-14 md:w-14 rounded-full bg-primary shadow-lg hover-elevate"
           size="icon"
         >
-          <MessageCircle className="h-6 w-6" />
+          <MessageSquareMore className="h-6 w-6" />
         </Button>
       )}
 
