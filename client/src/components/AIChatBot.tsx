@@ -16,7 +16,7 @@ export function AIChatBot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content: "Здравствуйте! Я ИИ-консультант FARADO. Чем могу помочь? Могу рассказать о наших услугах, логистике с Китаем или помочь с расчётом доставки.",
+      content: "Здравствуйте! Я консультант FARADO. Чем могу помочь? Могу рассказать о наших услугах, логистике с Китаем или помочь с расчётом доставки.",
     },
   ]);
   const [input, setInput] = useState("");

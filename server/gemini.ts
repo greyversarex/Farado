@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const FARADO_SYSTEM_PROMPT = `Ты - профессиональный ИИ-консультант компании FARADO, специализирующейся на логистике и торговле с Китаем.
+const FARADO_SYSTEM_PROMPT = `Ты - профессиональный консультант компании FARADO, специализирующейся на логистике и торговле с Китаем.
 
 О компании FARADO:
 - Более 7 лет опыта работы с Китаем
