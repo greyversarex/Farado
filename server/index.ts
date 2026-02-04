@@ -3,11 +3,18 @@ import session from "express-session";
 import ConnectPgSimple from "connect-pg-simple";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
+import cors from "cors";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { initializeDatabase, pool } from "./db";
 
 const app = express();
+
+// Enable CORS for all origins in development
+app.use(cors({
+  origin: true,
+  credentials: true
+}));
 
 // Security middleware
 const isDevelopment = process.env.NODE_ENV === "development";
