@@ -83,8 +83,11 @@ export function AIChatBot() {
           className="fixed bottom-[4.5rem] right-4 md:bottom-[5.25rem] md:right-6 z-50 h-12 w-12 md:h-14 md:w-14 rounded-full bg-primary shadow-lg hover-elevate"
           size="icon"
         >
-          <svg viewBox="0 0 24 24" className="h-6 w-6 md:h-7 md:w-7" fill="white">
-            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12zM7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/>
+          <svg viewBox="0 0 24 24" className="h-7 w-7 md:h-8 md:w-8" fill="white">
+            <path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.52 3.57 1.41 5.04L2 22l4.96-1.41C8.43 21.48 10.15 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.61 0-3.11-.46-4.38-1.25l-.31-.19-3.24.92.92-3.24-.19-.31C4.46 15.11 4 13.61 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/>
+            <circle cx="8" cy="12" r="1.5"/>
+            <circle cx="12" cy="12" r="1.5"/>
+            <circle cx="16" cy="12" r="1.5"/>
           </svg>
         </Button>
       )}
