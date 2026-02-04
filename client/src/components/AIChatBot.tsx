@@ -80,14 +80,14 @@ export function AIChatBot() {
         <Button
           data-testid="button-open-chat"
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-4 left-4 md:bottom-6 md:left-6 z-50 h-12 w-12 md:h-14 md:w-14 rounded-full bg-primary shadow-lg hover-elevate"
+          className="fixed bottom-[4.5rem] right-4 md:bottom-[5.25rem] md:right-6 z-50 h-12 w-12 md:h-14 md:w-14 rounded-full bg-primary shadow-lg hover-elevate"
           size="icon"
         >
-          <svg viewBox="0 0 24 24" className="h-7 w-7">
-            <path d="M12 2C6.48 2 2 5.58 2 10c0 2.03.94 3.87 2.47 5.26-.15 1.4-.74 2.67-1.16 3.44 1.72-.25 3.38-.9 4.65-1.73.33.04.68.03 1.04.03 5.52 0 10-3.58 10-8S17.52 2 12 2z" fill="white"/>
-            <circle cx="8" cy="10" r="1.3" fill="currentColor"/>
-            <circle cx="12" cy="10" r="1.3" fill="currentColor"/>
-            <circle cx="16" cy="10" r="1.3" fill="currentColor"/>
+          <svg viewBox="0 0 512 512" className="h-7 w-7">
+            <path fill="white" d="M256 32C132.29 32 32 122.84 32 234.67c0 48.87 20.89 93.57 55.24 128.35-3.5 29.19-13.26 55.35-21.67 72.81-2.73 5.67-.58 12.47 4.88 15.55 2.23 1.26 4.67 1.87 7.09 1.87 3.66 0 7.27-1.41 9.99-4.05 31.75-30.81 72.45-46.31 87.97-51.37 25.91 9.84 54.47 15.34 84.5 15.34 123.71 0 224-90.84 224-202.67S379.71 32 256 32z"/>
+            <circle fill="#dc2626" cx="176" cy="234" r="32"/>
+            <circle fill="#dc2626" cx="256" cy="234" r="32"/>
+            <circle fill="#dc2626" cx="336" cy="234" r="32"/>
           </svg>
         </Button>
       )}
