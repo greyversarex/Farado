@@ -37,7 +37,16 @@ const FARADO_SYSTEM_PROMPT = `Ты - профессиональный консу
 - WhatsApp: доступен на сайте
 - Email: info@farado.uz`;
 
+const GEMINI_MODELS = [
+  "gemini-2.0-flash",
+  "gemini-1.5-flash",
+  "gemini-1.5-flash-latest",
+  "gemini-1.5-pro",
+  "gemini-pro",
+];
+
 let genAI: GoogleGenerativeAI | null = null;
+let workingModel: string | null = null;
 
 function getGenAI(): GoogleGenerativeAI {
   if (!genAI) {
@@ -55,9 +64,8 @@ export interface ChatMessage {
   content: string;
 }
 
-export async function chat(messages: ChatMessage[]): Promise<string> {
-  const ai = getGenAI();
-  const model = ai.getGenerativeModel({ model: "gemini-2.0-flash" });
+async function tryModelChat(ai: GoogleGenerativeAI, modelName: string, messages: ChatMessage[]): Promise<string> {
+  const model = ai.getGenerativeModel({ model: modelName });
 
   const chat = model.startChat({
     history: [
@@ -70,7 +78,7 @@ export async function chat(messages: ChatMessage[]): Promise<string> {
         parts: [{ text: "Понял. Я готов помочь клиентам FARADO с вопросами о логистике и торговле с Китаем." }],
       },
       ...messages.slice(0, -1).map((msg) => ({
-        role: msg.role === "user" ? "user" : "model",
+        role: msg.role === "user" ? "user" : "model" as const,
         parts: [{ text: msg.content }],
       })),
     ],
@@ -81,6 +89,34 @@ export async function chat(messages: ChatMessage[]): Promise<string> {
   const response = result.response;
   
   return response.text();
+}
+
+export async function chat(messages: ChatMessage[]): Promise<string> {
+  const ai = getGenAI();
+
+  if (workingModel) {
+    try {
+      return await tryModelChat(ai, workingModel, messages);
+    } catch (error: any) {
+      console.log(`Cached model ${workingModel} failed, trying others...`);
+      workingModel = null;
+    }
+  }
+
+  for (const modelName of GEMINI_MODELS) {
+    try {
+      console.log(`Trying Gemini model: ${modelName}`);
+      const response = await tryModelChat(ai, modelName, messages);
+      workingModel = modelName;
+      console.log(`Success! Using model: ${modelName}`);
+      return response;
+    } catch (error: any) {
+      console.log(`Model ${modelName} failed: ${error.message}`);
+      continue;
+    }
+  }
+
+  throw new Error("Все модели Gemini недоступны. Попробуйте позже.");
 }
 
 export function isGeminiConfigured(): boolean {
