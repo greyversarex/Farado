@@ -87,7 +87,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       if (!isGeminiConfigured()) {
         return res.status(503).json({ 
-          message: "ИИ-консультант временно недоступен. Пожалуйста, свяжитесь с нами напрямую через форму на сайте." 
+          message: "Консультант временно недоступен. Пожалуйста, свяжитесь с нами напрямую через форму на сайте." 
         });
       }
 
