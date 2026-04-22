@@ -90,13 +90,13 @@ export default function ClientPortal() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100">
       <PageBanner 
         title={t('pages.clientPortal.title')}
         subtitle={t('pages.clientPortal.subtitle')}
       />
       
-      <div className="py-8 bg-gradient-to-br from-blue-50 to-gray-100">
+      <div className="py-8">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
 
