@@ -1,5 +1,3 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
-
 const FARADO_SYSTEM_PROMPT = `Ты - профессиональный консультант компании FARADO, специализирующейся на логистике и торговле с Китаем.
 
 О компании FARADO:
@@ -37,89 +35,103 @@ const FARADO_SYSTEM_PROMPT = `Ты - профессиональный консу
 - WhatsApp: доступен на сайте
 - Email: info@farado.uz`;
 
-const GEMINI_MODELS = [
-  "gemini-2.5-flash",
-  "gemini-2.5-flash-lite",
-  "gemini-flash-latest",
-  "gemini-2.0-flash",
-  "gemini-2.0-flash-lite",
-  "gemini-2.5-pro",
-];
+const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
+const SITE_URL = process.env.OPENROUTER_SITE_URL || "https://farado.uz";
+const APP_TITLE = process.env.OPENROUTER_APP_TITLE || "FARADO Consultant";
 
-let genAI: GoogleGenerativeAI | null = null;
-let workingModel: string | null = null;
-
-function getGenAI(): GoogleGenerativeAI {
-  if (!genAI) {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-      throw new Error("GEMINI_API_KEY не настроен. Добавьте его в переменные окружения.");
-    }
-    genAI = new GoogleGenerativeAI(apiKey);
-  }
-  return genAI;
-}
+const MODELS: string[] = (
+  process.env.OPENROUTER_MODELS ||
+  "meta-llama/llama-3.3-70b-instruct:free,deepseek/deepseek-chat-v3.1:free,qwen/qwen-2.5-72b-instruct:free,google/gemini-2.0-flash-exp:free"
+)
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
 
 export interface ChatMessage {
   role: "user" | "assistant";
   content: string;
 }
 
-async function tryModelChat(ai: GoogleGenerativeAI, modelName: string, messages: ChatMessage[]): Promise<string> {
-  const model = ai.getGenerativeModel({ model: modelName });
+let workingModel: string | null = null;
 
-  const chat = model.startChat({
-    history: [
-      {
-        role: "user",
-        parts: [{ text: "Системные инструкции: " + FARADO_SYSTEM_PROMPT }],
-      },
-      {
-        role: "model",
-        parts: [{ text: "Понял. Я готов помочь клиентам FARADO с вопросами о логистике и торговле с Китаем." }],
-      },
-      ...messages.slice(0, -1).map((msg) => ({
-        role: msg.role === "user" ? "user" : "model" as const,
-        parts: [{ text: msg.content }],
+async function tryModel(modelName: string, messages: ChatMessage[]): Promise<string> {
+  const apiKey = process.env.OPENROUTER_API_KEY;
+  if (!apiKey) {
+    throw new Error("OPENROUTER_API_KEY не настроен.");
+  }
+
+  const payload = {
+    model: modelName,
+    messages: [
+      { role: "system", content: FARADO_SYSTEM_PROMPT },
+      ...messages.map((m) => ({
+        role: m.role === "assistant" ? "assistant" : "user",
+        content: m.content,
       })),
     ],
+    temperature: 0.7,
+  };
+
+  const res = await fetch(OPENROUTER_URL, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+      "HTTP-Referer": SITE_URL,
+      "X-Title": APP_TITLE,
+    },
+    body: JSON.stringify(payload),
   });
 
-  const lastMessage = messages[messages.length - 1];
-  const result = await chat.sendMessage(lastMessage.content);
-  const response = result.response;
-  
-  return response.text();
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`OpenRouter ${res.status}: ${text}`);
+  }
+
+  const data = (await res.json()) as {
+    choices?: Array<{ message?: { content?: string } }>;
+    error?: { message?: string };
+  };
+
+  if (data.error) {
+    throw new Error(`OpenRouter error: ${data.error.message || "unknown"}`);
+  }
+
+  const content = data.choices?.[0]?.message?.content;
+  if (!content) {
+    throw new Error("Пустой ответ от OpenRouter.");
+  }
+  return content;
 }
 
 export async function chat(messages: ChatMessage[]): Promise<string> {
-  const ai = getGenAI();
-
   if (workingModel) {
     try {
-      return await tryModelChat(ai, workingModel, messages);
+      return await tryModel(workingModel, messages);
     } catch (error: any) {
-      console.log(`Cached model ${workingModel} failed, trying others...`);
+      console.log(`Cached model ${workingModel} failed: ${error.message}, trying others...`);
       workingModel = null;
     }
   }
 
-  for (const modelName of GEMINI_MODELS) {
+  const errors: string[] = [];
+  for (const modelName of MODELS) {
     try {
-      console.log(`Trying Gemini model: ${modelName}`);
-      const response = await tryModelChat(ai, modelName, messages);
+      console.log(`Trying OpenRouter model: ${modelName}`);
+      const response = await tryModel(modelName, messages);
       workingModel = modelName;
       console.log(`Success! Using model: ${modelName}`);
       return response;
     } catch (error: any) {
       console.log(`Model ${modelName} failed: ${error.message}`);
+      errors.push(`${modelName}: ${error.message}`);
       continue;
     }
   }
 
-  throw new Error("Все модели Gemini недоступны. Попробуйте позже.");
+  throw new Error(`Все модели OpenRouter недоступны. Ошибки: ${errors.join(" | ")}`);
 }
 
-export function isGeminiConfigured(): boolean {
-  return !!process.env.GEMINI_API_KEY;
+export function isAIConfigured(): boolean {
+  return !!process.env.OPENROUTER_API_KEY;
 }

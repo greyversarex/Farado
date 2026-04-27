@@ -28,7 +28,7 @@ import {
 } from "@shared/schema";
 import { fromZodError } from "zod-validation-error";
 import { sendTelegramNotification, formatQuoteRequestMessage, formatContactMessage } from "./telegram";
-import { chat, isAIConfigured } from "./gigachat";
+import { chat, isAIConfigured } from "./openrouter";
 
 // Validation middleware
 const handleValidationErrors = (req: Request, res: any, next: any) => {
