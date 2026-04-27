@@ -28,7 +28,7 @@ import {
 } from "@shared/schema";
 import { fromZodError } from "zod-validation-error";
 import { sendTelegramNotification, formatQuoteRequestMessage, formatContactMessage } from "./telegram";
-import { chat, isGeminiConfigured } from "./gemini";
+import { chat, isAIConfigured } from "./gigachat";
 
 // Validation middleware
 const handleValidationErrors = (req: Request, res: any, next: any) => {
@@ -85,7 +85,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // AI Chat endpoint
   app.post('/api/chat', async (req, res) => {
     try {
-      if (!isGeminiConfigured()) {
+      if (!isAIConfigured()) {
         return res.status(503).json({ 
           message: "Консультант временно недоступен. Пожалуйста, свяжитесь с нами напрямую через форму на сайте." 
         });
