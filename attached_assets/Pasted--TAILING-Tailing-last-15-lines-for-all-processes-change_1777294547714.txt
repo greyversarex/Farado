@@ -1,0 +1,48 @@
+[TAILING] Tailing last 15 lines for [all] processes (change the value with --lines option)
+/root/.pm2/pm2.log last 15 lines:
+PM2        | 2026-04-27T12:23:08: PM2 log: Stopping app:farado id:0
+PM2        | 2026-04-27T12:23:08: PM2 log: App [farado:0] exited with code [0] via signal [SIGINT]
+PM2        | 2026-04-27T12:23:08: PM2 log: pid=152375 msg=process killed
+PM2        | 2026-04-27T12:23:09: PM2 log: App [farado:0] starting in -fork mode-
+PM2        | 2026-04-27T12:23:09: PM2 log: App [farado:0] online
+PM2        | 2026-04-27T12:28:59: PM2 log: Stopping app:farado id:0
+PM2        | 2026-04-27T12:28:59: PM2 log: App [farado:0] exited with code [0] via signal [SIGINT]
+PM2        | 2026-04-27T12:28:59: PM2 log: pid=152403 msg=process killed
+PM2        | 2026-04-27T12:28:59: PM2 log: App [farado:0] starting in -fork mode-
+PM2        | 2026-04-27T12:28:59: PM2 log: App [farado:0] online
+PM2        | 2026-04-27T12:53:54: PM2 log: Stopping app:farado id:0
+PM2        | 2026-04-27T12:53:54: PM2 log: App [farado:0] exited with code [0] via signal [SIGINT]
+PM2        | 2026-04-27T12:53:54: PM2 log: pid=152725 msg=process killed
+PM2        | 2026-04-27T12:53:54: PM2 log: App [farado:0] starting in -fork mode-
+PM2        | 2026-04-27T12:53:54: PM2 log: App [farado:0] online
+
+/root/.pm2/logs/farado-out.log last 15 lines:
+0|farado   | Trying OpenRouter model: qwen/qwen-2.5-72b-instruct:free
+0|farado   | Model qwen/qwen-2.5-72b-instruct:free failed: OpenRouter 404: {"error":{"message":"No endpoints found for qwen/qwen-2.5-72b-instruct:free.","code":404},"user_id":"user_38598erYGfshdEW1APttX1Z7KKP"}
+0|farado   | Trying OpenRouter model: google/gemini-2.0-flash-exp:free
+0|farado   | Model google/gemini-2.0-flash-exp:free failed: OpenRouter 404: {"error":{"message":"No endpoints found for google/gemini-2.0-flash-exp:free.","code":404},"user_id":"user_38598erYGfshdEW1APttX1Z7KKP"}
+0|farado   | 12:54:39 PM [express] POST /api/chat 500 in 568ms :: {"message":"Извините, произошла ошибка. Попробуй…
+0|farado   | 12:55:06 PM [express] GET /api/stats 200 in 39ms :: {"totalOrders":2000,"countriesServed":3,"yearsExp…
+0|farado   | Trying OpenRouter model: meta-llama/llama-3.3-70b-instruct:free
+0|farado   | Model meta-llama/llama-3.3-70b-instruct:free failed: OpenRouter 429: {"error":{"message":"Provider returned error","code":429,"metadata":{"raw":"meta-llama/llama-3.3-70b-instruct:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations","provider_name":"Venice","is_byok":false}},"user_id":"user_38598erYGfshdEW1APttX1Z7KKP"}
+0|farado   | Trying OpenRouter model: deepseek/deepseek-chat-v3.1:free
+0|farado   | Model deepseek/deepseek-chat-v3.1:free failed: OpenRouter 404: {"error":{"message":"No endpoints found for deepseek/deepseek-chat-v3.1:free.","code":404},"user_id":"user_38598erYGfshdEW1APttX1Z7KKP"}
+0|farado   | Trying OpenRouter model: qwen/qwen-2.5-72b-instruct:free
+0|farado   | Model qwen/qwen-2.5-72b-instruct:free failed: OpenRouter 404: {"error":{"message":"No endpoints found for qwen/qwen-2.5-72b-instruct:free.","code":404},"user_id":"user_38598erYGfshdEW1APttX1Z7KKP"}
+0|farado   | Trying OpenRouter model: google/gemini-2.0-flash-exp:free
+0|farado   | Model google/gemini-2.0-flash-exp:free failed: OpenRouter 404: {"error":{"message":"No endpoints found for google/gemini-2.0-flash-exp:free.","code":404},"user_id":"user_38598erYGfshdEW1APttX1Z7KKP"}
+0|farado   | 12:55:10 PM [express] POST /api/chat 500 in 525ms :: {"message":"Извините, произошла ошибка. Попробуй…
+
+/root/.pm2/logs/farado-error.log last 15 lines:
+0|farado   | .5-72b-instruct:free.","code":404},"user_id":"user_38598erYGfshdEW1APttX1Z7KKP"} | google/gemini-2.0-flash-exp:free: OpenRouter 404: {"error":{"message":"No endpoints found for google/gemini-2.0-flash-exp:free.","code":404},"user_id":"user_38598erYGfshdEW1APttX1Z7KKP"}
+0|farado   |     at chat (file:///var/www/farado/dist/index.js:1774:9)
+0|farado   |     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+0|farado   |     at async file:///var/www/farado/dist/index.js:1830:24
+0|farado   | Chat error: Error: Все модели OpenRouter недоступны. Ошибки: meta-llama/llama-3.3-70b-instruct:free: OpenRouter 429: {"error":{"message":"Provider returned error","code":429,"metadata":{"raw":"meta-llama/llama-3.3-70b-instruct:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations","provider_name":"Venice","is_byok":false}},"user_id":"user_38598erYGfshdEW1APttX1Z7KKP"} | deepseek/deepseek-chat-v3.1:free: OpenRouter 404: {"error":{"message":"No endpoints found for deepseek/deepseek-chat-v3.1:free.","code":404},"user_id":"user_38598erYGfshdEW1APttX1Z7KKP"} | qwen/qwen-2.5-72b-instruct:free: OpenRouter 404: {"error":{"message":"No endpoints found for qwen/qwen-2.5-72b-instruct:free.","code":404},"user_id":"user_38598erYGfshdEW1APttX1Z7KKP"} | google/gemini-2.0-flash-exp:free: OpenRouter 404: {"error":{"message":"No endpoints found for google/gemini-2.0-flash-exp:free.","code":404},"user_id":"user_38598erYGfshdEW1APttX1Z7KKP"}
+0|farado   |     at chat (file:///var/www/farado/dist/index.js:1774:9)
+0|farado   |     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+0|farado   |     at async file:///var/www/farado/dist/index.js:1830:24
+0|farado   | Chat error: Error: Все модели OpenRouter недоступны. Ошибки: meta-llama/llama-3.3-70b-instruct:free: OpenRouter 429: {"error":{"message":"Provider returned error","code":429,"metadata":{"raw":"meta-llama/llama-3.3-70b-instruct:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations","provider_name":"Venice","is_byok":false}},"user_id":"user_38598erYGfshdEW1APttX1Z7KKP"} | deepseek/deepseek-chat-v3.1:free: OpenRouter 404: {"error":{"message":"No endpoints found for deepseek/deepseek-chat-v3.1:free.","code":404},"user_id":"user_38598erYGfshdEW1APttX1Z7KKP"} | qwen/qwen-2.5-72b-instruct:free: OpenRouter 404: {"error":{"message":"No endpoints found for qwen/qwen-2.5-72b-instruct:free.","code":404},"user_id":"user_38598erYGfshdEW1APttX1Z7KKP"} | google/gemini-2.0-flash-exp:free: OpenRouter 404: {"error":{"message":"No endpoints found for google/gemini-2.0-flash-exp:free.","code":404},"user_id":"user_38598erYGfshdEW1APttX1Z7KKP"}
+0|farado   |     at chat (file:///var/www/farado/dist/index.js:1774:9)
+0|farado   |     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+0|farado   |     at async file:///var/www/farado/dist/index.js:1830:24

@@ -41,7 +41,7 @@ const APP_TITLE = process.env.OPENROUTER_APP_TITLE || "FARADO Consultant";
 
 const MODELS: string[] = (
   process.env.OPENROUTER_MODELS ||
-  "meta-llama/llama-3.3-70b-instruct:free,deepseek/deepseek-chat-v3.1:free,qwen/qwen-2.5-72b-instruct:free,google/gemini-2.0-flash-exp:free"
+  "qwen/qwen3-next-80b-a3b-instruct:free,google/gemma-3-27b-it:free,openai/gpt-oss-120b:free,meta-llama/llama-3.3-70b-instruct:free,z-ai/glm-4.5-air:free"
 )
   .split(",")
   .map((s) => s.trim())
