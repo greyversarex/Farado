@@ -260,7 +260,7 @@ class DatabaseStorage implements IStorage {
       
       return null;
     } catch (error) {
-      console.error('Authentication error:', error);
+      console.error('[AUTH] Authentication error:', error);
       return null;
     }
   }
