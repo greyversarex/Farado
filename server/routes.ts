@@ -1567,6 +1567,100 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ==================== Public Hubs API ====================
+  app.get('/api/hubs', async (req, res) => {
+    try {
+      const hubList = await storage.getHubs();
+      res.json(hubList);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch hubs' });
+    }
+  });
+
+  // ==================== Public Team API ====================
+  app.get('/api/team', async (req, res) => {
+    try {
+      const members = await storage.getTeamMembers();
+      res.json(members);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch team members' });
+    }
+  });
+
+  // ==================== Admin Hubs CRUD ====================
+  app.get('/api/admin/hubs', requireAuth, async (req, res) => {
+    try {
+      const hubList = await storage.getHubs();
+      res.json(hubList);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch hubs' });
+    }
+  });
+
+  app.post('/api/admin/hubs', requireAuth, async (req, res) => {
+    try {
+      const hub = await storage.createHub(req.body);
+      res.status(201).json(hub);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to create hub' });
+    }
+  });
+
+  app.put('/api/admin/hubs/:id', requireAuth, async (req, res) => {
+    try {
+      const hub = await storage.updateHub(parseInt(req.params.id), req.body);
+      res.json(hub);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to update hub' });
+    }
+  });
+
+  app.delete('/api/admin/hubs/:id', requireAuth, async (req, res) => {
+    try {
+      await storage.deleteHub(parseInt(req.params.id));
+      res.json({ success: true });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to delete hub' });
+    }
+  });
+
+  // ==================== Admin Team CRUD ====================
+  app.get('/api/admin/team', requireAuth, async (req, res) => {
+    try {
+      const members = await storage.getTeamMembers();
+      res.json(members);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch team members' });
+    }
+  });
+
+  app.post('/api/admin/team', requireAuth, async (req, res) => {
+    try {
+      const member = await storage.createTeamMember(req.body);
+      res.status(201).json(member);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to create team member' });
+    }
+  });
+
+  app.put('/api/admin/team/:id', requireAuth, async (req, res) => {
+    try {
+      const member = await storage.updateTeamMember(parseInt(req.params.id), req.body);
+      res.json(member);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to update team member' });
+    }
+  });
+
+  app.delete('/api/admin/team/:id', requireAuth, async (req, res) => {
+    try {
+      await storage.deleteTeamMember(parseInt(req.params.id));
+      res.json({ success: true });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to delete team member' });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

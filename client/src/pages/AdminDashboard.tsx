@@ -23,7 +23,9 @@ import {
   Box,
   Clock,
   Truck,
-  Archive
+  Archive,
+  MapPin,
+  Globe
 } from 'lucide-react';
 import { AddItemForm } from '@/components/forms/AddItemForm';
 import { AddFromInventoryForm } from '@/components/forms/AddFromInventoryForm';
@@ -38,6 +40,8 @@ import { WarehouseManagement } from './admin/WarehouseManagement';
 import { TrucksManagement } from './admin/TrucksManagement';
 import { ArchiveManagement } from './admin/ArchiveManagement';
 import UsersManagement from './admin/UsersManagement';
+import HubsManagement from './admin/HubsManagement';
+import TeamManagement from './admin/TeamManagement';
 
 interface AdminDashboardProps {
   user: any;
@@ -907,7 +911,7 @@ export default function AdminDashboard({ user, onLogout }: AdminDashboardProps) 
       <main className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-4 sm:py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <div className="bg-gradient-to-r from-white to-gray-50 rounded-xl shadow-lg border border-gray-200 p-3 sm:p-4 mb-6 mobile-nav-tabs">
-            <TabsList className={`grid w-full ${user.role === 'admin' ? 'grid-cols-7' : 'grid-cols-6'} h-16 sm:h-20 bg-transparent rounded-lg gap-1 sm:gap-2 p-1`}>
+            <TabsList className={`grid w-full ${user.role === 'admin' ? 'grid-cols-9' : 'grid-cols-8'} h-16 sm:h-20 bg-transparent rounded-lg gap-1 sm:gap-2 p-1`}>
               <TabsTrigger 
                 value="orders" 
                 className="relative font-semibold px-2 py-2 rounded-lg transition-all duration-300 
@@ -977,6 +981,28 @@ export default function AdminDashboard({ user, onLogout }: AdminDashboardProps) 
                 <Search className="w-5 h-5 sm:w-6 sm:h-6 mb-0 sm:mb-1 mobile-nav-icon" />
                 <span className="hidden sm:block text-xs font-medium">Поиск</span>
               </TabsTrigger>
+              <TabsTrigger 
+                value="hubs"
+                className="relative font-semibold px-2 py-2 rounded-lg transition-all duration-300 
+                data-[state=active]:bg-gradient-to-r data-[state=active]:from-red-500 data-[state=active]:to-red-600 
+                data-[state=active]:text-white data-[state=active]:shadow-md
+                hover:bg-red-50 hover:text-red-600 text-gray-600
+                flex flex-col items-center justify-center h-full mobile-nav-tab"
+              >
+                <MapPin className="w-5 h-5 sm:w-6 sm:h-6 mb-0 sm:mb-1 mobile-nav-icon" />
+                <span className="hidden sm:block text-xs font-medium">Хабы</span>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="team"
+                className="relative font-semibold px-2 py-2 rounded-lg transition-all duration-300 
+                data-[state=active]:bg-gradient-to-r data-[state=active]:from-red-500 data-[state=active]:to-red-600 
+                data-[state=active]:text-white data-[state=active]:shadow-md
+                hover:bg-red-50 hover:text-red-600 text-gray-600
+                flex flex-col items-center justify-center h-full mobile-nav-tab"
+              >
+                <Globe className="w-5 h-5 sm:w-6 sm:h-6 mb-0 sm:mb-1 mobile-nav-icon" />
+                <span className="hidden sm:block text-xs font-medium">Команда</span>
+              </TabsTrigger>
               {user.role === 'admin' && (
               <TabsTrigger 
                 value="users" 
@@ -1016,6 +1042,14 @@ export default function AdminDashboard({ user, onLogout }: AdminDashboardProps) 
           
           <TabsContent value="search">
             {renderSearch()}
+          </TabsContent>
+
+          <TabsContent value="hubs">
+            <HubsManagement />
+          </TabsContent>
+
+          <TabsContent value="team">
+            <TeamManagement />
           </TabsContent>
 
           {user.role === 'admin' && (

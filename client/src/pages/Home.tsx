@@ -49,6 +49,10 @@ export default function Home() {
     queryKey: ["/api/stats"],
   }) as { data: CompanyStats | undefined };
 
+  const { data: hubsData = [] } = useQuery<any[]>({
+    queryKey: ["/api/hubs"],
+  });
+
   const services = [
     {
       icon: Search,
@@ -133,7 +137,7 @@ export default function Home() {
     }
   ];
 
-  const cities = [
+  const cities = hubsData.length > 0 ? hubsData : [
     {
       name: t('pages.home.cities.guangzhou.name'),
       nameChinese: t('pages.home.cities.guangzhou.nameChinese'),

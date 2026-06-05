@@ -537,6 +537,40 @@ export const archiveMaterialsRelations = relations(archiveMaterials, ({ one }) =
   }),
 }));
 
+// Hubs (logistics centers in China)
+export const hubs = pgTable("hubs", {
+  id: serial("id").primaryKey(),
+  name: varchar("name").notNull(),
+  nameChinese: varchar("name_chinese").notNull(),
+  description: text("description").notNull(),
+  pricePerKg: varchar("price_per_kg").notNull(),
+  pricePerCubic: varchar("price_per_cubic").notNull(),
+  image: text("image").notNull(),
+  sortOrder: integer("sort_order").default(0),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertHubSchema = createInsertSchema(hubs).omit({ id: true, createdAt: true, updatedAt: true });
+
+// Team members
+export const teamMembers = pgTable("team_members", {
+  id: serial("id").primaryKey(),
+  name: varchar("name").notNull(),
+  position: varchar("position").notNull(),
+  experience: varchar("experience").notNull(),
+  description: text("description").notNull(),
+  image: text("image").notNull(),
+  imagePosition: varchar("image_position").default("object-center"),
+  sortOrder: integer("sort_order").default(0),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertTeamMemberSchema = createInsertSchema(teamMembers).omit({ id: true, createdAt: true, updatedAt: true });
+
 export type InsertQuoteRequest = z.infer<typeof insertQuoteRequestSchema>;
 export type QuoteRequest = typeof quoteRequests.$inferSelect;
 export type InsertBlogPost = z.infer<typeof insertBlogPostSchema>;
@@ -567,3 +601,7 @@ export type InsertArchiveFolder = z.infer<typeof insertArchiveFolderSchema>;
 export type ArchiveFolder = typeof archiveFolders.$inferSelect;
 export type InsertArchiveMaterial = z.infer<typeof insertArchiveMaterialSchema>;
 export type ArchiveMaterial = typeof archiveMaterials.$inferSelect;
+export type InsertHub = z.infer<typeof insertHubSchema>;
+export type Hub = typeof hubs.$inferSelect;
+export type InsertTeamMember = z.infer<typeof insertTeamMemberSchema>;
+export type TeamMember = typeof teamMembers.$inferSelect;

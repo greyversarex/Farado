@@ -31,7 +31,11 @@ import type {
   ArchiveFolder,
   InsertArchiveFolder,
   ArchiveMaterial,
-  InsertArchiveMaterial
+  InsertArchiveMaterial,
+  Hub,
+  InsertHub,
+  TeamMember,
+  InsertTeamMember
 } from "@shared/schema";
 
 const {
@@ -49,7 +53,9 @@ const {
   changeHistory,
   trucks,
   archiveFolders,
-  archiveMaterials
+  archiveMaterials,
+  hubs,
+  teamMembers
 } = schema;
 
 export interface IStorage {
@@ -160,6 +166,20 @@ export interface IStorage {
   updateArchiveMaterial(id: number, data: Partial<ArchiveMaterial>): Promise<void>;
   deleteArchiveMaterial(id: number): Promise<void>;
   
+  // Hubs
+  getHubs(): Promise<Hub[]>;
+  getHub(id: number): Promise<Hub | undefined>;
+  createHub(hub: InsertHub): Promise<Hub>;
+  updateHub(id: number, data: Partial<Hub>): Promise<Hub>;
+  deleteHub(id: number): Promise<void>;
+
+  // Team members
+  getTeamMembers(): Promise<TeamMember[]>;
+  getTeamMember(id: number): Promise<TeamMember | undefined>;
+  createTeamMember(member: InsertTeamMember): Promise<TeamMember>;
+  updateTeamMember(id: number, data: Partial<TeamMember>): Promise<TeamMember>;
+  deleteTeamMember(id: number): Promise<void>;
+
   // Health check
   checkDatabaseConnection(): Promise<boolean>;
 }
@@ -1243,6 +1263,54 @@ class DatabaseStorage implements IStorage {
 
   async deleteArchiveMaterial(id: number): Promise<void> {
     await db.delete(archiveMaterials).where(eq(archiveMaterials.id, id));
+  }
+
+  // Hubs
+  async getHubs(): Promise<Hub[]> {
+    return await db.select().from(hubs).where(eq(hubs.isActive, true)).orderBy(asc(hubs.sortOrder));
+  }
+
+  async getHub(id: number): Promise<Hub | undefined> {
+    const [hub] = await db.select().from(hubs).where(eq(hubs.id, id));
+    return hub;
+  }
+
+  async createHub(hub: InsertHub): Promise<Hub> {
+    const [newHub] = await db.insert(hubs).values(hub).returning();
+    return newHub;
+  }
+
+  async updateHub(id: number, data: Partial<Hub>): Promise<Hub> {
+    const [updated] = await db.update(hubs).set({ ...data, updatedAt: new Date() }).where(eq(hubs.id, id)).returning();
+    return updated;
+  }
+
+  async deleteHub(id: number): Promise<void> {
+    await db.delete(hubs).where(eq(hubs.id, id));
+  }
+
+  // Team members
+  async getTeamMembers(): Promise<TeamMember[]> {
+    return await db.select().from(teamMembers).where(eq(teamMembers.isActive, true)).orderBy(asc(teamMembers.sortOrder));
+  }
+
+  async getTeamMember(id: number): Promise<TeamMember | undefined> {
+    const [member] = await db.select().from(teamMembers).where(eq(teamMembers.id, id));
+    return member;
+  }
+
+  async createTeamMember(member: InsertTeamMember): Promise<TeamMember> {
+    const [newMember] = await db.insert(teamMembers).values(member).returning();
+    return newMember;
+  }
+
+  async updateTeamMember(id: number, data: Partial<TeamMember>): Promise<TeamMember> {
+    const [updated] = await db.update(teamMembers).set({ ...data, updatedAt: new Date() }).where(eq(teamMembers.id, id)).returning();
+    return updated;
+  }
+
+  async deleteTeamMember(id: number): Promise<void> {
+    await db.delete(teamMembers).where(eq(teamMembers.id, id));
   }
 
   // Health check

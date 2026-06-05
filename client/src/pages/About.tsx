@@ -27,6 +27,10 @@ export default function About() {
     staleTime: 5 * 60 * 1000, // 5 minutes
   }) as { data: CompanyStats | undefined };
 
+  const { data: teamData = [] } = useQuery<any[]>({
+    queryKey: ["/api/team"],
+  });
+
   const advantages = [
     {
       icon: Award,
@@ -135,7 +139,7 @@ export default function About() {
     }
   ];
 
-  const team = [
+  const team = teamData.length > 0 ? teamData : [
     {
       name: t('pages.services.team.bakhtiyorName'),
       position: t('pages.services.team.bakhtiyorPosition'),
